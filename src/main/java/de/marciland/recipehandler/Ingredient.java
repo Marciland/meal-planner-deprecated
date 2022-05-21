@@ -31,10 +31,25 @@ public class Ingredient {
         this.protein = protein;
     }
 
-    // TODO change toString for ing
     @Override
     public String toString() {
-        return getName() + " hat auf 100g:"
+        String typeStr = null;
+        switch (this.type) {
+            case 1:
+                typeStr = " hat auf 100g:";
+                break;
+            case 2:
+                typeStr = " hat auf 100ml:";
+                break;
+            case 3:
+                typeStr = " hat pro Stück:";
+                break;
+        }
+        if (typeStr == null) {
+            System.out.println("Zutat: " + getName() + " hat einen ungültigen Typ!");
+            System.exit(1);
+        }
+        return getName() + typeStr
                 + " Kcal: " + getKcal()
                 + " Fett: " + getFat()
                 + " Zucker: " + getCarbs()
