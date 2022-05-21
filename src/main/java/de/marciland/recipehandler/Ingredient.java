@@ -22,7 +22,8 @@ public class Ingredient {
     public Ingredient(String name, int type, float kcal, float fat, float carbs, float protein) {
         this.name = name;
         if (type != 1 && type != 2 && type != 3) {
-            // TODO handle wrong type
+            System.out.println("Ingredient: " + getName() + " has an invalid type!");
+            System.exit(1);
         }
         this.type = type;
         this.kcal = kcal;
@@ -46,7 +47,7 @@ public class Ingredient {
                 break;
         }
         if (typeStr == null) {
-            System.out.println("Zutat: " + getName() + " hat einen ungültigen Typ!");
+            System.out.println("Ingredient: " + getName() + " has an invalid type!");
             System.exit(1);
         }
         return getName() + typeStr
