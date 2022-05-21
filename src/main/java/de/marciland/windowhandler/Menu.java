@@ -780,6 +780,7 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+                // TODO ingredient will have a type based amount
                 recipesAddList.remove(recipesAddIngredientsList.getSelectedValue());
                 recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.repaint();
@@ -856,6 +857,29 @@ public class Menu {
                     return;
                 }
                 // TODO ask how much and add amount to recipe list, change detection accordingly
+                String input;
+                // TODO input == null!!
+                double amount;
+                switch (availableIngredientsList.getSelectedValue().getType()) {
+                    case 1:
+                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
+                                "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
+                        amount = Double.parseDouble(input);
+                        break;
+                    case 2:
+                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
+                                "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
+                        amount = Double.parseDouble(input);
+                        break;
+                    case 3:
+                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
+                                "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
+                        amount = Double.parseDouble(input);
+                        break;
+                }
                 recipesAddList.add(availableIngredientsList.getSelectedValue().getName());
                 recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.repaint();
