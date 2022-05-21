@@ -424,12 +424,12 @@ public class Loader {
             e.printStackTrace();
         }
         if (name == null || type == 0 || kcal == 0) {
-            System.out.println("Error when loading " + file + " ingredient!");
-            System.out.println("name, type or kcal empty!");
+            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
+            System.out.println("name, type or kcal empty!" + System.lineSeparator());
         }
         if (fat == 0 && carbs == 0 && protein == 0) {
-            System.out.println("Error when loading " + file + " ingredient!");
-            System.out.println("wrong information about nutrition!");
+            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
+            System.out.println("wrong information about nutrition!" + System.lineSeparator());
         }
         return new Ingredient(name, type, kcal, fat, carbs, protein);
     }
