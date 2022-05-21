@@ -1,3 +1,2 @@
-futter/target/*
-!futter/target/futter-0.1.jar
+target/
 .vscode/
