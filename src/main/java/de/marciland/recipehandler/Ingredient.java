@@ -1,6 +1,5 @@
 package de.marciland.recipehandler;
 
-//TODO ingredient either is liquid/solid/or countable
 public class Ingredient {
 
     private String name = "";
@@ -13,7 +12,7 @@ public class Ingredient {
      */
     private int type = 0;
     /*
-     * nutrition information for 100g of ingredient.
+     * nutrition information for 100g/100ml/1piece of ingredient.
      */
     private float kcal = 0;
     private float fat = 0;
