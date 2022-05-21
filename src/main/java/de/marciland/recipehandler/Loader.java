@@ -359,7 +359,7 @@ public class Loader {
          * check all files in ingredient directory.
          * Name of file is added to ingredientList if it's a file and ends with ".ing".
          */
-        File ingredientFolder = new File("futter/src/main/resources/ingredients");
+        File ingredientFolder = new File(ingredientPath);
         File[] allIngredientsFiles = ingredientFolder.listFiles();
         List<String> ingredientList = new ArrayList<>();
         for (File file : allIngredientsFiles) {
