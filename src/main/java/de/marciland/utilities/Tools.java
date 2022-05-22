@@ -12,7 +12,6 @@ public class Tools {
             Float.parseFloat(input);
             return true;
         } catch (NumberFormatException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -22,7 +21,15 @@ public class Tools {
             Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean checkDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
