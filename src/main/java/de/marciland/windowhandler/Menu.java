@@ -780,7 +780,6 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                // TODO ingredient will have a type based amount
                 recipesAddList.remove(recipesAddIngredientsList.getSelectedValue());
                 recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.repaint();
@@ -851,10 +850,12 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (recipesAddList.contains(availableIngredientsList.getSelectedValue().getName())) {
-                    JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!", "Fehler!",
-                            JOptionPane.WARNING_MESSAGE);
-                    return;
+                for (String string : recipesAddList) {
+                    if (string.contains(availableIngredientsList.getSelectedValue().getName())) {
+                        JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!",
+                                "Fehler!", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 }
                 String input;
                 getInput: switch (availableIngredientsList.getSelectedValue().getType()) {
