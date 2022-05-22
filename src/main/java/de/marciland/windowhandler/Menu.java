@@ -856,31 +856,63 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                // TODO ask how much and add amount to recipe list, change detection accordingly
                 String input;
-                // TODO input == null!!
-                double amount;
-                switch (availableIngredientsList.getSelectedValue().getType()) {
+                getInput: switch (availableIngredientsList.getSelectedValue().getType()) {
                     case 1:
-                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
-                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
-                                "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
-                        amount = Double.parseDouble(input);
-                        break;
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "g " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
                     case 2:
-                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
-                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
-                                "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
-                        amount = Double.parseDouble(input);
-                        break;
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "ml " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
                     case 3:
-                        input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
-                                + availableIngredientsList.getSelectedValue().getName() + " möchtest du hinzufügen?",
-                                "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
-                        amount = Double.parseDouble(input);
-                        break;
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "stk. " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
                 }
-                recipesAddList.add(availableIngredientsList.getSelectedValue().getName());
                 recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.repaint();
             }
