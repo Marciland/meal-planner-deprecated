@@ -850,13 +850,70 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (recipesAddList.contains(availableIngredientsList.getSelectedValue().getName())) {
-                    JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!", "Fehler!",
-                            JOptionPane.WARNING_MESSAGE);
-                    return;
+                for (String string : recipesAddList) {
+                    if (string.contains(availableIngredientsList.getSelectedValue().getName())) {
+                        JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!",
+                                "Fehler!", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 }
-                // TODO ask how much and add amount to recipe list, change detection accordingly
-                recipesAddList.add(availableIngredientsList.getSelectedValue().getName());
+                String input;
+                getInput: switch (availableIngredientsList.getSelectedValue().getType()) {
+                    case 1:
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "g " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
+                    case 2:
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "ml " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
+                    case 3:
+                        while (true) {
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                                    + availableIngredientsList.getSelectedValue().getName()
+                                    + " möchtest du hinzufügen?",
+                                    "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
+                            if (input == null) {
+                                break getInput;
+                            }
+                            if (!Tools.checkDouble(input)) {
+                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
+                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                recipesAddList
+                                        .add(input + "stk. " + availableIngredientsList.getSelectedValue().getName());
+                                break getInput;
+                            }
+                        }
+                }
                 recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.repaint();
             }

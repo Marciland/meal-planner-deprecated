@@ -2,6 +2,7 @@ package de.marciland;
 
 import de.marciland.windowhandler.Menu;
 
+//TODO read from resource stream instead of Files
 public class Main {
     public static void main(String[] args) {
         Menu menu = new Menu();
