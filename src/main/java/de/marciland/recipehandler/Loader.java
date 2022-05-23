@@ -206,6 +206,7 @@ public class Loader {
                             /*
                              * wait until user input is valid.
                              */
+                            // TODO check conditions
                             while (input.length() < 2 || input.length() > 4) {
                                 input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie viel wiegst du?",
                                         "Bitte Gewicht eingeben!", JOptionPane.QUESTION_MESSAGE);
@@ -358,7 +359,7 @@ public class Loader {
          * check all files in ingredient directory.
          * Name of file is added to ingredientList if it's a file and ends with ".ing".
          */
-        File ingredientFolder = new File("futter/src/main/resources/ingredients");
+        File ingredientFolder = new File(ingredientPath);
         File[] allIngredientsFiles = ingredientFolder.listFiles();
         List<String> ingredientList = new ArrayList<>();
         for (File file : allIngredientsFiles) {
@@ -384,6 +385,7 @@ public class Loader {
 
     private static Ingredient loadIngredient(String file) {
         String name = null;
+        int type = 0;
         float kcal = 0;
         float fat = 0;
         float carbs = 0;
@@ -396,6 +398,10 @@ public class Loader {
                 if (line.startsWith("Name")) {
                     line = line.replace("Name = ", "");
                     name = line;
+                }
+                if (line.startsWith("Typ")) {
+                    line = line.replace("Typ = ", "");
+                    type = Integer.parseInt(line);
                 }
                 if (line.startsWith("kcal")) {
                     line = line.replace("kcal = ", "");
@@ -417,12 +423,14 @@ public class Loader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (name == null || kcal == 0) {
-            System.out.println("name or kcal empty!");
+        if (name == null || type == 0 || kcal == 0) {
+            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
+            System.out.println("name, type or kcal empty!" + System.lineSeparator());
         }
         if (fat == 0 && carbs == 0 && protein == 0) {
-            System.out.println("wrong information about nutrition!");
+            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
+            System.out.println("wrong information about nutrition!" + System.lineSeparator());
         }
-        return new Ingredient(name, kcal, fat, carbs, protein);
+        return new Ingredient(name, type, kcal, fat, carbs, protein);
     }
 }
