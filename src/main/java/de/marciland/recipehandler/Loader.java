@@ -54,6 +54,7 @@ public class Loader {
     }
 
     public static Profile loadProfile(String profile, JFrame parent) {
+        long startTime = System.currentTimeMillis();
         String filePath = profilePath + profile + ".prof";
         String name = null;
         String gender = null;
@@ -62,6 +63,7 @@ public class Loader {
         float weight = 0;
         int kcal = 0;
         String goal = null;
+        boolean loading = false;
         boolean canceled = false;
         boolean written = false;
         BufferedReader reader;
@@ -80,6 +82,7 @@ public class Loader {
                     if (line.startsWith("Name")) {
                         line = line.replace("Name =", "").trim();
                         if (!line.isEmpty()) {
+                            loading = true;
                             name = line;
                         } else {
                             String input = "";
@@ -351,6 +354,11 @@ public class Loader {
             System.out.println("Failed to read profile information from file!");
             return null;
         }
+        long endTime = System.currentTimeMillis();
+        // TODO
+        if (loading) {
+            System.out.println("Loading profile information for '" + name + "' took " + (endTime - startTime) + "ms");
+        }
         return new Profile(name, gender, age, height, weight, kcal, goal);
     }
 
@@ -359,6 +367,7 @@ public class Loader {
          * check all files in ingredient directory.
          * Name of file is added to ingredientList if it's a file and ends with ".ing".
          */
+        long startTime = System.currentTimeMillis();
         File ingredientFolder = new File(ingredientPath);
         File[] allIngredientsFiles = ingredientFolder.listFiles();
         List<String> ingredientList = new ArrayList<>();
@@ -380,6 +389,8 @@ public class Loader {
         for (int i = 0; i < ingredientList.size(); i++) {
             allIngredients[i] = loadIngredient(ingredientList.get(i));
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Loading all ingredients took " + (endTime - startTime) + "ms");
         return allIngredients;
     }
 
