@@ -44,6 +44,7 @@ public class Menu {
 
     private JDialog profilesInfoDialog, profilesEditDialog;
     private JDialog recipesAddDialog;
+    private JDialog addIngredientDialog;
     private JDialog availableIngredientsDialog;
 
     private JLabel profileLabel;
@@ -52,25 +53,30 @@ public class Menu {
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
     private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
+    private JLabel addIngredientLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
     private JTextField profilesEditAgeTextField, profilesEditKcalTextField, profilesEditGoalTextField;
     private JTextField recipesAddNameTextField;
+    private JTextField addIngredientTextField;
 
     private JButton profile1Button, profile2Button;
     private JButton recipesButton, planButton, profilesButton, shoppingButton;
-    private JButton recipesInfoButton, recipesAddButton, ingredientsAddButton;
+    private JButton recipesInfoButton, recipesAddButton, addIngredientsButton;
     private JButton profilesInfoButton, profilesEditButton, profilesChangeButton;
     private JButton profilesInfoDialogOKButton;
     private JButton profilesEditDialogAcceptButton, profilesEditDialogCancelButton;
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
+    private JButton addIngredientAddButton, addIngredientCancelButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
+    private JList<String> addIngredientList;
+
     private Profile currentProfile;
 
     private List<String> recipesAddList = new ArrayList<>();
@@ -273,7 +279,7 @@ public class Menu {
                 mainFrame.remove(recipesButton);
                 mainFrame.add(recipesInfoButton);
                 mainFrame.add(recipesAddButton);
-                mainFrame.add(ingredientsAddButton);
+                mainFrame.add(addIngredientsButton);
                 mainFrame.repaint();
             }
         });
@@ -312,7 +318,7 @@ public class Menu {
          */
         recipesInfoButton = new JButton("Rezepte anzeigen");
         recipesAddButton = new JButton("Rezept hinzufügen");
-        ingredientsAddButton = new JButton("Zutat hinzufügen");
+        addIngredientsButton = new JButton("Zutat hinzufügen");
         profilesInfoButton = new JButton("Profil anzeigen");
         profilesEditButton = new JButton("Profil bearbeiten");
         profilesChangeButton = new JButton("Profil wechseln");
@@ -321,13 +327,13 @@ public class Menu {
          */
         recipesInfoButton.setSize(smallButtonSize);
         recipesAddButton.setSize(smallButtonSize);
-        ingredientsAddButton.setSize(smallButtonSize);
+        addIngredientsButton.setSize(smallButtonSize);
         profilesInfoButton.setSize(smallButtonSize);
         profilesEditButton.setSize(smallButtonSize);
         profilesChangeButton.setSize(smallButtonSize);
         recipesInfoButton.setLocation(0, 0);
         recipesAddButton.setLocation(0, mainFrame.getHeight() / 15);
-        ingredientsAddButton.setLocation(0, mainFrame.getHeight() / 15 * 2);
+        addIngredientsButton.setLocation(0, mainFrame.getHeight() / 15 * 2);
         profilesInfoButton.setLocation(mainFrame.getWidth() / 4 * 3, 0);
         profilesEditButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15);
         profilesChangeButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15 * 2);
@@ -336,13 +342,13 @@ public class Menu {
          */
         recipesInfoButton.setFont(smallButtonFont);
         recipesAddButton.setFont(smallButtonFont);
-        ingredientsAddButton.setFont(smallButtonFont);
+        addIngredientsButton.setFont(smallButtonFont);
         profilesInfoButton.setFont(smallButtonFont);
         profilesEditButton.setFont(smallButtonFont);
         profilesChangeButton.setFont(smallButtonFont);
         recipesInfoButton.setBorderPainted(false);
         recipesAddButton.setBorderPainted(false);
-        ingredientsAddButton.setBorderPainted(false);
+        addIngredientsButton.setBorderPainted(false);
         profilesInfoButton.setBorderPainted(false);
         profilesEditButton.setBorderPainted(false);
         profilesChangeButton.setBorderPainted(false);
@@ -361,7 +367,7 @@ public class Menu {
                 planButton.setEnabled(true);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
-                mainFrame.remove(ingredientsAddButton);
+                mainFrame.remove(addIngredientsButton);
                 mainFrame.add(recipesButton);
                 mainFrame.repaint();
             }
@@ -379,9 +385,16 @@ public class Menu {
                 recipesAddDialog.setVisible(true);
             }
         });
-        ingredientsAddButton.addActionListener(new ActionListener() {
+        addIngredientsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO add ingredients
+                addIngredientsButton.setEnabled(false);
+                addIngredientDialog.getContentPane().removeAll();
+                addIngredientDialog.add(addIngredientLabel);
+                addIngredientDialog.add(addIngredientTextField);
+                addIngredientDialog.add(addIngredientList);// TODO setlist data
+                addIngredientDialog.add(addIngredientAddButton);
+                addIngredientDialog.add(addIngredientCancelButton);
+                addIngredientDialog.setVisible(true);
             }
         });
         profilesInfoButton.addActionListener(new ActionListener() {
@@ -433,6 +446,7 @@ public class Menu {
         loadRecipesAddDialog();
         loadRecipesAddSubDialog();
         loadAvailableIngredientsDialog();
+        loadAddIngredientsDialog();
     }
 
     /*
@@ -925,4 +939,57 @@ public class Menu {
             }
         });
     }
+
+    /*
+     * loads available ingredients sub dialog elements so that they can be accessed
+     * later.
+     */
+    private void loadAddIngredientsDialog() {
+        /*
+         * create instances of the components.
+         */
+        addIngredientDialog = new JDialog(mainFrame, true);
+        addIngredientLabel = new JLabel("Name:");
+        addIngredientTextField = new JTextField();
+        addIngredientList = new JList<>();
+        addIngredientAddButton = new JButton("Hinzufügen");
+        addIngredientCancelButton = new JButton("Abbrechen");
+        /*
+         * set size and position of components.
+         */
+        addIngredientDialog.setSize(dialogSize);
+        addIngredientLabel.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 2);
+        addIngredientTextField.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 6);
+        addIngredientList.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3 * 2);
+        addIngredientAddButton.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3);
+        addIngredientCancelButton.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3);
+        addIngredientDialog.setLocationRelativeTo(mainFrame);
+        addIngredientLabel.setLocation(0, 0);
+        addIngredientTextField.setLocation(0,
+                addIngredientDialog.getHeight() / 3 + addIngredientDialog.getHeight() / 12);
+        addIngredientList.setLocation(addIngredientDialog.getWidth() / 2, 0);
+        addIngredientAddButton.setLocation(0, addIngredientDialog.getHeight() / 3 * 2);
+        addIngredientCancelButton.setLocation(addIngredientDialog.getWidth() / 2,
+                addIngredientDialog.getHeight() / 3 * 2);
+        /*
+         * set decorations of components.
+         */
+        addIngredientDialog.setLayout(null);
+        addIngredientDialog.setUndecorated(true);
+        addIngredientAddButton.setBorderPainted(false);
+        addIngredientCancelButton.setBorderPainted(false);
+        addIngredientLabel.setHorizontalAlignment(CENTER);
+        addIngredientLabel.setFont(dialogLabelFont);
+        addIngredientTextField.setFont(dialogTextFieldFont);
+        addIngredientAddButton.setFont(dialogButtonFont);
+        addIngredientCancelButton.setFont(dialogButtonFont);
+        /*
+         * add listener to buttons, those decide what actions happen
+         * when buttons are pressed.
+         */
+        // TODO actionlistener
+        // addIngredientAddButton.addActionListener(l);
+        // addIngredientCancelButton.addActionListener(l);
+    }
+
 }
