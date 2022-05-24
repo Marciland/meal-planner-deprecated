@@ -1032,7 +1032,9 @@ public class Menu {
                     ingredientAddDialog.repaint();
                 }
                 if (!ingredientExists && !ingredientCouldExist) {
+                    ingredientAddDialog.getContentPane().removeAll();
                     // TODO next dialog
+                    ingredientAddDialog.repaint();
                 }
             }
         });
@@ -1095,7 +1097,9 @@ public class Menu {
         });
         ingredientAddNoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                ingredientAddDialog.getContentPane().removeAll();
+                // TODO next dialog
+                ingredientAddDialog.repaint();
             }
         });
     }
