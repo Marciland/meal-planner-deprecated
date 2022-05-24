@@ -459,7 +459,6 @@ public class Menu {
         loadRecipesAddSubDialog();
         loadAvailableIngredientsDialog();
         loadIngredientAddDialog();
-        loadIngredientAddSubDialog();
     }
 
     /*
@@ -1025,28 +1024,5 @@ public class Menu {
                 ingredientAddDialog.setVisible(false);
             }
         });
-    }
-
-    /*
-     * loads ingredient add dialog elements so that they can be accessed
-     * later.
-     */
-    private void loadIngredientAddSubDialog() {
-        /*
-         * create instances of the components.
-         */
-
-        /*
-         * set size and position of components.
-         */
-
-        /*
-         * set decorations of components.
-         */
-
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
     }
 }
