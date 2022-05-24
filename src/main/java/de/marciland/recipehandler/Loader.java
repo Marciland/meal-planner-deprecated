@@ -209,26 +209,35 @@ public class Loader {
                             /*
                              * wait until user input is valid.
                              */
-                            // TODO check conditions
-                            while (input.length() < 2 || input.length() > 4) {
+                            weightWait: while (true) {
                                 input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie viel wiegst du?",
                                         "Bitte Gewicht eingeben!", JOptionPane.QUESTION_MESSAGE);
+                                /*
+                                 * input is null if user cancels the input
+                                 * which breaks the "wait for input" loop.
+                                 */
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
-                                if (input.isEmpty() || input.length() < 2 || input.length() > 3) {
+                                /*
+                                 * if input is not a float, input is set to empty.
+                                 */
+                                if (!Tools.checkFloat(input)) {
+                                    input = "";
                                     JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
                                             "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                }
+                                /*
+                                 * weight is valid if input is a float and has a length of 2 or 3.
+                                 */
+                                if (!input.isEmpty() && (input.length() == 2 || input.length() == 3)) {
+                                    weight = Float.parseFloat(input);
+                                    data.add(input);
+                                    break weightWait;
                                 } else {
-                                    if (Tools.checkFloat(input)) {
-                                        weight = Float.parseFloat(input);
-                                        data.add(input);
-                                    } else {
-                                        input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
-                                    }
+                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
+                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
                                 }
                             }
                         }
