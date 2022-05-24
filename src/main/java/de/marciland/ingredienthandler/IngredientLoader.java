@@ -16,6 +16,12 @@ import javax.swing.ListModel;
 
 public class IngredientLoader {
 
+    /**
+     * Reads all ingredients found in resource/ingredients
+     * and returns an array of ingredients.
+     *
+     * @return every ingredient found in an array.
+     */
     public static Ingredient[] loadAllIngredients() {
         /*
          * check all files in ingredient directory.
@@ -26,6 +32,12 @@ public class IngredientLoader {
         File[] allIngredientsFiles = ingredientFolder.listFiles();
         List<String> ingredientList = new ArrayList<>();
         for (File file : allIngredientsFiles) {
+            /*
+             * Do not print an error message for .gitkeep.
+             */
+            if (file.getName().contains(".gitkeep")) {
+                continue;
+            }
             if (!file.isFile()) {
                 System.out.println(file + " is not a file!");
                 continue;
@@ -48,6 +60,13 @@ public class IngredientLoader {
         return allIngredients;
     }
 
+    /**
+     * This function is mainly used in load all ingredients.
+     * Reads a given file and stores the data found in an ingredient identity.
+     *
+     * @param file filename of the ingredient to read from.
+     * @return an ingredient identity containing all information found in the file.
+     */
     private static Ingredient loadIngredient(String file) {
         String name = null;
         int type = 0;
@@ -124,12 +143,30 @@ public class IngredientLoader {
      * Checks if a given ingredient name is already existing in given list.
      *
      * @param ingredientName name of the ingredient that should be checked
-     * @param list           list in which the ingredient is searched
-     * @return returns true if ingredient already exists
+     * @param list           list in which the ingredient is searched.
+     *                       The list should only contain names of ingredients.
+     * @return true if ingredient already exists in the list.
      */
     public static boolean checkIngredientExists(String ingredientName, ListModel<String> list) {
-        // TODO check existing
-        return true;
+        /*
+         * If list is empty or not initialized false is returned.
+         */
+        if (list.getSize() == 0 || list == null) {
+            return false;
+        }
+        /*
+         * If name is found true is returned.
+         */
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getElementAt(i) == ingredientName) {
+                return true;
+            }
+        }
+        /*
+         * If list is not empty and is initialized
+         * but the ingredientName could not be found then true is returned.
+         */
+        return false;
     }
 
 }
