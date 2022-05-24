@@ -3,6 +3,7 @@ package de.marciland.windowhandler;
 import static de.marciland.utilities.Constants.imagePath;
 
 import de.marciland.profilehandler.Profile;
+import de.marciland.profilehandler.ProfileLoader;
 import de.marciland.recipehandler.Ingredient;
 import de.marciland.recipehandler.Loader;
 import de.marciland.utilities.Tools;
@@ -28,10 +29,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 
@@ -152,7 +154,7 @@ public class Menu {
         bigButtonFont = new Font(SANS_SERIF, PLAIN, 53);
         smallButtonFont = new Font(SANS_SERIF, PLAIN, 32);
         dialogLabelFont = new Font(SANS_SERIF, PLAIN, 19);
-        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);// TODO font size of dialog
+        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);
         dialogButtonFont = new Font(SANS_SERIF, PLAIN, 25);
         smallDialogButtonFont = new Font(SANS_SERIF, PLAIN, 16);
     }
@@ -165,8 +167,8 @@ public class Menu {
          * create instances of the components.
          */
         profileLabel = new JLabel("Wähle bitte ein Profil aus:");
-        profile1Button = new JButton(Loader.loadProfileButton("profile1"));
-        profile2Button = new JButton(Loader.loadProfileButton("profile2"));
+        profile1Button = new JButton(ProfileLoader.loadProfileButton("profile1"));
+        profile2Button = new JButton(ProfileLoader.loadProfileButton("profile2"));
         /*
          * set size and position of components.
          */
@@ -194,7 +196,7 @@ public class Menu {
                 /*
                  * remove all components and load main menu with profile1.
                  */
-                currentProfile = Loader.loadProfile("profile1", mainFrame);
+                currentProfile = ProfileLoader.loadProfile("profile1", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
                     mainFrame.add(recipesButton);
@@ -210,7 +212,7 @@ public class Menu {
                 /*
                  * remove all components and load main menu with profile2.
                  */
-                currentProfile = Loader.loadProfile("profile2", mainFrame);
+                currentProfile = ProfileLoader.loadProfile("profile2", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
                     mainFrame.add(recipesButton);
@@ -442,8 +444,8 @@ public class Menu {
                 recipesInfoButton.setEnabled(true);
                 mainFrame.getContentPane().removeAll();
                 currentProfile = null;
-                profile1Button.setText(Loader.loadProfileButton("profile1"));
-                profile2Button.setText(Loader.loadProfileButton("profile2"));
+                profile1Button.setText(ProfileLoader.loadProfileButton("profile1"));
+                profile2Button.setText(ProfileLoader.loadProfileButton("profile2"));
                 create();
             }
         });
