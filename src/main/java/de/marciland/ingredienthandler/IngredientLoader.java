@@ -193,4 +193,16 @@ public class IngredientLoader {
         }
         return false;
     }
+
+    /**
+     * Get all ingredient names matching the given list.
+     *
+     * @param ingredientName name of the ingredient that should match.
+     * @param list           list that is looked through for a match.
+     *
+     * @return an array of strings based on matches
+     */
+    public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
+        return null;// TODO similaringredients
+    }
 }

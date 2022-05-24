@@ -393,18 +393,7 @@ public class Menu {
                 ingredientAddDialog.getContentPane().removeAll();
                 ingredientAddDialog.add(ingredientAddLabel);
                 ingredientAddDialog.add(ingredientAddTextField);
-                Ingredient[] ing = IngredientLoader.loadAllIngredients();
-                ArrayList<String> names = new ArrayList<>();
-                for (Ingredient ingredient : ing) {
-                    names.add(ingredient.getName());
-                }
-                if (!names.isEmpty() && names != null) {
-                    String[] namesStrings = new String[names.size()];
-                    for (int i = 0; i < names.size(); i++) {
-                        namesStrings[i] = names.get(i);
-                    }
-                    ingredientAddList.setListData(namesStrings);// TODO sort list of ingredients
-                }
+                ingredientAddList.setListData(Tools.getIngredientNames(IngredientLoader.loadAllIngredients()));
                 ingredientAddDialog.add(ingredientAddList);
                 ingredientAddDialog.add(ingredientAddButton);
                 ingredientAddDialog.add(ingredientAddCancelButton);
@@ -1026,7 +1015,9 @@ public class Menu {
                 if (ingredientCouldExist) {
                     ingredientAddDialog.getContentPane().removeAll();
                     ingredientAddDialog.add(ingredientAddSimilarLabel);
-                    ingredientAddDialog.add(ingredientAddSimilarList);// TODO list data
+                    ingredientAddSimilarList.setListData(IngredientLoader
+                            .getSimilarIngredients(ingredientAddTextField.getText(), ingredientAddList.getModel()));
+                    ingredientAddDialog.add(ingredientAddSimilarList);
                     ingredientAddDialog.add(ingredientAddYesButton);
                     ingredientAddDialog.add(ingredientAddNoButton);
                     ingredientAddDialog.repaint();
