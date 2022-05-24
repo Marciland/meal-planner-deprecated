@@ -1004,7 +1004,6 @@ public class Menu {
          */
         ingredientAdd2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO check existing
                 boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
                         ingredientAddList.getModel());
                 if (ingredientExists) {

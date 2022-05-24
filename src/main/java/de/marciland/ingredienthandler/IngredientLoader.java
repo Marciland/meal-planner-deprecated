@@ -99,6 +99,15 @@ public class IngredientLoader {
         return new Ingredient(name, type, kcal, fat, carbs, protein);
     }
 
+    /**
+     * Validates an ingredient list. Returns true if list can be used for a recipe.
+     * Requirements to fulfill are:
+     * -at least 2 ingredients
+     * - every ingredient has an amount specified.
+     *
+     * @param model list to be checked. should contain Strings
+     * @return true if list can be used for a recipe
+     */
     public static boolean validateIngredientsList(ListModel<Object> model) {
 
         // min 2 ingredients
@@ -109,6 +118,18 @@ public class IngredientLoader {
         }
         // return true; // list valid
         return false; // list invalid
+    }
+
+    /**
+     * Checks if a given ingredient name is already existing in given list.
+     *
+     * @param ingredientName name of the ingredient that should be checked
+     * @param list           list in which the ingredient is searched
+     * @return returns true if ingredient already exists
+     */
+    public static boolean checkIngredientExists(String ingredientName, ListModel<String> list) {
+        // TODO check existing
+        return true;
     }
 
 }
