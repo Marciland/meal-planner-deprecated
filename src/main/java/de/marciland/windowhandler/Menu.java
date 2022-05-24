@@ -391,7 +391,19 @@ public class Menu {
                 addIngredientDialog.getContentPane().removeAll();
                 addIngredientDialog.add(addIngredientLabel);
                 addIngredientDialog.add(addIngredientTextField);
-                addIngredientDialog.add(addIngredientList);// TODO setlist data
+                Ingredient[] ing = Loader.loadAllIngredients();
+                ArrayList<String> names = new ArrayList<>();
+                for (Ingredient ingredient : ing) {
+                    names.add(ingredient.getName());
+                }
+                if (!names.isEmpty() && names != null) {
+                    String[] namesStrings = new String[names.size()];
+                    for (int i = 0; i < names.size(); i++) {
+                        namesStrings[i] = names.get(i);
+                    }
+                    addIngredientList.setListData(namesStrings);// TODO sort list of ingredients
+                }
+                addIngredientDialog.add(addIngredientList);
                 addIngredientDialog.add(addIngredientAddButton);
                 addIngredientDialog.add(addIngredientCancelButton);
                 addIngredientDialog.setVisible(true);
@@ -979,6 +991,7 @@ public class Menu {
         addIngredientAddButton.setBorderPainted(false);
         addIngredientCancelButton.setBorderPainted(false);
         addIngredientLabel.setHorizontalAlignment(CENTER);
+        addIngredientList.setFont(dialogTextFieldFont);
         addIngredientLabel.setFont(dialogLabelFont);
         addIngredientTextField.setFont(dialogTextFieldFont);
         addIngredientAddButton.setFont(dialogButtonFont);
