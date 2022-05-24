@@ -409,6 +409,7 @@ public class Menu {
                 ingredientAddDialog.add(ingredientAddButton);
                 ingredientAddDialog.add(ingredientAddCancelButton);
                 ingredientAddDialog.setVisible(true);
+                ingredientAddDialog.repaint();
             }
         });
         profilesInfoButton.addActionListener(new ActionListener() {
@@ -1082,7 +1083,14 @@ public class Menu {
          */
         ingredientAddYesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                ingredientAddDialog.getContentPane().removeAll();
+                ingredientAddDialog.add(ingredientAddLabel);
+                ingredientAddDialog.add(ingredientAddTextField);
+                ingredientAddTextField.setText("");
+                ingredientAddDialog.add(ingredientAddList);
+                ingredientAddDialog.add(ingredientAddButton);
+                ingredientAddDialog.add(ingredientAddCancelButton);
+                ingredientAddDialog.repaint();
             }
         });
         ingredientAddNoButton.addActionListener(new ActionListener() {
