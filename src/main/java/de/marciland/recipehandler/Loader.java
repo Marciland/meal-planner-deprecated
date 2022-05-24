@@ -225,8 +225,6 @@ public class Loader {
                                  */
                                 if (!Tools.checkFloat(input)) {
                                     input = "";
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
                                 }
                                 /*
                                  * weight is valid if input is a float and has a length of 2 or 3.
