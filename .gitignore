@@ -1,2 +1,5 @@
 target/
 .vscode/
+src/main/resources/profiles/
+src/main/resources/ingredients/
+src/main/resources/recipes/
