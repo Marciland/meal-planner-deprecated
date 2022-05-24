@@ -169,4 +169,28 @@ public class IngredientLoader {
         return false;
     }
 
+    /**
+     * Checks if a given ingredient name could exist in a given list.
+     *
+     * @param ingredientName name of the ingredient that should be checked
+     * @param list           list in which the ingredient is searched.
+     *                       The list should only contain names of ingredients.
+     *
+     * @return true if ingredient could exist based on given list.
+     */
+    public static boolean checkIngredientCouldExist(String ingredientName, ListModel<String> list) {
+        if (checkIngredientExists(ingredientName, list)) {
+            return true;
+        }
+        // TODO this is case sensitive!
+        for (int i = 0; i < list.getSize(); i++) {
+            if (ingredientName.contains(list.getElementAt(i))) {
+                return true;
+            }
+            if (list.getElementAt(i).contains(ingredientName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
