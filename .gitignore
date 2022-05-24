@@ -1,5 +1,8 @@
 target/
 .vscode/
-src/main/resources/profiles/
-src/main/resources/ingredients/
-src/main/resources/recipes/
+src/main/resources/profiles/*
+!src/main/resources/profiles/.gitkeep
+src/main/resources/ingredients/*
+!src/main/resources/ingredients/.gitkeep
+src/main/resources/recipes/*
+!src/main/resources/recipes/.gitkeep
