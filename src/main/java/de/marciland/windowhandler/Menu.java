@@ -65,14 +65,14 @@ public class Menu {
 
     private JButton profile1Button, profile2Button;
     private JButton recipesButton, planButton, profilesButton, shoppingButton;
-    private JButton recipesInfoButton, recipesAddButton, addIngredientsButton;
+    private JButton recipesInfoButton, recipesAddButton, ingredientsAddButton;
     private JButton profilesInfoButton, profilesEditButton, profilesChangeButton;
     private JButton profilesInfoDialogOKButton;
     private JButton profilesEditDialogAcceptButton, profilesEditDialogCancelButton;
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
-    private JButton ingredientAdd2Button, ingredientAddCancelButton;
+    private JButton ingredientAddButton, ingredientAddCancelButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Object> recipesAddIngredientsList;
@@ -281,7 +281,7 @@ public class Menu {
                 mainFrame.remove(recipesButton);
                 mainFrame.add(recipesInfoButton);
                 mainFrame.add(recipesAddButton);
-                mainFrame.add(addIngredientsButton);
+                mainFrame.add(ingredientsAddButton);
                 mainFrame.repaint();
             }
         });
@@ -320,7 +320,7 @@ public class Menu {
          */
         recipesInfoButton = new JButton("Rezepte anzeigen");
         recipesAddButton = new JButton("Rezept hinzufügen");
-        addIngredientsButton = new JButton("Zutat hinzufügen");
+        ingredientsAddButton = new JButton("Zutat hinzufügen");
         profilesInfoButton = new JButton("Profil anzeigen");
         profilesEditButton = new JButton("Profil bearbeiten");
         profilesChangeButton = new JButton("Profil wechseln");
@@ -329,13 +329,13 @@ public class Menu {
          */
         recipesInfoButton.setSize(smallButtonSize);
         recipesAddButton.setSize(smallButtonSize);
-        addIngredientsButton.setSize(smallButtonSize);
+        ingredientsAddButton.setSize(smallButtonSize);
         profilesInfoButton.setSize(smallButtonSize);
         profilesEditButton.setSize(smallButtonSize);
         profilesChangeButton.setSize(smallButtonSize);
         recipesInfoButton.setLocation(0, 0);
         recipesAddButton.setLocation(0, mainFrame.getHeight() / 15);
-        addIngredientsButton.setLocation(0, mainFrame.getHeight() / 15 * 2);
+        ingredientsAddButton.setLocation(0, mainFrame.getHeight() / 15 * 2);
         profilesInfoButton.setLocation(mainFrame.getWidth() / 4 * 3, 0);
         profilesEditButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15);
         profilesChangeButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15 * 2);
@@ -344,13 +344,13 @@ public class Menu {
          */
         recipesInfoButton.setFont(smallButtonFont);
         recipesAddButton.setFont(smallButtonFont);
-        addIngredientsButton.setFont(smallButtonFont);
+        ingredientsAddButton.setFont(smallButtonFont);
         profilesInfoButton.setFont(smallButtonFont);
         profilesEditButton.setFont(smallButtonFont);
         profilesChangeButton.setFont(smallButtonFont);
         recipesInfoButton.setBorderPainted(false);
         recipesAddButton.setBorderPainted(false);
-        addIngredientsButton.setBorderPainted(false);
+        ingredientsAddButton.setBorderPainted(false);
         profilesInfoButton.setBorderPainted(false);
         profilesEditButton.setBorderPainted(false);
         profilesChangeButton.setBorderPainted(false);
@@ -369,7 +369,7 @@ public class Menu {
                 planButton.setEnabled(true);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
-                mainFrame.remove(addIngredientsButton);
+                mainFrame.remove(ingredientsAddButton);
                 mainFrame.add(recipesButton);
                 mainFrame.repaint();
             }
@@ -387,9 +387,9 @@ public class Menu {
                 recipesAddDialog.setVisible(true);
             }
         });
-        addIngredientsButton.addActionListener(new ActionListener() {
+        ingredientsAddButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addIngredientsButton.setEnabled(false);
+                ingredientsAddButton.setEnabled(false);
                 ingredientAddDialog.getContentPane().removeAll();
                 ingredientAddDialog.add(ingredientAddLabel);
                 ingredientAddDialog.add(ingredientAddTextField);
@@ -406,7 +406,7 @@ public class Menu {
                     ingredientAddList.setListData(namesStrings);// TODO sort list of ingredients
                 }
                 ingredientAddDialog.add(ingredientAddList);
-                ingredientAddDialog.add(ingredientAdd2Button);
+                ingredientAddDialog.add(ingredientAddButton);
                 ingredientAddDialog.add(ingredientAddCancelButton);
                 ingredientAddDialog.setVisible(true);
             }
@@ -966,7 +966,7 @@ public class Menu {
         ingredientAddLabel = new JLabel("Name:");
         ingredientAddTextField = new JTextField();
         ingredientAddList = new JList<>();
-        ingredientAdd2Button = new JButton("Hinzufügen");
+        ingredientAddButton = new JButton("Hinzufügen");
         ingredientAddCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
@@ -975,14 +975,14 @@ public class Menu {
         ingredientAddLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 2);
         ingredientAddTextField.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 6);
         ingredientAddList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
-        ingredientAdd2Button.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
+        ingredientAddButton.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
         ingredientAddCancelButton.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
         ingredientAddDialog.setLocationRelativeTo(mainFrame);
         ingredientAddLabel.setLocation(0, 0);
         ingredientAddTextField.setLocation(0,
                 ingredientAddDialog.getHeight() / 3 + ingredientAddDialog.getHeight() / 12);
         ingredientAddList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
-        ingredientAdd2Button.setLocation(0, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddButton.setLocation(0, ingredientAddDialog.getHeight() / 3 * 2);
         ingredientAddCancelButton.setLocation(ingredientAddDialog.getWidth() / 2,
                 ingredientAddDialog.getHeight() / 3 * 2);
         /*
@@ -990,25 +990,34 @@ public class Menu {
          */
         ingredientAddDialog.setLayout(null);
         ingredientAddDialog.setUndecorated(true);
-        ingredientAdd2Button.setBorderPainted(false);
+        ingredientAddButton.setBorderPainted(false);
         ingredientAddCancelButton.setBorderPainted(false);
         ingredientAddLabel.setHorizontalAlignment(CENTER);
         ingredientAddList.setFont(dialogTextFieldFont);
         ingredientAddLabel.setFont(dialogLabelFont);
         ingredientAddTextField.setFont(dialogTextFieldFont);
-        ingredientAdd2Button.setFont(dialogButtonFont);
+        ingredientAddButton.setFont(dialogButtonFont);
         ingredientAddCancelButton.setFont(dialogButtonFont);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
          */
-        ingredientAdd2Button.addActionListener(new ActionListener() {
+        ingredientAddButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                /*
+                 * show an error message if there is no input when the button is pressed.
+                 */
+                if (ingredientAddTextField.getText().isEmpty() || ingredientAddTextField == null) {
+                    JOptionPane.showMessageDialog(ingredientAddDialog, "Ungültige Eingabe!", "Fehler!",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
                         ingredientAddList.getModel());
                 if (ingredientExists) {
                     JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
                 // TODO check similar
                 boolean ingredientCouldExist = false;
@@ -1022,7 +1031,7 @@ public class Menu {
         });
         ingredientAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addIngredientsButton.setEnabled(true);
+                ingredientsAddButton.setEnabled(true);
                 ingredientAddDialog.setVisible(false);
             }
         });
