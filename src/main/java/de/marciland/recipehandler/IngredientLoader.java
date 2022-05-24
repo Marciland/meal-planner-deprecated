@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Loader {
+public class IngredientLoader {
 
     public static Ingredient[] loadAllIngredients() {
         /*

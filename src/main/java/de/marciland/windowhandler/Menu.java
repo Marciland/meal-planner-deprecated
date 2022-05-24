@@ -5,7 +5,7 @@ import static de.marciland.utilities.Constants.imagePath;
 import de.marciland.profilehandler.Profile;
 import de.marciland.profilehandler.ProfileLoader;
 import de.marciland.recipehandler.Ingredient;
-import de.marciland.recipehandler.Loader;
+import de.marciland.recipehandler.IngredientLoader;
 import de.marciland.utilities.Tools;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -393,7 +393,7 @@ public class Menu {
                 ingredientAddDialog.getContentPane().removeAll();
                 ingredientAddDialog.add(ingredientAddLabel);
                 ingredientAddDialog.add(ingredientAddTextField);
-                Ingredient[] ing = Loader.loadAllIngredients();
+                Ingredient[] ing = IngredientLoader.loadAllIngredients();
                 ArrayList<String> names = new ArrayList<>();
                 for (Ingredient ingredient : ing) {
                     names.add(ingredient.getName());
@@ -795,7 +795,7 @@ public class Menu {
                 availableIngredientsDialog.getContentPane().removeAll();
                 availableIngredientsDialog.add(availableIngredientsLabel);
                 availableIngredientsDialog.add(availableIngredientsList);
-                availableIngredientsList.setListData(Loader.loadAllIngredients());
+                availableIngredientsList.setListData(IngredientLoader.loadAllIngredients());
                 availableIngredientsDialog.add(availableIngredientsChooseButton);
                 availableIngredientsDialog.add(availableIngredientsCancelButton);
                 availableIngredientsDialog.setVisible(true);
