@@ -2,10 +2,10 @@ package de.marciland.windowhandler;
 
 import static de.marciland.utilities.Constants.imagePath;
 
+import de.marciland.ingredienthandler.Ingredient;
+import de.marciland.ingredienthandler.IngredientLoader;
 import de.marciland.profilehandler.Profile;
 import de.marciland.profilehandler.ProfileLoader;
-import de.marciland.recipehandler.Ingredient;
-import de.marciland.recipehandler.IngredientLoader;
 import de.marciland.utilities.Tools;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;

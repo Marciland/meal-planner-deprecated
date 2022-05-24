@@ -1,4 +1,4 @@
-package de.marciland.recipehandler;
+package de.marciland.ingredienthandler;
 
 import static de.marciland.utilities.Constants.ingredientPath;
 

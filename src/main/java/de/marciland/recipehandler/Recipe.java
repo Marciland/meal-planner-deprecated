@@ -3,6 +3,8 @@ package de.marciland.recipehandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.marciland.ingredienthandler.Ingredient;
+
 public class Recipe {
 
     private List<Ingredient> ingredients;
