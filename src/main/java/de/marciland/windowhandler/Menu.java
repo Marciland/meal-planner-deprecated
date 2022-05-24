@@ -1000,9 +1000,16 @@ public class Menu {
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
          */
-        // TODO actionlistener
-        // addIngredientAddButton.addActionListener(l);
-        // addIngredientCancelButton.addActionListener(l);
+        addIngredientAddButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO check if exists, or similar
+            }
+        });
+        addIngredientCancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addIngredientsButton.setEnabled(true);
+                addIngredientDialog.setVisible(false);
+            }
+        });
     }
-
 }
