@@ -55,7 +55,7 @@ public class Menu {
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
     private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
-    private JLabel ingredientAddLabel;
+    private JLabel ingredientAddLabel, ingredientAddSimilarLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
@@ -72,12 +72,12 @@ public class Menu {
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
-    private JButton ingredientAddButton, ingredientAddCancelButton;
+    private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
-    private JList<String> ingredientAddList;
+    private JList<String> ingredientAddList, ingredientAddSimilarList;
 
     private Profile currentProfile;
 
@@ -461,6 +461,7 @@ public class Menu {
         loadRecipesAddSubDialog();
         loadAvailableIngredientsDialog();
         loadIngredientAddDialog();
+        loadIngredientAddSubDialog();
     }
 
     /**
@@ -1019,10 +1020,15 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                // TODO check similar
-                boolean ingredientCouldExist = false;
+                boolean ingredientCouldExist = IngredientLoader
+                        .checkIngredientCouldExist(ingredientAddTextField.getText(), ingredientAddList.getModel());
                 if (ingredientCouldExist) {
-                    // TODO show error: "meintest du:?"
+                    ingredientAddDialog.getContentPane().removeAll();
+                    ingredientAddDialog.add(ingredientAddSimilarLabel);
+                    ingredientAddDialog.add(ingredientAddSimilarList);// TODO list data
+                    ingredientAddDialog.add(ingredientAddYesButton);
+                    ingredientAddDialog.add(ingredientAddNoButton);
+                    ingredientAddDialog.repaint();
                 }
                 if (!ingredientExists && !ingredientCouldExist) {
                     // TODO next dialog
@@ -1033,6 +1039,55 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 ingredientsAddButton.setEnabled(true);
                 ingredientAddDialog.setVisible(false);
+            }
+        });
+    }
+
+    /**
+     * loads ingredient add sub dialog elements
+     * so that they can be accessed later.
+     */
+    private void loadIngredientAddSubDialog() {
+        /*
+         * create instances of the components.
+         */
+        ingredientAddSimilarLabel = new JLabel(
+                "<html>Ähnlichkeiten gefunden!<br/>Existiert die neue Zutat schon?</html>");
+        ingredientAddSimilarList = new JList<>();
+        ingredientAddYesButton = new JButton("Ja");
+        ingredientAddNoButton = new JButton("Nein");
+        /*
+         * set size and position of components.
+         */
+        ingredientAddSimilarLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddSimilarList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight());
+        ingredientAddYesButton.setSize(ingredientAddDialog.getWidth() / 4, ingredientAddDialog.getHeight() / 3);
+        ingredientAddNoButton.setSize(ingredientAddDialog.getWidth() / 4, ingredientAddDialog.getHeight() / 3);
+        ingredientAddSimilarLabel.setLocation(0, 0);
+        ingredientAddSimilarList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
+        ingredientAddYesButton.setLocation(0, ingredientAddSimilarLabel.getHeight());
+        ingredientAddNoButton.setLocation(ingredientAddYesButton.getWidth(), ingredientAddSimilarLabel.getHeight());
+        /*
+         * set decorations of components.
+         */
+        ingredientAddSimilarLabel.setFont(dialogLabelFont);
+        ingredientAddSimilarList.setFont(dialogTextFieldFont);
+        ingredientAddYesButton.setFont(dialogButtonFont);
+        ingredientAddNoButton.setFont(dialogButtonFont);
+        ingredientAddYesButton.setBorderPainted(false);
+        ingredientAddNoButton.setBorderPainted(false);
+        /*
+         * add listener to buttons, those decide what actions happen
+         * when buttons are pressed.
+         */
+        ingredientAddYesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        ingredientAddNoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
