@@ -781,7 +781,7 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 // TODO recipe description
                 // validate data
-                if (!Tools.validateIngredientsList(recipesAddIngredientsList.getModel())) {
+                if (!IngredientLoader.validateIngredientsList(recipesAddIngredientsList.getModel())) {
                     // throw error
                 } else {
                     recipesAddDialog.getContentPane().removeAll();

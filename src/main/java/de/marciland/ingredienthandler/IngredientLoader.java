@@ -12,6 +12,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ListModel;
+
 public class IngredientLoader {
 
     public static Ingredient[] loadAllIngredients() {
@@ -96,4 +98,17 @@ public class IngredientLoader {
         }
         return new Ingredient(name, type, kcal, fat, carbs, protein);
     }
+
+    public static boolean validateIngredientsList(ListModel<Object> model) {
+
+        // min 2 ingredients
+        // every ingredient has g or ml or amount by pieces
+        // TODO validate list
+        for (int i = 0; i < model.getSize(); i++) {
+            model.getElementAt(i);
+        }
+        // return true; // list valid
+        return false; // list invalid
+    }
+
 }
