@@ -91,7 +91,7 @@ public class Menu {
 
     private Dimension bigButtonSize, smallButtonSize, dialogSize;
 
-    /*
+    /**
      * returns true if the frame is displayed correctly.
      */
     public boolean init() {
@@ -113,7 +113,7 @@ public class Menu {
         }
     }
 
-    /*
+    /**
      * loads all elements so that they can be accessed later.
      */
     public void loadAllElements() {
@@ -127,7 +127,7 @@ public class Menu {
         System.out.println("Loading time: " + (endTime - startTime) + "ms");
     }
 
-    /*
+    /**
      * creates login screen
      */
     public void create() {
@@ -140,7 +140,7 @@ public class Menu {
         mainFrame.repaint();
     }
 
-    /*
+    /**
      * loads utility elements so that they can be accessed.
      */
     private void loadUtilities() {
@@ -159,7 +159,7 @@ public class Menu {
         smallDialogButtonFont = new Font(SANS_SERIF, PLAIN, 16);
     }
 
-    /*
+    /**
      * loads login elements so that they can be accessed later.
      */
     private void loadLoginElements() {
@@ -225,7 +225,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads menu elements so that they can be accessed later.
      */
     private void loadMenuElements() {
@@ -311,7 +311,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads submenu elements so that they can be accessed later.
      */
     private void loadSubmenuElements() {
@@ -451,7 +451,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads all dialog elements so that they can be accessed later.
      */
     private void loadAllDialogElements() {
@@ -463,7 +463,7 @@ public class Menu {
         loadIngredientAddDialog();
     }
 
-    /*
+    /**
      * loads profile info dialog elements so that they can be accessed later.
      */
     private void loadProfilesInfoDialog() {
@@ -538,7 +538,7 @@ public class Menu {
         profilesInfoDialog.add(profilesInfoDialogOKButton);
     }
 
-    /*
+    /**
      * loads profile edit dialog elements so that they can be accessed later.
      */
     private void loadProfilesEditDialog() {
@@ -655,7 +655,7 @@ public class Menu {
         profilesEditDialog.add(profilesEditDialogCancelButton);
     }
 
-    /*
+    /**
      * loads recipes add dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddDialog() {
@@ -732,7 +732,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads recipes add sub dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddSubDialog() {
@@ -822,9 +822,9 @@ public class Menu {
         });
     }
 
-    /*
-     * loads available ingredients dialog elements so that they can be accessed
-     * later.
+    /**
+     * loads available ingredients dialog elements
+     * so that they can be accessed later.
      */
     private void loadAvailableIngredientsDialog() {
         /*
@@ -954,9 +954,9 @@ public class Menu {
         });
     }
 
-    /*
-     * loads ingredient add dialog elements so that they can be accessed
-     * later.
+    /**
+     * loads ingredient add dialog elements
+     * so that they can be accessed later.
      */
     private void loadIngredientAddDialog() {
         /*
@@ -1005,7 +1005,8 @@ public class Menu {
         ingredientAdd2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO check existing
-                boolean ingredientExists = false;
+                boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
+                        ingredientAddList.getModel());
                 if (ingredientExists) {
                     JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
