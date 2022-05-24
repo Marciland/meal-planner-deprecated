@@ -44,7 +44,7 @@ public class Menu {
 
     private JDialog profilesInfoDialog, profilesEditDialog;
     private JDialog recipesAddDialog;
-    private JDialog addIngredientDialog;
+    private JDialog ingredientAddDialog;
     private JDialog availableIngredientsDialog;
 
     private JLabel profileLabel;
@@ -53,13 +53,13 @@ public class Menu {
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
     private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
-    private JLabel addIngredientLabel;
+    private JLabel ingredientAddLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
     private JTextField profilesEditAgeTextField, profilesEditKcalTextField, profilesEditGoalTextField;
     private JTextField recipesAddNameTextField;
-    private JTextField addIngredientTextField;
+    private JTextField ingredientAddTextField;
 
     private JButton profile1Button, profile2Button;
     private JButton recipesButton, planButton, profilesButton, shoppingButton;
@@ -70,12 +70,12 @@ public class Menu {
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
-    private JButton addIngredientAddButton, addIngredientCancelButton;
+    private JButton ingredientAdd2Button, ingredientAddCancelButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
-    private JList<String> addIngredientList;
+    private JList<String> ingredientAddList;
 
     private Profile currentProfile;
 
@@ -388,9 +388,9 @@ public class Menu {
         addIngredientsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addIngredientsButton.setEnabled(false);
-                addIngredientDialog.getContentPane().removeAll();
-                addIngredientDialog.add(addIngredientLabel);
-                addIngredientDialog.add(addIngredientTextField);
+                ingredientAddDialog.getContentPane().removeAll();
+                ingredientAddDialog.add(ingredientAddLabel);
+                ingredientAddDialog.add(ingredientAddTextField);
                 Ingredient[] ing = Loader.loadAllIngredients();
                 ArrayList<String> names = new ArrayList<>();
                 for (Ingredient ingredient : ing) {
@@ -401,12 +401,12 @@ public class Menu {
                     for (int i = 0; i < names.size(); i++) {
                         namesStrings[i] = names.get(i);
                     }
-                    addIngredientList.setListData(namesStrings);// TODO sort list of ingredients
+                    ingredientAddList.setListData(namesStrings);// TODO sort list of ingredients
                 }
-                addIngredientDialog.add(addIngredientList);
-                addIngredientDialog.add(addIngredientAddButton);
-                addIngredientDialog.add(addIngredientCancelButton);
-                addIngredientDialog.setVisible(true);
+                ingredientAddDialog.add(ingredientAddList);
+                ingredientAddDialog.add(ingredientAdd2Button);
+                ingredientAddDialog.add(ingredientAddCancelButton);
+                ingredientAddDialog.setVisible(true);
             }
         });
         profilesInfoButton.addActionListener(new ActionListener() {
@@ -458,7 +458,8 @@ public class Menu {
         loadRecipesAddDialog();
         loadRecipesAddSubDialog();
         loadAvailableIngredientsDialog();
-        loadAddIngredientsDialog();
+        loadIngredientAddDialog();
+        loadIngredientAddSubDialog();
     }
 
     /*
@@ -953,63 +954,99 @@ public class Menu {
     }
 
     /*
-     * loads available ingredients sub dialog elements so that they can be accessed
+     * loads ingredient add dialog elements so that they can be accessed
      * later.
      */
-    private void loadAddIngredientsDialog() {
+    private void loadIngredientAddDialog() {
         /*
          * create instances of the components.
          */
-        addIngredientDialog = new JDialog(mainFrame, true);
-        addIngredientLabel = new JLabel("Name:");
-        addIngredientTextField = new JTextField();
-        addIngredientList = new JList<>();
-        addIngredientAddButton = new JButton("Hinzufügen");
-        addIngredientCancelButton = new JButton("Abbrechen");
+        ingredientAddDialog = new JDialog(mainFrame, true);
+        ingredientAddLabel = new JLabel("Name:");
+        ingredientAddTextField = new JTextField();
+        ingredientAddList = new JList<>();
+        ingredientAdd2Button = new JButton("Hinzufügen");
+        ingredientAddCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
          */
-        addIngredientDialog.setSize(dialogSize);
-        addIngredientLabel.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 2);
-        addIngredientTextField.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 6);
-        addIngredientList.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3 * 2);
-        addIngredientAddButton.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3);
-        addIngredientCancelButton.setSize(addIngredientDialog.getWidth() / 2, addIngredientDialog.getHeight() / 3);
-        addIngredientDialog.setLocationRelativeTo(mainFrame);
-        addIngredientLabel.setLocation(0, 0);
-        addIngredientTextField.setLocation(0,
-                addIngredientDialog.getHeight() / 3 + addIngredientDialog.getHeight() / 12);
-        addIngredientList.setLocation(addIngredientDialog.getWidth() / 2, 0);
-        addIngredientAddButton.setLocation(0, addIngredientDialog.getHeight() / 3 * 2);
-        addIngredientCancelButton.setLocation(addIngredientDialog.getWidth() / 2,
-                addIngredientDialog.getHeight() / 3 * 2);
+        ingredientAddDialog.setSize(dialogSize);
+        ingredientAddLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 2);
+        ingredientAddTextField.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 6);
+        ingredientAddList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAdd2Button.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
+        ingredientAddCancelButton.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
+        ingredientAddDialog.setLocationRelativeTo(mainFrame);
+        ingredientAddLabel.setLocation(0, 0);
+        ingredientAddTextField.setLocation(0,
+                ingredientAddDialog.getHeight() / 3 + ingredientAddDialog.getHeight() / 12);
+        ingredientAddList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
+        ingredientAdd2Button.setLocation(0, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddCancelButton.setLocation(ingredientAddDialog.getWidth() / 2,
+                ingredientAddDialog.getHeight() / 3 * 2);
         /*
          * set decorations of components.
          */
-        addIngredientDialog.setLayout(null);
-        addIngredientDialog.setUndecorated(true);
-        addIngredientAddButton.setBorderPainted(false);
-        addIngredientCancelButton.setBorderPainted(false);
-        addIngredientLabel.setHorizontalAlignment(CENTER);
-        addIngredientList.setFont(dialogTextFieldFont);
-        addIngredientLabel.setFont(dialogLabelFont);
-        addIngredientTextField.setFont(dialogTextFieldFont);
-        addIngredientAddButton.setFont(dialogButtonFont);
-        addIngredientCancelButton.setFont(dialogButtonFont);
+        ingredientAddDialog.setLayout(null);
+        ingredientAddDialog.setUndecorated(true);
+        ingredientAdd2Button.setBorderPainted(false);
+        ingredientAddCancelButton.setBorderPainted(false);
+        ingredientAddLabel.setHorizontalAlignment(CENTER);
+        ingredientAddList.setFont(dialogTextFieldFont);
+        ingredientAddLabel.setFont(dialogLabelFont);
+        ingredientAddTextField.setFont(dialogTextFieldFont);
+        ingredientAdd2Button.setFont(dialogButtonFont);
+        ingredientAddCancelButton.setFont(dialogButtonFont);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
          */
-        addIngredientAddButton.addActionListener(new ActionListener() {
+        ingredientAdd2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO check if exists, or similar
+                // TODO check existing
+                boolean ingredientExists = false;
+                if (ingredientExists) {
+                    JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+                // TODO check similar
+                boolean ingredientCouldExist = false;
+                if (ingredientCouldExist) {
+                    // TODO show error: "meintest du:?"
+                }
+                if (!ingredientExists && !ingredientCouldExist) {
+                    // TODO next dialog
+                }
             }
         });
-        addIngredientCancelButton.addActionListener(new ActionListener() {
+        ingredientAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addIngredientsButton.setEnabled(true);
-                addIngredientDialog.setVisible(false);
+                ingredientAddDialog.setVisible(false);
             }
         });
+    }
+
+    /*
+     * loads ingredient add dialog elements so that they can be accessed
+     * later.
+     */
+    private void loadIngredientAddSubDialog() {
+        /*
+         * create instances of the components.
+         */
+
+        /*
+         * set size and position of components.
+         */
+
+        /*
+         * set decorations of components.
+         */
+
+        /*
+         * add listener to buttons, those decide what actions happen
+         * when buttons are pressed.
+         */
     }
 }
