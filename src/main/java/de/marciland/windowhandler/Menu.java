@@ -1024,8 +1024,10 @@ public class Menu {
                 }
                 if (!ingredientExists && !ingredientCouldExist) {
                     ingredientAddDialog.getContentPane().removeAll();
-                    // TODO next dialog
+                    ingredientAddDialog.setVisible(false);
                     ingredientAddDialog.repaint();
+                    ingredientsAddButton.setEnabled(true);
+                    IngredientLoader.saveIngredient(Dialog.getIngredientInformation());
                 }
             }
         });
@@ -1089,8 +1091,10 @@ public class Menu {
         ingredientAddNoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ingredientAddDialog.getContentPane().removeAll();
-                // TODO next dialog
+                ingredientAddDialog.setVisible(false);
                 ingredientAddDialog.repaint();
+                ingredientsAddButton.setEnabled(true);
+                IngredientLoader.saveIngredient(Dialog.getIngredientInformation());
             }
         });
     }

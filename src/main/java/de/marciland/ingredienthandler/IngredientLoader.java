@@ -17,6 +17,15 @@ import javax.swing.ListModel;
 public class IngredientLoader {
 
     /**
+     * TODO documentation
+     *
+     * @param ing
+     */
+    public static void saveIngredient(Ingredient ing) {
+        // TODO write to file
+    }
+
+    /**
      * Reads all ingredients found in resource/ingredients
      * and returns an array of ingredients.
      *
