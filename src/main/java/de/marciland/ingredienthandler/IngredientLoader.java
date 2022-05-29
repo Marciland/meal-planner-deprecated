@@ -182,7 +182,7 @@ public class IngredientLoader {
         if (checkIngredientExists(ingredientName, list)) {
             return true;
         }
-        // TODO this is case sensitive!
+        // TODO should not be case sensitive
         for (int i = 0; i < list.getSize(); i++) {
             if (ingredientName.contains(list.getElementAt(i))) {
                 return true;
@@ -196,6 +196,7 @@ public class IngredientLoader {
 
     /**
      * Get all ingredient names matching the given list.
+     * This should only be called if "checkIngredientCouldExist" returned true.
      *
      * @param ingredientName name of the ingredient that should match.
      * @param list           list that is looked through for a match.
@@ -203,6 +204,23 @@ public class IngredientLoader {
      * @return an array of strings based on matches
      */
     public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
-        return null;// TODO similaringredients
+        ArrayList<String> similarIngredientsList = new ArrayList<>();
+        // TODO should not be case sensitive
+        for (int i = 0; i < list.getSize(); i++) {
+            if (ingredientName.contains(list.getElementAt(i))) {
+                similarIngredientsList.add(list.getElementAt(i));
+            } else if (list.getElementAt(i).contains(ingredientName)) {
+                similarIngredientsList.add(list.getElementAt(i));
+            }
+        }
+        String[] similarIngredientsArray = new String[similarIngredientsList.size()];
+        for (int i = 0; i < similarIngredientsArray.length; i++) {
+            similarIngredientsArray[i] = similarIngredientsList.get(i);
+        }
+        if (similarIngredientsArray == null || similarIngredientsArray.length == 0) {
+            System.out.println("Found no similar ingredients, but should find some!");
+            System.exit(1);
+        }
+        return similarIngredientsArray;
     }
 }
