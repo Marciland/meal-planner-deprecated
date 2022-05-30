@@ -22,13 +22,13 @@ public class Dialog {
             return null;
         }
         if (typeInput == 0) {
-            type = 1;// gramm
+            type = 1;// gram
         }
         if (typeInput == 1) {
             type = 2;// ml
         }
         if (typeInput == 2) {
-            type = 3;// stk
+            type = 3;// pieces
         }
         if (typeInput != 0 && typeInput != 1 && typeInput != 2) {
             System.out.println("Impossible type selected for ingredient!");
