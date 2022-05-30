@@ -213,12 +213,11 @@ public class IngredientLoader {
         if (checkIngredientExists(ingredientName, list)) {
             return true;
         }
-        // TODO should not be case sensitive
         for (int i = 0; i < list.getSize(); i++) {
-            if (ingredientName.contains(list.getElementAt(i))) {
+            if (ingredientName.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
                 return true;
             }
-            if (list.getElementAt(i).contains(ingredientName)) {
+            if (list.getElementAt(i).toLowerCase().contains(ingredientName.toLowerCase())) {
                 return true;
             }
         }
@@ -236,11 +235,10 @@ public class IngredientLoader {
      */
     public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
         ArrayList<String> similarIngredientsList = new ArrayList<>();
-        // TODO should not be case sensitive
         for (int i = 0; i < list.getSize(); i++) {
-            if (ingredientName.contains(list.getElementAt(i))) {
+            if (ingredientName.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
                 similarIngredientsList.add(list.getElementAt(i));
-            } else if (list.getElementAt(i).contains(ingredientName)) {
+            } else if (list.getElementAt(i).toLowerCase().contains(ingredientName.toLowerCase())) {
                 similarIngredientsList.add(list.getElementAt(i));
             }
         }
