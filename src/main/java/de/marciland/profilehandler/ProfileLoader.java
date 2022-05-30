@@ -22,7 +22,12 @@ import javax.swing.JOptionPane;
 
 public class ProfileLoader {
 
-    // TODO doc
+    /**
+     * Check if profile already exists and returns the name or creates the file.
+     *
+     * @param profile name of the profile file to read/create.
+     * @return name of the profile if there is none return profile.
+     */
     public static String loadProfileButton(String profile) {
         String name = null;
         File profileFile;
@@ -53,8 +58,15 @@ public class ProfileLoader {
         }
     }
 
-    // TODO doc
     // TODO split load/create?
+    /**
+     * Reads the profile file and returns the data. If no profile exists yet
+     * the user is prompted to create a profile.
+     *
+     * @param profile   name of the profile to load/create.
+     * @param mainFrame frame on which the input dialogs are created.
+     * @return profile entity containing all data from the file.
+     */
     public static Profile loadProfile(String profile, JFrame mainFrame) {
         long startTime = System.currentTimeMillis();
         String filePath = profilePath + profile + ".prof";

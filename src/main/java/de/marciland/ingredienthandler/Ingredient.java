@@ -42,7 +42,9 @@ public class Ingredient {
         this.protein = protein;
     }
 
-    //TODO doc
+    /**
+     * Override method to define how ingredients should be visualized in the app.
+     */
     @Override
     public String toString() {
         String typeStr = null;

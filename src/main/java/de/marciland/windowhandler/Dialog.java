@@ -13,7 +13,7 @@ public class Dialog {
      *
      * @param name      name of the ingredient that should be created.
      * @param mainFrame frame on which the dialog should be based upon.
-     * @return ingredient identity with given input.
+     * @return ingredient entity with given input.
      */
     public static Ingredient getIngredientInformation(String name, JFrame mainFrame) {
         int type = 0;

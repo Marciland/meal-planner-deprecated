@@ -93,10 +93,10 @@ public class IngredientLoader {
 
     /**
      * This function is mainly used in load all ingredients.
-     * Reads a given file and stores the data found in an ingredient identity.
+     * Reads a given file and stores the data found in an ingredient entity.
      *
      * @param file filename of the ingredient to read from.
-     * @return an ingredient identity containing all information found in the file.
+     * @return an ingredient entity containing all information found in the file.
      */
     private static Ingredient loadIngredient(String file) {
         String name = null;
