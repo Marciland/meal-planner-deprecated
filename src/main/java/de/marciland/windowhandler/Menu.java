@@ -1027,7 +1027,8 @@ public class Menu {
                     ingredientAddDialog.setVisible(false);
                     ingredientAddDialog.repaint();
                     ingredientsAddButton.setEnabled(true);
-                    IngredientLoader.saveIngredient(Dialog.getIngredientInformation());
+                    IngredientLoader.saveIngredient(
+                            Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame));
                 }
             }
         });
@@ -1094,7 +1095,8 @@ public class Menu {
                 ingredientAddDialog.setVisible(false);
                 ingredientAddDialog.repaint();
                 ingredientsAddButton.setEnabled(true);
-                IngredientLoader.saveIngredient(Dialog.getIngredientInformation());
+                IngredientLoader
+                        .saveIngredient(Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame));
             }
         });
     }
