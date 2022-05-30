@@ -15,9 +15,25 @@ public class Dialog {
         float fat = 0;
         float carbs = 0;
         float protein = 0;
-
-        // TODO ask for type by buttons
-
+        int typeInput = JOptionPane.showOptionDialog(mainFrame, "Wie soll die Zutat gespeichert werden?",
+                "Bitte Typ auswählen!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[] { "gramm", "milliliter", "Stück" }, null);
+        if (typeInput == -1) {
+            return null;
+        }
+        if (typeInput == 0) {
+            type = 1;// gramm
+        }
+        if (typeInput == 1) {
+            type = 2;// ml
+        }
+        if (typeInput == 2) {
+            type = 3;// stk
+        }
+        if (typeInput != 0 && typeInput != 1 && typeInput != 2) {
+            System.out.println("Impossible type selected for ingredient!");
+            System.exit(1);
+        }
         // TODO ask for input depending on type
         /////////////////////////////////
         String input = null;
