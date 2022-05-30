@@ -3,6 +3,7 @@ package de.marciland.profilehandler;
 import static de.marciland.utilities.Constants.profilePath;
 
 import de.marciland.utilities.Tools;
+import de.marciland.windowhandler.Dialog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,7 +52,7 @@ public class ProfileLoader {
         }
     }
 
-    public static Profile loadProfile(String profile, JFrame parent) {
+    public static Profile loadProfile(String profile, JFrame mainFrame) {
         long startTime = System.currentTimeMillis();
         String filePath = profilePath + profile + ".prof";
         String name = null;
@@ -88,16 +89,14 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             while (input.length() < 3) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie lautet dein Name?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie lautet dein Name?",
                                         "Bitte Namen eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() < 3) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiger Name!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     name = input;
                                     data.add(input);
@@ -113,7 +112,7 @@ public class ProfileLoader {
                             /*
                              * validate user input
                              */
-                            int input = JOptionPane.showOptionDialog(parent.getContentPane(),
+                            int input = JOptionPane.showOptionDialog(mainFrame.getContentPane(),
                                     "Wähle dein Geschlecht aus:", "Bitte Geschlecht angeben!",
                                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                     new Object[] { "männlich", "weiblich" },
@@ -142,24 +141,21 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 2) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie alt bist du?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie alt bist du?",
                                         "Bitte Alter eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 2) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Alter!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         age = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Alter!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -175,24 +171,21 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 3) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie Groß bist du?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie Groß bist du?",
                                         "Bitte Größe eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 3) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültige Größe!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         height = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Größe!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -208,7 +201,7 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             weightWait: while (true) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie viel wiegst du?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie viel wiegst du?",
                                         "Bitte Gewicht eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 /*
                                  * input is null if user cancels the input
@@ -232,8 +225,7 @@ public class ProfileLoader {
                                     data.add(input);
                                     break weightWait;
                                 } else {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 }
                             }
                         }
@@ -248,7 +240,7 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 4) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(),
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
                                         "Wie hoch ist dein Grundumsatz?", "Bitte Grundumsatz eingeben!",
                                         JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
@@ -256,16 +248,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 4) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiger Grundumsatz!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         data.add(input);
                                         kcal = Integer.parseInt(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(),
-                                                "Ungültiges Grundumsatz!", "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -281,15 +271,14 @@ public class ProfileLoader {
                              * wait until user input is valid.
                              */
                             while (input.isEmpty()) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Was ist dein Ziel?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Was ist dein Ziel?",
                                         "Bitte Ziel eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty()) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Ziel!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     goal = input;
                                     data.add(input);
