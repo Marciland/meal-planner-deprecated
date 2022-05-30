@@ -5,6 +5,7 @@ import static de.marciland.utilities.Constants.ingredientPath;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.nio.charset.Charset;
@@ -17,16 +18,33 @@ import javax.swing.ListModel;
 public class IngredientLoader {
 
     /**
-     * TODO documentation
+     * Writes the given ingredient to a file.
      *
-     * @param ing
+     * @param ing ingredient to be saved in a file.
      */
     public static void saveIngredient(Ingredient ing) {
         if (ing == null) {
             System.out.println("Can't save empty ingredient. Ignore this message if creation process was canceled.");
             return;
         }
-        // TODO write to file
+        List<String> data = new ArrayList<>();
+        data.add("Name = " + ing.getName());
+        data.add("Typ = " + ing.getType());
+        data.add("kcal = " + ing.getKcal());
+        data.add("Protein = " + (double) ing.getProtein());
+        data.add("Zucker = " + ing.getCarbs());
+        data.add("Fett = " + ing.getFat());
+        FileWriter writer;
+        try {
+            writer = new FileWriter(new File(ingredientPath + ing.getName() + ".ing"), Charset.forName("UTF-8"));
+            for (String string : data) {
+                writer.write(string);
+                writer.write(System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
