@@ -22,6 +22,10 @@ public class IngredientLoader {
      * @param ing
      */
     public static void saveIngredient(Ingredient ing) {
+        if (ing == null) {
+            System.out.println("Can't save empty ingredient. Ignore this message if creation process was canceled.");
+            return;
+        }
         // TODO write to file
     }
 
