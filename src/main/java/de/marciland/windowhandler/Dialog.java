@@ -99,7 +99,7 @@ public class Dialog {
             System.out.println("Name empty while getting ingredient information");
             System.exit(1);
         }
-        if (type != 1 || type != 2 || type != 3) {
+        if (type != 1 && type != 2 && type != 3) {
             System.out.println("Wrong type while getting ingredient information");
             System.exit(1);
         }
