@@ -6,8 +6,8 @@ public class Ingredient {
     /*
      * type:
      * 0 = undefined
-     * 1 = solid, should be in gramms
-     * 2 = liquid, should be in milliliters
+     * 1 = solid, should be in grams
+     * 2 = liquid, should be in ml
      * 3 = countable, should be in amount by pieces
      */
     private int type = 0;
