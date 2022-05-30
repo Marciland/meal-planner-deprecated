@@ -8,7 +8,13 @@ import de.marciland.utilities.Tools;
 
 public class Dialog {
 
-    // TODO doc
+    /**
+     * Asks the user for input to create a new ingredient.
+     *
+     * @param name      name of the ingredient that should be created.
+     * @param mainFrame frame on which the dialog should be based upon.
+     * @return ingredient identity with given input.
+     */
     public static Ingredient getIngredientInformation(String name, JFrame mainFrame) {
         int type = 0;
         float kcal = 0;
@@ -110,7 +116,11 @@ public class Dialog {
         return new Ingredient(name, type, kcal, fat, carbs, protein);
     }
 
-    // TODO doc
+    /**
+     * Shows an error message because of wrong user input.
+     *
+     * @param mainFrame frame on which the dialog should be based upon.
+     */
     public static void wrongInput(JFrame mainFrame) {
         JOptionPane.showMessageDialog(mainFrame.getContentPane(), "Ungültige Eingabe!", "Fehler!",
                 JOptionPane.ERROR_MESSAGE);
