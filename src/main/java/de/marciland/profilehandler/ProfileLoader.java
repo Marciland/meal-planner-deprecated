@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 
 public class ProfileLoader {
 
+    // TODO doc
     public static String loadProfileButton(String profile) {
         String name = null;
         File profileFile;
@@ -52,6 +53,8 @@ public class ProfileLoader {
         }
     }
 
+    // TODO doc
+    // TODO split load/create?
     public static Profile loadProfile(String profile, JFrame mainFrame) {
         long startTime = System.currentTimeMillis();
         String filePath = profilePath + profile + ".prof";

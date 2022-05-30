@@ -23,11 +23,11 @@ public class Ingredient {
      * Every ingredient will be defined in a file when created.
      *
      * @param name    name of the ingredient.
-     * @param type    type: 1 gramm, 2 ml, 3 pieces
-     * @param kcal    amount of kcal per 100g/100ml/1piece
-     * @param fat     amount of fat per 100g/100ml/1piece
-     * @param carbs   amount of carbs per 100g/100ml/1piece
-     * @param protein amount of protein per 100g/100ml/1piece
+     * @param type    type: 1 gram, 2 ml, 3 pieces.
+     * @param kcal    amount of kcal per 100g/100ml/1piece.
+     * @param fat     amount of fat per 100g/100ml/1piece.
+     * @param carbs   amount of carbs per 100g/100ml/1piece.
+     * @param protein amount of protein per 100g/100ml/1piece.
      */
     public Ingredient(String name, int type, float kcal, float fat, float carbs, float protein) {
         this.name = name;
@@ -42,6 +42,7 @@ public class Ingredient {
         this.protein = protein;
     }
 
+    //TODO doc
     @Override
     public String toString() {
         String typeStr = null;
