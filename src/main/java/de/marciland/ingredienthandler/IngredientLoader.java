@@ -134,11 +134,11 @@ public class IngredientLoader {
     /**
      * Validates an ingredient list. Returns true if list can be used for a recipe.
      * Requirements to fulfill are:
-     * -at least 2 ingredients
+     * - at least 2 ingredients
      * - every ingredient has an amount specified.
      *
-     * @param model list to be checked. should contain Strings
-     * @return true if list can be used for a recipe
+     * @param model list to be checked. should contain Strings.
+     * @return true if list can be used for a recipe.
      */
     public static boolean validateIngredientsList(ListModel<Object> model) {
 
@@ -155,7 +155,7 @@ public class IngredientLoader {
     /**
      * Checks if a given ingredient name is already existing in given list.
      *
-     * @param ingredientName name of the ingredient that should be checked
+     * @param ingredientName name of the ingredient that should be checked.
      * @param list           list in which the ingredient is searched.
      *                       The list should only contain names of ingredients.
      * @return true if ingredient already exists in the list.
@@ -185,7 +185,7 @@ public class IngredientLoader {
     /**
      * Checks if a given ingredient name could exist in a given list.
      *
-     * @param ingredientName name of the ingredient that should be checked
+     * @param ingredientName name of the ingredient that should be checked.
      * @param list           list in which the ingredient is searched.
      *                       The list should only contain names of ingredients.
      *
@@ -214,7 +214,7 @@ public class IngredientLoader {
      * @param ingredientName name of the ingredient that should match.
      * @param list           list that is looked through for a match.
      *
-     * @return an array of strings based on matches
+     * @return an array of strings based on matches.
      */
     public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
         ArrayList<String> similarIngredientsList = new ArrayList<>();
