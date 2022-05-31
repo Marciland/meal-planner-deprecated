@@ -5,13 +5,16 @@ import java.util.List;
 
 import de.marciland.ingredienthandler.Ingredient;
 
+//TODO recipe class
 public class Recipe {
 
-    private List<Ingredient> ingredients;
-    private String description;
+    private String name = "";
+    private List<Ingredient> ingredients = new ArrayList<>();
+    private String description = "";
 
-    public Recipe(List<Ingredient> ingredients, String description) {
-        this.ingredients = new ArrayList<>(ingredients);
+    public Recipe(String name, List<Ingredient> ingredients, String description) {
+        this.name = name;
+        this.ingredients = ingredients;
         this.description = description;
     }
 
@@ -31,12 +34,17 @@ public class Recipe {
     /*
      * getters
      */
+
+    public String getName() {
+        return this.name;
+    }
+
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public List<Ingredient> getIngredients() {
-        return ingredients;
+        return this.ingredients;
     }
 
 }
