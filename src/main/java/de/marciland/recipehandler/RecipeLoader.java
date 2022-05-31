@@ -8,15 +8,27 @@ import java.util.List;
 
 public class RecipeLoader {
 
-    // TODO doc
-    public static String[] getExistingRecipes() {
-
+    /**
+     * Get all recipe names from an array of recipes.
+     *
+     * @param recipes the recipes which names should be returned.
+     * @return the names of the recipes as string array.
+     */
+    public static String[] getRecipeNames(Recipe[] recipes) {
+        if (recipes.length == 0) {
+            return new String[0];
+        }
+        String[] recipeNames = new String[recipes.length];
+        for (int i = 0; i < recipes.length; i++) {
+            recipeNames[i] = recipes[i].getName();
+        }
+        return recipeNames;
     }
 
     /**
      * Load all recipes from files into an array.
      *
-     * @return an array of recipes.
+     * @return an array of all recipes found in resource folder.
      */
     public static Recipe[] loadAllRecipes() {
         /*
