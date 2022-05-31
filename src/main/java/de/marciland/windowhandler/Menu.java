@@ -75,8 +75,8 @@ public class Menu {
     private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
-    private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
+    private JList<String> recipesAddExistingList, recipesAddIngredientsList;
     private JList<String> ingredientAddList, ingredientAddSimilarList;
 
     private Profile currentProfile;
@@ -378,10 +378,10 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 recipesAddButton.setEnabled(false);
                 recipesAddDialog.getContentPane().removeAll();
-                recipesAddList.clear();
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.add(recipesAddNameLabel);
                 recipesAddDialog.add(recipesAddNameTextField);
+                // recipesAddExistingList.setListData();
+                recipesAddDialog.add(recipesAddExistingList);
                 recipesAddDialog.add(recipesAddContinueButton);
                 recipesAddDialog.add(recipesAddCancelButton);
                 recipesAddDialog.setVisible(true);
@@ -656,33 +656,38 @@ public class Menu {
         recipesAddDialog = new JDialog(mainFrame, true);
         recipesAddNameLabel = new JLabel("Name des Rezepts: ");
         recipesAddNameTextField = new JTextField();
+        recipesAddExistingList = new JList<>();
         recipesAddContinueButton = new JButton("Weiter");
         recipesAddCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
          */
         recipesAddDialog.setSize(dialogSize);
-        recipesAddNameLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
-        recipesAddNameTextField.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 4);
-        recipesAddContinueButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
-        recipesAddCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
+        recipesAddNameLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
+        recipesAddNameTextField.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 6);
+        recipesAddExistingList.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddContinueButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
+        recipesAddCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
         recipesAddDialog.setLocationRelativeTo(mainFrame);
         recipesAddDialog.setLocation((int) recipesAddDialog.getLocation().getX() - recipesAddDialog.getWidth() / 2,
                 (int) recipesAddDialog.getLocation().getY());
         recipesAddNameLabel.setLocation(0, 0);
-        recipesAddNameTextField.setLocation(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 8);
-        recipesAddContinueButton.setLocation(0, recipesAddDialog.getHeight() / 2);
-        recipesAddCancelButton.setLocation(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
+        recipesAddNameTextField.setLocation(0,
+                recipesAddNameLabel.getHeight() + recipesAddNameTextField.getHeight() / 2);
+        recipesAddExistingList.setLocation(recipesAddDialog.getWidth() / 2, 0);
+        recipesAddContinueButton.setLocation(0, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddCancelButton.setLocation(recipesAddContinueButton.getWidth(), recipesAddDialog.getHeight() / 3 * 2);
         /*
          * set decorations of components.
          */
         recipesAddDialog.setLayout(null);
         recipesAddDialog.setUndecorated(true);
-        recipesAddNameLabel.setHorizontalAlignment(RIGHT);
+        recipesAddNameLabel.setHorizontalAlignment(CENTER);
         recipesAddContinueButton.setBorderPainted(false);
         recipesAddCancelButton.setBorderPainted(false);
         recipesAddNameLabel.setFont(dialogLabelFont);
         recipesAddNameTextField.setFont(dialogTextFieldFont);
+        recipesAddExistingList.setFont(dialogTextFieldFont);
         recipesAddContinueButton.setFont(dialogButtonFont);
         recipesAddCancelButton.setFont(dialogButtonFont);
         /*
@@ -705,6 +710,8 @@ public class Menu {
                 if (!recipeExists && !recipeCouldExist) {
                     recipesAddDialog.getContentPane().removeAll();
                     recipesAddDialog.add(recipesAddIngredientsLabel);
+                    recipesAddList.clear();
+                    recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                     recipesAddDialog.add(recipesAddIngredientsList);
                     recipesAddDialog.add(recipesAddPlusButton);
                     recipesAddDialog.add(recipesAddMinusButton);
@@ -800,7 +807,7 @@ public class Menu {
                     return;
                 }
                 recipesAddList.remove(recipesAddIngredientsList.getSelectedValue());
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                 recipesAddDialog.repaint();
             }
         });
@@ -933,7 +940,7 @@ public class Menu {
                             }
                         }
                 }
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                 recipesAddDialog.repaint();
             }
         });
