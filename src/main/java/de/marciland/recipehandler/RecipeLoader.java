@@ -2,9 +2,10 @@ package de.marciland.recipehandler;
 
 import static de.marciland.utilities.Constants.recipePath;
 
+import de.marciland.ingredienthandler.Ingredient;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecipeLoader {
 
@@ -38,7 +39,7 @@ public class RecipeLoader {
         long startTime = System.currentTimeMillis();
         File recipeFolder = new File(recipePath);
         File[] allRecipeFiles = recipeFolder.listFiles();
-        List<String> recipeList = new ArrayList<>();
+        ArrayList<String> recipeList = new ArrayList<>();
         for (File file : allRecipeFiles) {
             /*
              * Do not print an error message for .gitkeep.
@@ -68,9 +69,23 @@ public class RecipeLoader {
         return allRecipes;
     }
 
-    // TODO doc
+    /**
+     * Reads all information from given file
+     * and stores the information into a recipe entity.
+     *
+     * @param file file to be read.
+     * @return a recipe entity read from the given file.
+     */
     public static Recipe loadRecipe(String file) {
-
+        String name = null;
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        String description = null;
+        // TODO reading
+        if (name == null || ingredients.isEmpty() || description == null) {
+            System.out.println("Failed to load recipe: " + file);
+            System.exit(1);
+        }
+        return new Recipe(name, ingredients, description);
     }
 
 }
