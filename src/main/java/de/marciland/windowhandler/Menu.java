@@ -1027,8 +1027,17 @@ public class Menu {
                     ingredientAddDialog.setVisible(false);
                     ingredientAddDialog.repaint();
                     ingredientsAddButton.setEnabled(true);
-                    IngredientLoader.saveIngredient(
-                            Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame));
+                    Ingredient ing = Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame);
+                    if (ing == null) {
+                        ingredientAddTextField.setText("");
+                        mainFrame.add(recipesButton);
+                        mainFrame.remove(recipesInfoButton);
+                        mainFrame.remove(recipesAddButton);
+                        mainFrame.remove(ingredientsAddButton);
+                        mainFrame.repaint();
+                    } else {
+                        IngredientLoader.saveIngredient(ing);
+                    }
                 }
             }
         });
@@ -1095,8 +1104,17 @@ public class Menu {
                 ingredientAddDialog.setVisible(false);
                 ingredientAddDialog.repaint();
                 ingredientsAddButton.setEnabled(true);
-                IngredientLoader
-                        .saveIngredient(Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame));
+                Ingredient ing = Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame);
+                if (ing == null) {
+                    ingredientAddTextField.setText("");
+                    mainFrame.add(recipesButton);
+                    mainFrame.remove(recipesInfoButton);
+                    mainFrame.remove(recipesAddButton);
+                    mainFrame.remove(ingredientsAddButton);
+                    mainFrame.repaint();
+                } else {
+                    IngredientLoader.saveIngredient(ing);
+                }
             }
         });
     }
