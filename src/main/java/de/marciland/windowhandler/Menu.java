@@ -381,7 +381,7 @@ public class Menu {
                 recipesAddDialog.getContentPane().removeAll();
                 recipesAddDialog.add(recipesAddNameLabel);
                 recipesAddDialog.add(recipesAddNameTextField);
-                recipesAddExistingList.setListData(RecipeLoader.getExistingRecipes());
+                recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
                 recipesAddDialog.add(recipesAddExistingList);
                 recipesAddDialog.add(recipesAddContinueButton);
                 recipesAddDialog.add(recipesAddCancelButton);
