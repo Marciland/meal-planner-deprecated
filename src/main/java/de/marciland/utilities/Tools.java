@@ -5,6 +5,7 @@ import de.marciland.ingredienthandler.Ingredient;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tools {
 
@@ -87,6 +88,27 @@ public class Tools {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Convert a list of strings to an array of strings.
+     * This was needed due to .toArray() returning an Object[];
+     *
+     * @param list list that should be converted.
+     * @return an array containing the elements of the list.
+     */
+    public static String[] stringListToArray(List<String> list) {
+        if (list == null) {
+            return new String[0];
+        }
+        String[] array = new String[list.size()];
+        if (list.isEmpty()) {
+            return array;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
     }
 
 }

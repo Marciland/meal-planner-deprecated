@@ -158,7 +158,7 @@ public class IngredientLoader {
      * @param model list to be checked. should contain Strings.
      * @return true if list can be used for a recipe.
      */
-    public static boolean validateIngredientsList(ListModel<Object> model) {
+    public static boolean validateIngredientsList(ListModel<String> model) {
 
         // min 2 ingredients
         // every ingredient has g or ml or amount by pieces
