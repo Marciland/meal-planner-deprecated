@@ -60,9 +60,9 @@ public class IngredientLoader {
          */
         long startTime = System.currentTimeMillis();
         File ingredientFolder = new File(ingredientPath);
-        File[] allIngredientsFiles = ingredientFolder.listFiles();
+        File[] allIngredientFiles = ingredientFolder.listFiles();
         List<String> ingredientList = new ArrayList<>();
-        for (File file : allIngredientsFiles) {
+        for (File file : allIngredientFiles) {
             /*
              * Do not print an error message for .gitkeep.
              */
