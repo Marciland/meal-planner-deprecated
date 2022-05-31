@@ -93,7 +93,6 @@ public class RecipeLoader {
         try {
             String line = null;
             reading: while (true) {
-                // TODO read
                 line = reader.readLine();
                 if (line == null) {
                     break reading;
