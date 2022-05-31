@@ -723,9 +723,14 @@ public class Menu {
         });
         recipesAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
                 recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -813,9 +818,14 @@ public class Menu {
         });
         recipesAddCancel2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
                 recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -1044,14 +1054,25 @@ public class Menu {
                         mainFrame.repaint();
                     } else {
                         IngredientLoader.saveIngredient(ing);
+                        ingredientAddTextField.setText("");
+                        mainFrame.add(recipesButton);
+                        mainFrame.remove(recipesInfoButton);
+                        mainFrame.remove(recipesAddButton);
+                        mainFrame.remove(ingredientsAddButton);
+                        mainFrame.repaint();
                     }
                 }
             }
         });
         ingredientAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 ingredientsAddButton.setEnabled(true);
                 ingredientAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -1121,6 +1142,12 @@ public class Menu {
                     mainFrame.repaint();
                 } else {
                     IngredientLoader.saveIngredient(ing);
+                    ingredientAddTextField.setText("");
+                    mainFrame.add(recipesButton);
+                    mainFrame.remove(recipesInfoButton);
+                    mainFrame.remove(recipesAddButton);
+                    mainFrame.remove(ingredientsAddButton);
+                    mainFrame.repaint();
                 }
             }
         });
