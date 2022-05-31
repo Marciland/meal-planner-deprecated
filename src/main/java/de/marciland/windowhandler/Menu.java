@@ -880,7 +880,7 @@ public class Menu {
                 getInput: switch (availableIngredientsList.getSelectedValue().getType()) {
                     case 1:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
@@ -898,7 +898,7 @@ public class Menu {
                         }
                     case 2:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
@@ -916,7 +916,7 @@ public class Menu {
                         }
                     case 3:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
