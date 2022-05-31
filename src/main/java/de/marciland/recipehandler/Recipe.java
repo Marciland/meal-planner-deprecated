@@ -1,7 +1,6 @@
 package de.marciland.recipehandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.marciland.ingredienthandler.Ingredient;
 
@@ -9,10 +8,10 @@ import de.marciland.ingredienthandler.Ingredient;
 public class Recipe {
 
     private String name = "";
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private String description = "";
 
-    public Recipe(String name, List<Ingredient> ingredients, String description) {
+    public Recipe(String name, ArrayList<Ingredient> ingredients, String description) {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
@@ -43,7 +42,7 @@ public class Recipe {
         return this.description;
     }
 
-    public List<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
