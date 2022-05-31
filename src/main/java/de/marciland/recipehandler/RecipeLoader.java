@@ -2,9 +2,12 @@ package de.marciland.recipehandler;
 
 import static de.marciland.utilities.Constants.recipePath;
 
-import de.marciland.ingredienthandler.Ingredient;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class RecipeLoader {
@@ -78,9 +81,60 @@ public class RecipeLoader {
      */
     public static Recipe loadRecipe(String file) {
         String name = null;
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        ArrayList<String> ingredients = new ArrayList<>();
         String description = null;
-        // TODO reading
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(new File(recipePath + file)));
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not find " + file);
+            System.exit(1);
+        }
+        try {
+            String line = null;
+            reading: while (true) {
+                // TODO read
+                line = reader.readLine();
+                if (line == null) {
+                    break reading;
+                }
+                if (line.startsWith("Name = ")) {
+                    line = line.replace("Name = ", "").trim();
+                    if (!line.isEmpty()) {
+                        name = line;
+                        continue;
+                    }
+                }
+                if (line.startsWith("Zutaten:")) {
+                    ingredients: while (true) {
+                        line = reader.readLine();
+                        if (line.startsWith("Beschreibung:")) {
+                            break ingredients;
+                        }
+                        if (line.startsWith("-")) {
+                            ingredients.add(line.replace("-", "").trim());
+                        }
+                    }
+                }
+                if (line.startsWith("Beschreibung:")) {
+                    while (true) {
+                        line = reader.readLine();
+                        if (line == null) {
+                            break reading;
+                        }
+                        if (description == null) {
+                            description = line;
+                            continue;
+                        }
+                        description = description + System.lineSeparator() + line;
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error while reading " + file);
+            System.exit(1);
+        }
         if (name == null || ingredients.isEmpty() || description == null) {
             System.out.println("Failed to load recipe: " + file);
             System.exit(1);
