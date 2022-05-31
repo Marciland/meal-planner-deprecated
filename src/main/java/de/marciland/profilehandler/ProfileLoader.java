@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -83,7 +82,7 @@ public class ProfileLoader {
         BufferedReader reader;
         FileWriter writer;
         String line;
-        List<String> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(new File(filePath), Charset.forName("UTF-8")));
             /*

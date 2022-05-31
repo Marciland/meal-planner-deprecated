@@ -34,7 +34,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Menu {
 
@@ -82,7 +81,7 @@ public class Menu {
 
     private Profile currentProfile;
 
-    private List<String> recipesAddList = new ArrayList<>();
+    private ArrayList<String> recipesAddList = new ArrayList<>();
 
     private JTable planTable, recipesTable;
 

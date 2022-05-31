@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ListModel;
 
@@ -27,7 +26,7 @@ public class IngredientLoader {
             System.out.println("Can't save empty ingredient. Ignore this message if creation process was canceled.");
             return;
         }
-        List<String> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         data.add("Name = " + ing.getName());
         data.add("Typ = " + ing.getType());
         data.add("kcal = " + ing.getKcal());
@@ -61,7 +60,7 @@ public class IngredientLoader {
         long startTime = System.currentTimeMillis();
         File ingredientFolder = new File(ingredientPath);
         File[] allIngredientFiles = ingredientFolder.listFiles();
-        List<String> ingredientList = new ArrayList<>();
+        ArrayList<String> ingredientList = new ArrayList<>();
         for (File file : allIngredientFiles) {
             /*
              * Do not print an error message for .gitkeep.
