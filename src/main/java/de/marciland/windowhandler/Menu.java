@@ -6,6 +6,7 @@ import de.marciland.ingredienthandler.Ingredient;
 import de.marciland.ingredienthandler.IngredientLoader;
 import de.marciland.profilehandler.Profile;
 import de.marciland.profilehandler.ProfileLoader;
+import de.marciland.recipehandler.RecipeLoader;
 import de.marciland.utilities.Tools;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -380,7 +381,7 @@ public class Menu {
                 recipesAddDialog.getContentPane().removeAll();
                 recipesAddDialog.add(recipesAddNameLabel);
                 recipesAddDialog.add(recipesAddNameTextField);
-                // recipesAddExistingList.setListData();
+                recipesAddExistingList.setListData(RecipeLoader.getExistingRecipes());
                 recipesAddDialog.add(recipesAddExistingList);
                 recipesAddDialog.add(recipesAddContinueButton);
                 recipesAddDialog.add(recipesAddCancelButton);
