@@ -1,10 +1,9 @@
-package de.marciland.recipehandler;
+package de.marciland.profilehandler;
 
-import de.marciland.profilehandler.Profile;
-import de.marciland.utilities.Tools;
-
-import static de.marciland.utilities.Constants.ingredientPath;
 import static de.marciland.utilities.Constants.profilePath;
+
+import de.marciland.utilities.Tools;
+import de.marciland.windowhandler.Dialog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,15 +11,23 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.charset.Charset;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Loader {
+public class ProfileLoader {
 
+    /**
+     * Check if profile already exists and returns the name or creates the file.
+     *
+     * @param profile name of the profile file to read/create.
+     * @return name of the profile if there is none return profile.
+     */
     public static String loadProfileButton(String profile) {
         String name = null;
         File profileFile;
@@ -41,8 +48,6 @@ public class Loader {
                 }
             }
             reader.close();
-        } catch (FileNotFoundException f) {
-            f.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +58,17 @@ public class Loader {
         }
     }
 
-    public static Profile loadProfile(String profile, JFrame parent) {
+    // TODO split load/create?
+    /**
+     * Reads the profile file and returns the data. If no profile exists yet
+     * the user is prompted to create a profile.
+     *
+     * @param profile   name of the profile to load/create.
+     * @param mainFrame frame on which the input dialogs are created.
+     * @return profile entity containing all data from the file.
+     */
+    public static Profile loadProfile(String profile, JFrame mainFrame) {
+        long startTime = System.currentTimeMillis();
         String filePath = profilePath + profile + ".prof";
         String name = null;
         String gender = null;
@@ -62,6 +77,7 @@ public class Loader {
         float weight = 0;
         int kcal = 0;
         String goal = null;
+        boolean loading = false;
         boolean canceled = false;
         boolean written = false;
         BufferedReader reader;
@@ -80,6 +96,7 @@ public class Loader {
                     if (line.startsWith("Name")) {
                         line = line.replace("Name =", "").trim();
                         if (!line.isEmpty()) {
+                            loading = true;
                             name = line;
                         } else {
                             String input = "";
@@ -87,16 +104,14 @@ public class Loader {
                              * wait until user input is valid.
                              */
                             while (input.length() < 3) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie lautet dein Name?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie lautet dein Name?",
                                         "Bitte Namen eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() < 3) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiger Name!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     name = input;
                                     data.add(input);
@@ -112,7 +127,7 @@ public class Loader {
                             /*
                              * validate user input
                              */
-                            int input = JOptionPane.showOptionDialog(parent.getContentPane(),
+                            int input = JOptionPane.showOptionDialog(mainFrame.getContentPane(),
                                     "Wähle dein Geschlecht aus:", "Bitte Geschlecht angeben!",
                                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                     new Object[] { "männlich", "weiblich" },
@@ -141,24 +156,21 @@ public class Loader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 2) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie alt bist du?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie alt bist du?",
                                         "Bitte Alter eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 2) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Alter!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         age = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Alter!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -174,24 +186,21 @@ public class Loader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 3) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie Groß bist du?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie Groß bist du?",
                                         "Bitte Größe eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 3) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültige Größe!",
-                                            "Fehler!",
-                                            JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         height = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Größe!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -206,26 +215,32 @@ public class Loader {
                             /*
                              * wait until user input is valid.
                              */
-                            // TODO check conditions
-                            while (input.length() < 2 || input.length() > 4) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Wie viel wiegst du?",
+                            weightWait: while (true) {
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Wie viel wiegst du?",
                                         "Bitte Gewicht eingeben!", JOptionPane.QUESTION_MESSAGE);
+                                /*
+                                 * input is null if user cancels the input
+                                 * which breaks the "wait for input" loop.
+                                 */
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
-                                if (input.isEmpty() || input.length() < 2 || input.length() > 3) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                /*
+                                 * if input is not a float, input is set to empty.
+                                 */
+                                if (!Tools.checkFloat(input)) {
+                                    input = "";
+                                }
+                                /*
+                                 * weight is valid if input is a float and has a length of 2 or 3.
+                                 */
+                                if (!input.isEmpty() && (input.length() == 2 || input.length() == 3)) {
+                                    weight = Float.parseFloat(input);
+                                    data.add(input);
+                                    break weightWait;
                                 } else {
-                                    if (Tools.checkFloat(input)) {
-                                        weight = Float.parseFloat(input);
-                                        data.add(input);
-                                    } else {
-                                        input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Gewicht!",
-                                                "Fehler!", JOptionPane.ERROR_MESSAGE);
-                                    }
+                                    Dialog.wrongInput(mainFrame);
                                 }
                             }
                         }
@@ -240,7 +255,7 @@ public class Loader {
                              * wait until user input is valid.
                              */
                             while (input.length() != 4) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(),
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
                                         "Wie hoch ist dein Grundumsatz?", "Bitte Grundumsatz eingeben!",
                                         JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
@@ -248,16 +263,14 @@ public class Loader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 4) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiger Grundumsatz!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         data.add(input);
                                         kcal = Integer.parseInt(input);
                                     } else {
                                         input = "";
-                                        JOptionPane.showMessageDialog(parent.getContentPane(),
-                                                "Ungültiges Grundumsatz!", "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                        Dialog.wrongInput(mainFrame);
                                     }
                                 }
                             }
@@ -273,15 +286,14 @@ public class Loader {
                              * wait until user input is valid.
                              */
                             while (input.isEmpty()) {
-                                input = JOptionPane.showInputDialog(parent.getContentPane(), "Was ist dein Ziel?",
+                                input = JOptionPane.showInputDialog(mainFrame.getContentPane(), "Was ist dein Ziel?",
                                         "Bitte Ziel eingeben!", JOptionPane.QUESTION_MESSAGE);
                                 if (input == null) {
                                     canceled = true;
                                     break wait;
                                 }
                                 if (input.isEmpty()) {
-                                    JOptionPane.showMessageDialog(parent.getContentPane(), "Ungültiges Ziel!",
-                                            "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                    Dialog.wrongInput(mainFrame);
                                 } else {
                                     goal = input;
                                     data.add(input);
@@ -351,86 +363,11 @@ public class Loader {
             System.out.println("Failed to read profile information from file!");
             return null;
         }
+        long endTime = System.currentTimeMillis();
+        if (loading) {
+            System.out.println("Loading profile information for '" + name + "' took " + (endTime - startTime) + "ms");
+        }
         return new Profile(name, gender, age, height, weight, kcal, goal);
     }
 
-    public static Ingredient[] loadAllIngredients() {
-        /*
-         * check all files in ingredient directory.
-         * Name of file is added to ingredientList if it's a file and ends with ".ing".
-         */
-        File ingredientFolder = new File(ingredientPath);
-        File[] allIngredientsFiles = ingredientFolder.listFiles();
-        List<String> ingredientList = new ArrayList<>();
-        for (File file : allIngredientsFiles) {
-            if (!file.isFile()) {
-                System.out.println(file + " is not a file!");
-                continue;
-            }
-            if ((!file.getName().contains(".ing"))) {
-                System.out.println(file + " is not an ingredient file!");
-                continue;
-            }
-            ingredientList.add(file.getName());
-        }
-        /*
-         * load every ingredient into the array and return it.
-         */
-        Ingredient[] allIngredients = new Ingredient[ingredientList.size()];
-        for (int i = 0; i < ingredientList.size(); i++) {
-            allIngredients[i] = loadIngredient(ingredientList.get(i));
-        }
-        return allIngredients;
-    }
-
-    private static Ingredient loadIngredient(String file) {
-        String name = null;
-        int type = 0;
-        float kcal = 0;
-        float fat = 0;
-        float carbs = 0;
-        float protein = 0;
-        BufferedReader reader;
-        String line;
-        try {
-            reader = new BufferedReader(new FileReader(new File(ingredientPath + file), Charset.forName("UTF-8")));
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Name")) {
-                    line = line.replace("Name = ", "");
-                    name = line;
-                }
-                if (line.startsWith("Typ")) {
-                    line = line.replace("Typ = ", "");
-                    type = Integer.parseInt(line);
-                }
-                if (line.startsWith("kcal")) {
-                    line = line.replace("kcal = ", "");
-                    kcal = Float.parseFloat(line);
-                }
-                if (line.startsWith("Protein")) {
-                    line = line.replace("Protein = ", "");
-                    protein = Float.parseFloat(line);
-                }
-                if (line.startsWith("Zucker")) {
-                    line = line.replace("Zucker = ", "");
-                    carbs = Float.parseFloat(line);
-                }
-                if (line.startsWith("Fett")) {
-                    line = line.replace("Fett = ", "");
-                    fat = Float.parseFloat(line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (name == null || type == 0 || kcal == 0) {
-            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
-            System.out.println("name, type or kcal empty!" + System.lineSeparator());
-        }
-        if (fat == 0 && carbs == 0 && protein == 0) {
-            System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
-            System.out.println("wrong information about nutrition!" + System.lineSeparator());
-        }
-        return new Ingredient(name, type, kcal, fat, carbs, protein);
-    }
 }

@@ -1,4 +1,4 @@
-package de.marciland.recipehandler;
+package de.marciland.ingredienthandler;
 
 public class Ingredient {
 
@@ -6,8 +6,8 @@ public class Ingredient {
     /*
      * type:
      * 0 = undefined
-     * 1 = solid, should be in gramms
-     * 2 = liquid, should be in milliliters
+     * 1 = solid, should be in grams
+     * 2 = liquid, should be in ml
      * 3 = countable, should be in amount by pieces
      */
     private int type = 0;
@@ -19,6 +19,16 @@ public class Ingredient {
     private float carbs = 0;
     private float protein = 0;
 
+    /**
+     * Every ingredient will be defined in a file when created.
+     *
+     * @param name    name of the ingredient.
+     * @param type    type: 1 gram, 2 ml, 3 pieces.
+     * @param kcal    amount of kcal per 100g/100ml/1piece.
+     * @param fat     amount of fat per 100g/100ml/1piece.
+     * @param carbs   amount of carbs per 100g/100ml/1piece.
+     * @param protein amount of protein per 100g/100ml/1piece.
+     */
     public Ingredient(String name, int type, float kcal, float fat, float carbs, float protein) {
         this.name = name;
         if (type != 1 && type != 2 && type != 3) {
@@ -32,6 +42,9 @@ public class Ingredient {
         this.protein = protein;
     }
 
+    /**
+     * Override method to define how ingredients should be visualized in the app.
+     */
     @Override
     public String toString() {
         String typeStr = null;

@@ -2,9 +2,10 @@ package de.marciland.windowhandler;
 
 import static de.marciland.utilities.Constants.imagePath;
 
+import de.marciland.ingredienthandler.Ingredient;
+import de.marciland.ingredienthandler.IngredientLoader;
 import de.marciland.profilehandler.Profile;
-import de.marciland.recipehandler.Ingredient;
-import de.marciland.recipehandler.Loader;
+import de.marciland.profilehandler.ProfileLoader;
 import de.marciland.utilities.Tools;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -28,10 +29,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 
@@ -44,6 +46,7 @@ public class Menu {
 
     private JDialog profilesInfoDialog, profilesEditDialog;
     private JDialog recipesAddDialog;
+    private JDialog ingredientAddDialog;
     private JDialog availableIngredientsDialog;
 
     private JLabel profileLabel;
@@ -52,11 +55,13 @@ public class Menu {
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
     private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
+    private JLabel ingredientAddLabel, ingredientAddSimilarLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
     private JTextField profilesEditAgeTextField, profilesEditKcalTextField, profilesEditGoalTextField;
     private JTextField recipesAddNameTextField;
+    private JTextField ingredientAddTextField;
 
     private JButton profile1Button, profile2Button;
     private JButton recipesButton, planButton, profilesButton, shoppingButton;
@@ -67,10 +72,13 @@ public class Menu {
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
+    private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
+    private JList<String> ingredientAddList, ingredientAddSimilarList;
+
     private Profile currentProfile;
 
     private List<String> recipesAddList = new ArrayList<>();
@@ -83,7 +91,7 @@ public class Menu {
 
     private Dimension bigButtonSize, smallButtonSize, dialogSize;
 
-    /*
+    /**
      * returns true if the frame is displayed correctly.
      */
     public boolean init() {
@@ -105,7 +113,7 @@ public class Menu {
         }
     }
 
-    /*
+    /**
      * loads all elements so that they can be accessed later.
      */
     public void loadAllElements() {
@@ -119,7 +127,7 @@ public class Menu {
         System.out.println("Loading time: " + (endTime - startTime) + "ms");
     }
 
-    /*
+    /**
      * creates login screen
      */
     public void create() {
@@ -132,7 +140,7 @@ public class Menu {
         mainFrame.repaint();
     }
 
-    /*
+    /**
      * loads utility elements so that they can be accessed.
      */
     private void loadUtilities() {
@@ -146,12 +154,12 @@ public class Menu {
         bigButtonFont = new Font(SANS_SERIF, PLAIN, 53);
         smallButtonFont = new Font(SANS_SERIF, PLAIN, 32);
         dialogLabelFont = new Font(SANS_SERIF, PLAIN, 19);
-        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);// TODO font size of dialog
+        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);
         dialogButtonFont = new Font(SANS_SERIF, PLAIN, 25);
         smallDialogButtonFont = new Font(SANS_SERIF, PLAIN, 16);
     }
 
-    /*
+    /**
      * loads login elements so that they can be accessed later.
      */
     private void loadLoginElements() {
@@ -159,8 +167,8 @@ public class Menu {
          * create instances of the components.
          */
         profileLabel = new JLabel("Wähle bitte ein Profil aus:");
-        profile1Button = new JButton(Loader.loadProfileButton("profile1"));
-        profile2Button = new JButton(Loader.loadProfileButton("profile2"));
+        profile1Button = new JButton(ProfileLoader.loadProfileButton("profile1"));
+        profile2Button = new JButton(ProfileLoader.loadProfileButton("profile2"));
         /*
          * set size and position of components.
          */
@@ -188,7 +196,7 @@ public class Menu {
                 /*
                  * remove all components and load main menu with profile1.
                  */
-                currentProfile = Loader.loadProfile("profile1", mainFrame);
+                currentProfile = ProfileLoader.loadProfile("profile1", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
                     mainFrame.add(recipesButton);
@@ -204,7 +212,7 @@ public class Menu {
                 /*
                  * remove all components and load main menu with profile2.
                  */
-                currentProfile = Loader.loadProfile("profile2", mainFrame);
+                currentProfile = ProfileLoader.loadProfile("profile2", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
                     mainFrame.add(recipesButton);
@@ -217,7 +225,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads menu elements so that they can be accessed later.
      */
     private void loadMenuElements() {
@@ -303,7 +311,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads submenu elements so that they can be accessed later.
      */
     private void loadSubmenuElements() {
@@ -381,7 +389,16 @@ public class Menu {
         });
         ingredientsAddButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO add ingredients
+                ingredientsAddButton.setEnabled(false);
+                ingredientAddDialog.getContentPane().removeAll();
+                ingredientAddDialog.add(ingredientAddLabel);
+                ingredientAddDialog.add(ingredientAddTextField);
+                ingredientAddList.setListData(Tools.getIngredientNames(IngredientLoader.loadAllIngredients()));
+                ingredientAddDialog.add(ingredientAddList);
+                ingredientAddDialog.add(ingredientAddButton);
+                ingredientAddDialog.add(ingredientAddCancelButton);
+                ingredientAddDialog.setVisible(true);
+                ingredientAddDialog.repaint();
             }
         });
         profilesInfoButton.addActionListener(new ActionListener() {
@@ -417,14 +434,14 @@ public class Menu {
                 recipesInfoButton.setEnabled(true);
                 mainFrame.getContentPane().removeAll();
                 currentProfile = null;
-                profile1Button.setText(Loader.loadProfileButton("profile1"));
-                profile2Button.setText(Loader.loadProfileButton("profile2"));
+                profile1Button.setText(ProfileLoader.loadProfileButton("profile1"));
+                profile2Button.setText(ProfileLoader.loadProfileButton("profile2"));
                 create();
             }
         });
     }
 
-    /*
+    /**
      * loads all dialog elements so that they can be accessed later.
      */
     private void loadAllDialogElements() {
@@ -433,9 +450,11 @@ public class Menu {
         loadRecipesAddDialog();
         loadRecipesAddSubDialog();
         loadAvailableIngredientsDialog();
+        loadIngredientAddDialog();
+        loadIngredientAddSubDialog();
     }
 
-    /*
+    /**
      * loads profile info dialog elements so that they can be accessed later.
      */
     private void loadProfilesInfoDialog() {
@@ -510,7 +529,7 @@ public class Menu {
         profilesInfoDialog.add(profilesInfoDialogOKButton);
     }
 
-    /*
+    /**
      * loads profile edit dialog elements so that they can be accessed later.
      */
     private void loadProfilesEditDialog() {
@@ -627,7 +646,7 @@ public class Menu {
         profilesEditDialog.add(profilesEditDialogCancelButton);
     }
 
-    /*
+    /**
      * loads recipes add dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddDialog() {
@@ -704,7 +723,7 @@ public class Menu {
         });
     }
 
-    /*
+    /**
      * loads recipes add sub dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddSubDialog() {
@@ -753,7 +772,7 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 // TODO recipe description
                 // validate data
-                if (!Tools.validateIngredientsList(recipesAddIngredientsList.getModel())) {
+                if (!IngredientLoader.validateIngredientsList(recipesAddIngredientsList.getModel())) {
                     // throw error
                 } else {
                     recipesAddDialog.getContentPane().removeAll();
@@ -767,7 +786,7 @@ public class Menu {
                 availableIngredientsDialog.getContentPane().removeAll();
                 availableIngredientsDialog.add(availableIngredientsLabel);
                 availableIngredientsDialog.add(availableIngredientsList);
-                availableIngredientsList.setListData(Loader.loadAllIngredients());
+                availableIngredientsList.setListData(IngredientLoader.loadAllIngredients());
                 availableIngredientsDialog.add(availableIngredientsChooseButton);
                 availableIngredientsDialog.add(availableIngredientsCancelButton);
                 availableIngredientsDialog.setVisible(true);
@@ -794,9 +813,9 @@ public class Menu {
         });
     }
 
-    /*
-     * loads available ingredients dialog elements so that they can be accessed
-     * later.
+    /**
+     * loads available ingredients dialog elements
+     * so that they can be accessed later.
      */
     private void loadAvailableIngredientsDialog() {
         /*
@@ -861,7 +880,7 @@ public class Menu {
                 getInput: switch (availableIngredientsList.getSelectedValue().getType()) {
                     case 1:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in gramm angeben!", JOptionPane.QUESTION_MESSAGE);
@@ -879,7 +898,7 @@ public class Menu {
                         }
                     case 2:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in ml angeben!", JOptionPane.QUESTION_MESSAGE);
@@ -897,7 +916,7 @@ public class Menu {
                         }
                     case 3:
                         while (true) {
-                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wieviel von "
+                            input = JOptionPane.showInputDialog(availableIngredientsDialog, "Wie viel "
                                     + availableIngredientsList.getSelectedValue().getName()
                                     + " möchtest du hinzufügen?",
                                     "Bitte Menge in Stückzahl angeben!", JOptionPane.QUESTION_MESSAGE);
@@ -922,6 +941,180 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 recipesAddPlusButton.setEnabled(true);
                 availableIngredientsDialog.setVisible(false);
+            }
+        });
+    }
+
+    /**
+     * loads ingredient add dialog elements
+     * so that they can be accessed later.
+     */
+    private void loadIngredientAddDialog() {
+        /*
+         * create instances of the components.
+         */
+        ingredientAddDialog = new JDialog(mainFrame, true);
+        ingredientAddLabel = new JLabel("Name:");
+        ingredientAddTextField = new JTextField();
+        ingredientAddList = new JList<>();
+        ingredientAddButton = new JButton("Hinzufügen");
+        ingredientAddCancelButton = new JButton("Abbrechen");
+        /*
+         * set size and position of components.
+         */
+        ingredientAddDialog.setSize(dialogSize);
+        ingredientAddLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 2);
+        ingredientAddTextField.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 6);
+        ingredientAddList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddButton.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
+        ingredientAddCancelButton.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3);
+        ingredientAddDialog.setLocationRelativeTo(mainFrame);
+        ingredientAddLabel.setLocation(0, 0);
+        ingredientAddTextField.setLocation(0,
+                ingredientAddDialog.getHeight() / 3 + ingredientAddDialog.getHeight() / 12);
+        ingredientAddList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
+        ingredientAddButton.setLocation(0, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddCancelButton.setLocation(ingredientAddDialog.getWidth() / 2,
+                ingredientAddDialog.getHeight() / 3 * 2);
+        /*
+         * set decorations of components.
+         */
+        ingredientAddDialog.setLayout(null);
+        ingredientAddDialog.setUndecorated(true);
+        ingredientAddButton.setBorderPainted(false);
+        ingredientAddCancelButton.setBorderPainted(false);
+        ingredientAddLabel.setHorizontalAlignment(CENTER);
+        ingredientAddList.setFont(dialogTextFieldFont);
+        ingredientAddLabel.setFont(dialogLabelFont);
+        ingredientAddTextField.setFont(dialogTextFieldFont);
+        ingredientAddButton.setFont(dialogButtonFont);
+        ingredientAddCancelButton.setFont(dialogButtonFont);
+        /*
+         * add listener to buttons, those decide what actions happen
+         * when buttons are pressed.
+         */
+        ingredientAddButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                /*
+                 * show an error message if there is no input when the button is pressed.
+                 */
+                if (ingredientAddTextField.getText().isEmpty() || ingredientAddTextField == null) {
+                    JOptionPane.showMessageDialog(ingredientAddDialog, "Ungültige Eingabe!", "Fehler!",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
+                        ingredientAddList.getModel());
+                if (ingredientExists) {
+                    JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                boolean ingredientCouldExist = IngredientLoader
+                        .checkIngredientCouldExist(ingredientAddTextField.getText(), ingredientAddList.getModel());
+                if (ingredientCouldExist) {
+                    ingredientAddDialog.getContentPane().removeAll();
+                    ingredientAddDialog.add(ingredientAddSimilarLabel);
+                    ingredientAddSimilarList.setListData(IngredientLoader
+                            .getSimilarIngredients(ingredientAddTextField.getText(), ingredientAddList.getModel()));
+                    ingredientAddDialog.add(ingredientAddSimilarList);
+                    ingredientAddDialog.add(ingredientAddYesButton);
+                    ingredientAddDialog.add(ingredientAddNoButton);
+                    ingredientAddDialog.repaint();
+                }
+                if (!ingredientExists && !ingredientCouldExist) {
+                    ingredientAddDialog.getContentPane().removeAll();
+                    ingredientAddDialog.setVisible(false);
+                    ingredientAddDialog.repaint();
+                    ingredientsAddButton.setEnabled(true);
+                    Ingredient ing = Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame);
+                    if (ing == null) {
+                        ingredientAddTextField.setText("");
+                        mainFrame.add(recipesButton);
+                        mainFrame.remove(recipesInfoButton);
+                        mainFrame.remove(recipesAddButton);
+                        mainFrame.remove(ingredientsAddButton);
+                        mainFrame.repaint();
+                    } else {
+                        IngredientLoader.saveIngredient(ing);
+                    }
+                }
+            }
+        });
+        ingredientAddCancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ingredientsAddButton.setEnabled(true);
+                ingredientAddDialog.setVisible(false);
+            }
+        });
+    }
+
+    /**
+     * loads ingredient add sub dialog elements
+     * so that they can be accessed later.
+     */
+    private void loadIngredientAddSubDialog() {
+        /*
+         * create instances of the components.
+         */
+        ingredientAddSimilarLabel = new JLabel(
+                "<html>Ähnlichkeiten gefunden!<br/>Existiert die neue Zutat schon?</html>");
+        ingredientAddSimilarList = new JList<>();
+        ingredientAddYesButton = new JButton("Ja");
+        ingredientAddNoButton = new JButton("Nein");
+        /*
+         * set size and position of components.
+         */
+        ingredientAddSimilarLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
+        ingredientAddSimilarList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight());
+        ingredientAddYesButton.setSize(ingredientAddDialog.getWidth() / 4, ingredientAddDialog.getHeight() / 3);
+        ingredientAddNoButton.setSize(ingredientAddDialog.getWidth() / 4, ingredientAddDialog.getHeight() / 3);
+        ingredientAddSimilarLabel.setLocation(0, 0);
+        ingredientAddSimilarList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
+        ingredientAddYesButton.setLocation(0, ingredientAddSimilarLabel.getHeight());
+        ingredientAddNoButton.setLocation(ingredientAddYesButton.getWidth(), ingredientAddSimilarLabel.getHeight());
+        /*
+         * set decorations of components.
+         */
+        ingredientAddSimilarLabel.setFont(dialogLabelFont);
+        ingredientAddSimilarList.setFont(dialogTextFieldFont);
+        ingredientAddYesButton.setFont(dialogButtonFont);
+        ingredientAddNoButton.setFont(dialogButtonFont);
+        ingredientAddYesButton.setBorderPainted(false);
+        ingredientAddNoButton.setBorderPainted(false);
+        /*
+         * add listener to buttons, those decide what actions happen
+         * when buttons are pressed.
+         */
+        ingredientAddYesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ingredientAddDialog.getContentPane().removeAll();
+                ingredientAddDialog.add(ingredientAddLabel);
+                ingredientAddDialog.add(ingredientAddTextField);
+                ingredientAddTextField.setText("");
+                ingredientAddDialog.add(ingredientAddList);
+                ingredientAddDialog.add(ingredientAddButton);
+                ingredientAddDialog.add(ingredientAddCancelButton);
+                ingredientAddDialog.repaint();
+            }
+        });
+        ingredientAddNoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ingredientAddDialog.getContentPane().removeAll();
+                ingredientAddDialog.setVisible(false);
+                ingredientAddDialog.repaint();
+                ingredientsAddButton.setEnabled(true);
+                Ingredient ing = Dialog.getIngredientInformation(ingredientAddTextField.getText(), mainFrame);
+                if (ing == null) {
+                    ingredientAddTextField.setText("");
+                    mainFrame.add(recipesButton);
+                    mainFrame.remove(recipesInfoButton);
+                    mainFrame.remove(recipesAddButton);
+                    mainFrame.remove(ingredientsAddButton);
+                    mainFrame.repaint();
+                } else {
+                    IngredientLoader.saveIngredient(ing);
+                }
             }
         });
     }
