@@ -1,11 +1,11 @@
 package de.marciland.utilities;
 
-import de.marciland.ingredienthandler.Ingredient;
-
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+
 import java.util.List;
+
+import javax.swing.ListModel;
 
 public class Tools {
 
@@ -67,30 +67,6 @@ public class Tools {
     }
 
     /**
-     * Convert an ingredient array to a string array
-     * containing the names of the ingredients.
-     *
-     * @param ingredients an array of ingredients which should be read.
-     * @return an array of strings containing the names of the ingredients.
-     */
-    public static String[] getIngredientNames(Ingredient[] ingredients) {
-        ArrayList<String> names = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
-            names.add(ingredient.getName());
-        }
-        if (!names.isEmpty() && names != null) {
-            String[] namesStrings = new String[names.size()];
-            for (int i = 0; i < names.size(); i++) {
-                namesStrings[i] = names.get(i);
-            }
-            // TODO sort list of ingredients
-            return namesStrings;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Convert a list of strings to an array of strings.
      * This was needed due to .toArray() returning an Object[];
      *
@@ -109,6 +85,57 @@ public class Tools {
             array[i] = list.get(i);
         }
         return array;
+    }
+
+    /**
+     * Checks if a given name is already existing in given list.
+     *
+     * @param name name of the ingredient that should be checked.
+     * @param list list in which the name is searched.
+     * @return true if name already exists in the list.
+     */
+    public static boolean checkNameExists(String name, ListModel<String> list) {
+        /*
+         * If list is empty or not initialized false is returned.
+         */
+        if (list.getSize() == 0 || list == null) {
+            return false;
+        }
+        /*
+         * If name is found true is returned.
+         */
+        for (int i = 0; i < list.getSize(); i++) {
+            if (list.getElementAt(i) == name) {
+                return true;
+            }
+        }
+        /*
+         * If list is not empty and is initialized
+         * but the name could not be found then true is returned.
+         */
+        return false;
+    }
+
+    /**
+     * Checks if a given name could exist in a given list.
+     *
+     * @param name name that should be checked.
+     * @param list list in which the name is searched.
+     * @return true if name could exist based on given list.
+     */
+    public static boolean checkNameCouldExist(String name, ListModel<String> list) {
+        if (checkNameExists(name, list)) {
+            return true;
+        }
+        for (int i = 0; i < list.getSize(); i++) {
+            if (name.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
+                return true;
+            }
+            if (list.getElementAt(i).toLowerCase().contains(name.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

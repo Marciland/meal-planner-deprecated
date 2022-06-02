@@ -393,7 +393,8 @@ public class Menu {
                 ingredientAddDialog.getContentPane().removeAll();
                 ingredientAddDialog.add(ingredientAddLabel);
                 ingredientAddDialog.add(ingredientAddTextField);
-                ingredientAddList.setListData(Tools.getIngredientNames(IngredientLoader.loadAllIngredients()));
+                ingredientAddList
+                        .setListData(IngredientLoader.getIngredientNames(IngredientLoader.loadAllIngredients()));
                 ingredientAddDialog.add(ingredientAddList);
                 ingredientAddDialog.add(ingredientAddButton);
                 ingredientAddDialog.add(ingredientAddCancelButton);
@@ -696,14 +697,14 @@ public class Menu {
          */
         recipesAddContinueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO check existing
-                boolean recipeExists = false;
+                boolean recipeExists = Tools.checkNameExists(recipesAddNameTextField.getText(),
+                        recipesAddExistingList.getModel());
                 if (recipeExists) {
                     JOptionPane.showMessageDialog(recipesAddDialog, "Rezept existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
                 }
-                // TODO check similar
-                boolean recipeCouldExist = false;
+                boolean recipeCouldExist = Tools.checkNameCouldExist(recipesAddNameTextField.getText(),
+                        recipesAddExistingList.getModel());
                 if (recipeCouldExist) {
                     // TODO show error: "meintest du:?"
                 }
@@ -1020,15 +1021,15 @@ public class Menu {
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
+                boolean ingredientExists = Tools.checkNameExists(ingredientAddTextField.getText(),
                         ingredientAddList.getModel());
                 if (ingredientExists) {
                     JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                boolean ingredientCouldExist = IngredientLoader
-                        .checkIngredientCouldExist(ingredientAddTextField.getText(), ingredientAddList.getModel());
+                boolean ingredientCouldExist = Tools.checkNameCouldExist(ingredientAddTextField.getText(),
+                        ingredientAddList.getModel());
                 if (ingredientCouldExist) {
                     ingredientAddDialog.getContentPane().removeAll();
                     ingredientAddDialog.add(ingredientAddSimilarLabel);
