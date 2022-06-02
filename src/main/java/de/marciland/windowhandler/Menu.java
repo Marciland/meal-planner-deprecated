@@ -701,7 +701,7 @@ public class Menu {
         recipesAddContinueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (recipesAddNameTextField.getText().isEmpty()) {
-                    // show error
+                    Dialog.wrongInputDialog(recipesAddDialog);
                     return;
                 }
                 boolean recipeExists = Tools.checkNameExists(recipesAddNameTextField.getText(),
@@ -819,13 +819,11 @@ public class Menu {
          */
         recipesAddContinue2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO recipe description
-                // validate data
                 if (!RecipeLoader.validateRecipe(recipesAddIngredientsList.getModel())) {
-                    // throw error
+                    System.out.println("Mindestens 2 Zutaten müssen ausgewählt werden!");
                 } else {
                     recipesAddDialog.getContentPane().removeAll();
-                    // add next dialog elements
+                    // TODO recipe description
                     recipesAddDialog.repaint();
                 }
             }
