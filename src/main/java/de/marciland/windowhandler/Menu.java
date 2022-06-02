@@ -55,12 +55,13 @@ public class Menu {
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
     private JLabel recipesAddNameLabel, recipesAddSimilarLabel, recipesAddIngredientsLabel;
+    private JLabel recipesDescriptionLabel;
     private JLabel ingredientAddLabel, ingredientAddSimilarLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
     private JTextField profilesEditAgeTextField, profilesEditKcalTextField, profilesEditGoalTextField;
-    private JTextField recipesAddNameTextField;
+    private JTextField recipesAddNameTextField, recipesDescriptionTextField;
     private JTextField ingredientAddTextField;
 
     private JButton profile1Button, profile2Button;
@@ -73,6 +74,7 @@ public class Menu {
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
     private JButton recipesAddYesButton, recipesAddNoButton;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
+    private JButton recipesDescriptionFinishButton, recipesDescriptionCancelButton;
     private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
@@ -749,6 +751,7 @@ public class Menu {
         });
     }
 
+    // TODO sort out
     /**
      * loads recipes add sub dialog elements so that they can be accessed later.
      */
@@ -768,6 +771,12 @@ public class Menu {
         recipesAddSimilarList = new JList<>();
         recipesAddYesButton = new JButton("Ja");
         recipesAddNoButton = new JButton("Nein");
+
+        recipesDescriptionLabel = new JLabel("Beschreibung hinzufügen:");
+        // TODO textfield formatting
+        recipesDescriptionTextField = new JTextField();
+        recipesDescriptionFinishButton = new JButton("Fertig");
+        recipesDescriptionCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
          */
@@ -792,6 +801,17 @@ public class Menu {
         recipesAddSimilarList.setLocation(recipesAddDialog.getWidth() / 2, 0);
         recipesAddYesButton.setLocation(0, recipesAddSimilarLabel.getHeight());
         recipesAddNoButton.setLocation(recipesAddYesButton.getWidth(), recipesAddSimilarLabel.getHeight());
+
+        recipesDescriptionLabel.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 5);
+        recipesDescriptionTextField.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 5 * 3);
+        recipesDescriptionFinishButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 5);
+        recipesDescriptionCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 5);
+        recipesDescriptionLabel.setLocation(0, 0);
+        recipesDescriptionTextField.setLocation(0, recipesDescriptionLabel.getHeight());
+        recipesDescriptionFinishButton.setLocation(0,
+                recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
+        recipesDescriptionCancelButton.setLocation(recipesDescriptionFinishButton.getWidth(),
+                recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
         /*
          * set decorations of components.
          */
@@ -813,6 +833,14 @@ public class Menu {
         recipesAddSimilarLabel.setHorizontalAlignment(CENTER);
         recipesAddSimilarLabel.setFont(dialogTextFont);
         recipesAddSimilarList.setFont(dialogTextFont);
+
+        recipesDescriptionFinishButton.setBorderPainted(false);
+        recipesDescriptionCancelButton.setBorderPainted(false);
+        recipesDescriptionLabel.setHorizontalAlignment(CENTER);
+        recipesDescriptionLabel.setFont(dialogTextFont);
+        recipesDescriptionTextField.setFont(dialogTextFont);
+        recipesDescriptionFinishButton.setFont(smallDialogButtonFont);
+        recipesDescriptionCancelButton.setFont(smallDialogButtonFont);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
@@ -823,7 +851,10 @@ public class Menu {
                     System.out.println("Mindestens 2 Zutaten müssen ausgewählt werden!");
                 } else {
                     recipesAddDialog.getContentPane().removeAll();
-                    // TODO recipe description
+                    recipesAddDialog.add(recipesDescriptionLabel);
+                    recipesAddDialog.add(recipesDescriptionTextField);
+                    recipesAddDialog.add(recipesDescriptionFinishButton);
+                    recipesAddDialog.add(recipesDescriptionCancelButton);
                     recipesAddDialog.repaint();
                 }
             }
@@ -890,6 +921,17 @@ public class Menu {
                 recipesAddDialog.add(recipesAddContinue2Button);
                 recipesAddDialog.add(recipesAddCancel2Button);
                 recipesAddDialog.repaint();
+            }
+        });
+
+        recipesDescriptionFinishButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO save recipe
+            }
+        });
+        recipesDescriptionCancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO cancel recipe
             }
         });
     }
