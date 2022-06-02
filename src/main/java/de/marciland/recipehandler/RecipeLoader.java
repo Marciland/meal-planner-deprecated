@@ -153,14 +153,17 @@ public class RecipeLoader {
      * @return true if list can be used for a recipe.
      */
     public static boolean validateRecipe(ListModel<String> model) {
-        // min 2 ingredients
-        // every ingredient has g or ml or amount by pieces
-        // TODO validate list
-        for (int i = 0; i < model.getSize(); i++) {
-            model.getElementAt(i);
+        if (model.getSize() < 2) {
+            return false;
         }
-        // return true; // list valid
-        return false; // list invalid
+        String[] strings;
+        for (int i = 0; i < model.getSize(); i++) {
+            strings = model.getElementAt(i).split(" ");
+            if (!strings[0].contains("g") && !strings[0].contains("ml") && !strings[0].contains("stk.")) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
