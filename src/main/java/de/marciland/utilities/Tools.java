@@ -3,7 +3,7 @@ package de.marciland.utilities;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.ListModel;
 
@@ -73,7 +73,7 @@ public class Tools {
      * @param list list that should be converted.
      * @return an array containing the elements of the list.
      */
-    public static String[] stringListToArray(List<String> list) {
+    public static String[] stringListToArray(ArrayList<String> list) {
         if (list == null) {
             return new String[0];
         }
@@ -136,6 +136,35 @@ public class Tools {
             }
         }
         return false;
+    }
+
+    /**
+     * Get all names matching the given list.
+     * This should only be called if "checkNameCouldExist" returned true.
+     *
+     * @param name name that should match.
+     * @param list list that is looked through for a match.
+     *
+     * @return an array of strings based on matches.
+     */
+    public static String[] getSimilarNames(String name, ListModel<String> list) {
+        ArrayList<String> similarNamesList = new ArrayList<>();
+        for (int i = 0; i < list.getSize(); i++) {
+            if (name.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
+                similarNamesList.add(list.getElementAt(i));
+            } else if (list.getElementAt(i).toLowerCase().contains(name.toLowerCase())) {
+                similarNamesList.add(list.getElementAt(i));
+            }
+        }
+        String[] similarNamesArray = new String[similarNamesList.size()];
+        for (int i = 0; i < similarNamesArray.length; i++) {
+            similarNamesArray[i] = similarNamesList.get(i);
+        }
+        if (similarNamesArray == null || similarNamesArray.length == 0) {
+            System.out.println("Found no similarity, but should find some!");
+            System.exit(1);
+        }
+        return similarNamesArray;
     }
 
 }

@@ -170,35 +170,6 @@ public class IngredientLoader {
     }
 
     /**
-     * Get all ingredient names matching the given list.
-     * This should only be called if "checkIngredientCouldExist" returned true.
-     *
-     * @param ingredientName name of the ingredient that should match.
-     * @param list           list that is looked through for a match.
-     *
-     * @return an array of strings based on matches.
-     */
-    public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
-        ArrayList<String> similarIngredientsList = new ArrayList<>();
-        for (int i = 0; i < list.getSize(); i++) {
-            if (ingredientName.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
-                similarIngredientsList.add(list.getElementAt(i));
-            } else if (list.getElementAt(i).toLowerCase().contains(ingredientName.toLowerCase())) {
-                similarIngredientsList.add(list.getElementAt(i));
-            }
-        }
-        String[] similarIngredientsArray = new String[similarIngredientsList.size()];
-        for (int i = 0; i < similarIngredientsArray.length; i++) {
-            similarIngredientsArray[i] = similarIngredientsList.get(i);
-        }
-        if (similarIngredientsArray == null || similarIngredientsArray.length == 0) {
-            System.out.println("Found no similar ingredients, but should find some!");
-            System.exit(1);
-        }
-        return similarIngredientsArray;
-    }
-
-    /**
      * Convert an ingredient array to a string array
      * containing the names of the ingredients.
      *
