@@ -105,7 +105,7 @@ public class Tools {
          * If name is found true is returned.
          */
         for (int i = 0; i < list.getSize(); i++) {
-            if (list.getElementAt(i) == name) {
+            if (list.getElementAt(i).equals(name)) {
                 return true;
             }
         }
