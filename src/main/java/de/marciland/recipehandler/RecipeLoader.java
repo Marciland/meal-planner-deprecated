@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.swing.ListModel;
+
 public class RecipeLoader {
 
     /**
@@ -139,6 +141,26 @@ public class RecipeLoader {
             System.exit(1);
         }
         return new Recipe(name, ingredients, description);
+    }
+
+    /**
+     * Validates an ingredient list. Returns true if list can be used for a recipe.
+     * Requirements to fulfill are:
+     * - at least 2 ingredients
+     * - every ingredient has an amount specified.
+     *
+     * @param model list to be checked. should contain Strings.
+     * @return true if list can be used for a recipe.
+     */
+    public static boolean validateRecipe(ListModel<String> model) {
+        // min 2 ingredients
+        // every ingredient has g or ml or amount by pieces
+        // TODO validate list
+        for (int i = 0; i < model.getSize(); i++) {
+            model.getElementAt(i);
+        }
+        // return true; // list valid
+        return false; // list invalid
     }
 
 }

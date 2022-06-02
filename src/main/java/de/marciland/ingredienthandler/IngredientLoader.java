@@ -12,8 +12,6 @@ import java.nio.charset.Charset;
 
 import java.util.ArrayList;
 
-import javax.swing.ListModel;
-
 public class IngredientLoader {
 
     /**
@@ -146,27 +144,6 @@ public class IngredientLoader {
             System.out.println("wrong information about nutrition!" + System.lineSeparator());
         }
         return new Ingredient(name, type, kcal, fat, carbs, protein);
-    }
-
-    /**
-     * Validates an ingredient list. Returns true if list can be used for a recipe.
-     * Requirements to fulfill are:
-     * - at least 2 ingredients
-     * - every ingredient has an amount specified.
-     *
-     * @param model list to be checked. should contain Strings.
-     * @return true if list can be used for a recipe.
-     */
-    public static boolean validateIngredientsList(ListModel<String> model) {
-
-        // min 2 ingredients
-        // every ingredient has g or ml or amount by pieces
-        // TODO validate list
-        for (int i = 0; i < model.getSize(); i++) {
-            model.getElementAt(i);
-        }
-        // return true; // list valid
-        return false; // list invalid
     }
 
     /**
