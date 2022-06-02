@@ -54,7 +54,7 @@ public class Menu {
     private JLabel profilesInfoAgeLabel, profilesInfoKcalLabel, profilesInfoGoalLabel;
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
-    private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
+    private JLabel recipesAddNameLabel, recipesAddSimilarLabel, recipesAddIngredientsLabel;
     private JLabel ingredientAddLabel, ingredientAddSimilarLabel;
     private JLabel availableIngredientsLabel;
 
@@ -71,12 +71,13 @@ public class Menu {
     private JButton profilesEditDialogAcceptButton, profilesEditDialogCancelButton;
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
+    private JButton recipesAddYesButton, recipesAddNoButton;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
     private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
     private JList<Ingredient> availableIngredientsList;
-    private JList<String> recipesAddExistingList, recipesAddIngredientsList;
+    private JList<String> recipesAddExistingList, recipesAddSimilarList, recipesAddIngredientsList;
     private JList<String> ingredientAddList, ingredientAddSimilarList;
 
     private Profile currentProfile;
@@ -87,12 +88,14 @@ public class Menu {
 
     private Font profilesFont;
     private Font bigButtonFont, smallButtonFont;
-    private Font dialogLabelFont, dialogTextFieldFont, dialogButtonFont, smallDialogButtonFont;
+    private Font dialogTextFont, dialogButtonFont, smallDialogButtonFont;
 
     private Dimension bigButtonSize, smallButtonSize, dialogSize;
 
     /**
-     * returns true if the frame is displayed correctly.
+     * Returns true if the frame is displayed correctly.
+     *
+     * @return true if frame is displayable, enabled, focusable and showing.
      */
     public boolean init() {
         mainFrame = new JFrame(title);
@@ -153,8 +156,7 @@ public class Menu {
         profilesFont = new Font(SANS_SERIF, PLAIN, 66);
         bigButtonFont = new Font(SANS_SERIF, PLAIN, 53);
         smallButtonFont = new Font(SANS_SERIF, PLAIN, 32);
-        dialogLabelFont = new Font(SANS_SERIF, PLAIN, 19);
-        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);
+        dialogTextFont = new Font(SANS_SERIF, PLAIN, 19);
         dialogButtonFont = new Font(SANS_SERIF, PLAIN, 25);
         smallDialogButtonFont = new Font(SANS_SERIF, PLAIN, 16);
     }
@@ -379,6 +381,7 @@ public class Menu {
                 recipesAddButton.setEnabled(false);
                 recipesAddDialog.getContentPane().removeAll();
                 recipesAddDialog.add(recipesAddNameLabel);
+                recipesAddNameTextField.setText("");
                 recipesAddDialog.add(recipesAddNameTextField);
                 recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
                 recipesAddDialog.add(recipesAddExistingList);
@@ -502,11 +505,11 @@ public class Menu {
         profilesInfoAgeLabel.setVerticalAlignment(CENTER);
         profilesInfoKcalLabel.setVerticalAlignment(CENTER);
         profilesInfoGoalLabel.setVerticalAlignment(CENTER);
-        profilesInfoHeightLabel.setFont(dialogLabelFont);
-        profilesInfoWeightLabel.setFont(dialogLabelFont);
-        profilesInfoAgeLabel.setFont(dialogLabelFont);
-        profilesInfoKcalLabel.setFont(dialogLabelFont);
-        profilesInfoGoalLabel.setFont(dialogLabelFont);
+        profilesInfoHeightLabel.setFont(dialogTextFont);
+        profilesInfoWeightLabel.setFont(dialogTextFont);
+        profilesInfoAgeLabel.setFont(dialogTextFont);
+        profilesInfoKcalLabel.setFont(dialogTextFont);
+        profilesInfoGoalLabel.setFont(dialogTextFont);
         profilesInfoDialogOKButton.setFont(dialogButtonFont);
         profilesInfoDialogOKButton.setBorderPainted(false);
         /*
@@ -599,16 +602,16 @@ public class Menu {
         profilesEditAgeLabel.setVerticalAlignment(CENTER);
         profilesEditKcalLabel.setVerticalAlignment(CENTER);
         profilesEditGoalLabel.setVerticalAlignment(CENTER);
-        profilesEditHeightLabel.setFont(dialogLabelFont);
-        profilesEditWeightLabel.setFont(dialogLabelFont);
-        profilesEditAgeLabel.setFont(dialogLabelFont);
-        profilesEditKcalLabel.setFont(dialogLabelFont);
-        profilesEditGoalLabel.setFont(dialogLabelFont);
-        profilesEditHeightTextField.setFont(dialogTextFieldFont);
-        profilesEditWeightTextField.setFont(dialogTextFieldFont);
-        profilesEditAgeTextField.setFont(dialogTextFieldFont);
-        profilesEditKcalTextField.setFont(dialogTextFieldFont);
-        profilesEditGoalTextField.setFont(dialogTextFieldFont);
+        profilesEditHeightLabel.setFont(dialogTextFont);
+        profilesEditWeightLabel.setFont(dialogTextFont);
+        profilesEditAgeLabel.setFont(dialogTextFont);
+        profilesEditKcalLabel.setFont(dialogTextFont);
+        profilesEditGoalLabel.setFont(dialogTextFont);
+        profilesEditHeightTextField.setFont(dialogTextFont);
+        profilesEditWeightTextField.setFont(dialogTextFont);
+        profilesEditAgeTextField.setFont(dialogTextFont);
+        profilesEditKcalTextField.setFont(dialogTextFont);
+        profilesEditGoalTextField.setFont(dialogTextFont);
         profilesEditDialogAcceptButton.setFont(dialogButtonFont);
         profilesEditDialogCancelButton.setFont(dialogButtonFont);
         profilesEditDialogAcceptButton.setBorderPainted(false);
@@ -686,9 +689,9 @@ public class Menu {
         recipesAddNameLabel.setHorizontalAlignment(CENTER);
         recipesAddContinueButton.setBorderPainted(false);
         recipesAddCancelButton.setBorderPainted(false);
-        recipesAddNameLabel.setFont(dialogLabelFont);
-        recipesAddNameTextField.setFont(dialogTextFieldFont);
-        recipesAddExistingList.setFont(dialogTextFieldFont);
+        recipesAddNameLabel.setFont(dialogTextFont);
+        recipesAddNameTextField.setFont(dialogTextFont);
+        recipesAddExistingList.setFont(dialogTextFont);
         recipesAddContinueButton.setFont(dialogButtonFont);
         recipesAddCancelButton.setFont(dialogButtonFont);
         /*
@@ -706,7 +709,14 @@ public class Menu {
                 boolean recipeCouldExist = Tools.checkNameCouldExist(recipesAddNameTextField.getText(),
                         recipesAddExistingList.getModel());
                 if (recipeCouldExist) {
-                    // TODO show error: "meintest du:?"
+                    recipesAddDialog.getContentPane().removeAll();
+                    recipesAddDialog.add(recipesAddSimilarLabel);
+                    recipesAddSimilarList.setListData(Tools.getSimilarNames(recipesAddNameTextField.getText(),
+                            recipesAddExistingList.getModel()));
+                    recipesAddDialog.add(recipesAddSimilarList);
+                    recipesAddDialog.add(recipesAddYesButton);
+                    recipesAddDialog.add(recipesAddNoButton);
+                    recipesAddDialog.repaint();
                 }
                 if (!recipeExists && !recipeCouldExist) {
                     recipesAddDialog.getContentPane().removeAll();
@@ -729,7 +739,6 @@ public class Menu {
                 mainFrame.remove(recipesAddButton);
                 mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
-                recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
                 mainFrame.repaint();
             }
@@ -749,6 +758,12 @@ public class Menu {
         recipesAddPlusButton = new JButton("Hinzufügen");
         recipesAddMinusButton = new JButton("Entfernen");
         recipesAddCancel2Button = new JButton("Abbrechen");
+
+        recipesAddSimilarLabel = new JLabel(
+                "<html>Ähnlichkeiten gefunden!<br/>Existiert das neue Rezept schon?</html>");
+        recipesAddSimilarList = new JList<>();
+        recipesAddYesButton = new JButton("Ja");
+        recipesAddNoButton = new JButton("Nein");
         /*
          * set size and position of components.
          */
@@ -764,6 +779,15 @@ public class Menu {
         recipesAddPlusButton.setLocation(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 4 * 3);
         recipesAddMinusButton.setLocation(recipesAddDialog.getWidth() / 4 * 2, recipesAddDialog.getHeight() / 4 * 3);
         recipesAddCancel2Button.setLocation(recipesAddDialog.getWidth() / 4 * 3, recipesAddDialog.getHeight() / 4 * 3);
+
+        recipesAddSimilarLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddSimilarList.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight());
+        recipesAddYesButton.setSize(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 3);
+        recipesAddNoButton.setSize(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 3);
+        recipesAddSimilarLabel.setLocation(0, 0);
+        recipesAddSimilarList.setLocation(recipesAddDialog.getWidth() / 2, 0);
+        recipesAddYesButton.setLocation(0, recipesAddSimilarLabel.getHeight());
+        recipesAddNoButton.setLocation(recipesAddYesButton.getWidth(), recipesAddSimilarLabel.getHeight());
         /*
          * set decorations of components.
          */
@@ -772,11 +796,19 @@ public class Menu {
         recipesAddPlusButton.setBorderPainted(false);
         recipesAddMinusButton.setBorderPainted(false);
         recipesAddCancel2Button.setBorderPainted(false);
-        recipesAddIngredientsLabel.setFont(dialogLabelFont);
+        recipesAddIngredientsLabel.setFont(dialogTextFont);
         recipesAddContinue2Button.setFont(smallDialogButtonFont);
         recipesAddPlusButton.setFont(smallDialogButtonFont);
         recipesAddMinusButton.setFont(smallDialogButtonFont);
         recipesAddCancel2Button.setFont(smallDialogButtonFont);
+
+        recipesAddYesButton.setBorderPainted(false);
+        recipesAddNoButton.setBorderPainted(false);
+        recipesAddYesButton.setFont(smallDialogButtonFont);
+        recipesAddNoButton.setFont(smallDialogButtonFont);
+        recipesAddSimilarLabel.setHorizontalAlignment(CENTER);
+        recipesAddSimilarLabel.setFont(dialogTextFont);
+        recipesAddSimilarList.setFont(dialogTextFont);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
@@ -824,9 +856,37 @@ public class Menu {
                 mainFrame.remove(recipesAddButton);
                 mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
-                recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
                 mainFrame.repaint();
+            }
+        });
+
+        recipesAddYesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                recipesAddButton.setEnabled(false);
+                recipesAddDialog.getContentPane().removeAll();
+                recipesAddDialog.add(recipesAddNameLabel);
+                recipesAddNameTextField.setText("");
+                recipesAddDialog.add(recipesAddNameTextField);
+                recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
+                recipesAddDialog.add(recipesAddExistingList);
+                recipesAddDialog.add(recipesAddContinueButton);
+                recipesAddDialog.add(recipesAddCancelButton);
+                recipesAddDialog.repaint();
+            }
+        });
+        recipesAddNoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                recipesAddDialog.getContentPane().removeAll();
+                recipesAddDialog.add(recipesAddIngredientsLabel);
+                recipesAddList.clear();
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
+                recipesAddDialog.add(recipesAddIngredientsList);
+                recipesAddDialog.add(recipesAddPlusButton);
+                recipesAddDialog.add(recipesAddMinusButton);
+                recipesAddDialog.add(recipesAddContinue2Button);
+                recipesAddDialog.add(recipesAddCancel2Button);
+                recipesAddDialog.repaint();
             }
         });
     }
@@ -873,7 +933,7 @@ public class Menu {
         availableIngredientsLabel.setHorizontalAlignment(CENTER);
         availableIngredientsChooseButton.setBorderPainted(false);
         availableIngredientsCancelButton.setBorderPainted(false);
-        availableIngredientsLabel.setFont(dialogLabelFont);
+        availableIngredientsLabel.setFont(dialogTextFont);
         availableIngredientsChooseButton.setFont(smallDialogButtonFont);
         availableIngredientsCancelButton.setFont(smallDialogButtonFont);
         /*
@@ -1002,9 +1062,9 @@ public class Menu {
         ingredientAddButton.setBorderPainted(false);
         ingredientAddCancelButton.setBorderPainted(false);
         ingredientAddLabel.setHorizontalAlignment(CENTER);
-        ingredientAddList.setFont(dialogTextFieldFont);
-        ingredientAddLabel.setFont(dialogLabelFont);
-        ingredientAddTextField.setFont(dialogTextFieldFont);
+        ingredientAddList.setFont(dialogTextFont);
+        ingredientAddLabel.setFont(dialogTextFont);
+        ingredientAddTextField.setFont(dialogTextFont);
         ingredientAddButton.setFont(dialogButtonFont);
         ingredientAddCancelButton.setFont(dialogButtonFont);
         /*
@@ -1033,8 +1093,8 @@ public class Menu {
                 if (ingredientCouldExist) {
                     ingredientAddDialog.getContentPane().removeAll();
                     ingredientAddDialog.add(ingredientAddSimilarLabel);
-                    ingredientAddSimilarList.setListData(IngredientLoader
-                            .getSimilarIngredients(ingredientAddTextField.getText(), ingredientAddList.getModel()));
+                    ingredientAddSimilarList.setListData(
+                            Tools.getSimilarNames(ingredientAddTextField.getText(), ingredientAddList.getModel()));
                     ingredientAddDialog.add(ingredientAddSimilarList);
                     ingredientAddDialog.add(ingredientAddYesButton);
                     ingredientAddDialog.add(ingredientAddNoButton);
@@ -1105,8 +1165,8 @@ public class Menu {
         /*
          * set decorations of components.
          */
-        ingredientAddSimilarLabel.setFont(dialogLabelFont);
-        ingredientAddSimilarList.setFont(dialogTextFieldFont);
+        ingredientAddSimilarLabel.setFont(dialogTextFont);
+        ingredientAddSimilarList.setFont(dialogTextFont);
         ingredientAddYesButton.setFont(dialogButtonFont);
         ingredientAddNoButton.setFont(dialogButtonFont);
         ingredientAddYesButton.setBorderPainted(false);
