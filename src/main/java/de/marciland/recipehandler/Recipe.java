@@ -2,7 +2,6 @@ package de.marciland.recipehandler;
 
 import java.util.ArrayList;
 
-//TODO recipe class
 public class Recipe {
 
     private String name = "";
@@ -15,6 +14,7 @@ public class Recipe {
         this.description = description;
     }
 
+    // TODO recipe to string
     @Override
     public String toString() {
         String recipe = "";
@@ -31,7 +31,6 @@ public class Recipe {
     /*
      * getters
      */
-
     public String getName() {
         return this.name;
     }
