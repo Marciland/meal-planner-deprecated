@@ -110,7 +110,7 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() < 3) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     name = input;
                                     data.add(input);
@@ -162,14 +162,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 2) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         age = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -192,14 +192,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 3) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         height = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -239,7 +239,7 @@ public class ProfileLoader {
                                     data.add(input);
                                     break weightWait;
                                 } else {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 }
                             }
                         }
@@ -262,14 +262,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 4) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         data.add(input);
                                         kcal = Integer.parseInt(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -292,7 +292,7 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty()) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     goal = input;
                                     data.add(input);

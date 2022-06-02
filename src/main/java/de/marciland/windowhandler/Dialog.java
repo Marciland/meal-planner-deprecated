@@ -1,5 +1,6 @@
 package de.marciland.windowhandler;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -53,7 +54,7 @@ public class Dialog {
                 return null;
             }
             if (!Tools.checkFloat(input)) {
-                wrongInput(mainFrame);
+                wrongInputFrame(mainFrame);
             } else {
                 kcal = Float.parseFloat(input);
                 break waiting;
@@ -67,7 +68,7 @@ public class Dialog {
                 return null;
             }
             if (!Tools.checkFloat(input)) {
-                wrongInput(mainFrame);
+                wrongInputFrame(mainFrame);
             } else {
                 fat = Float.parseFloat(input);
                 break waiting;
@@ -81,7 +82,7 @@ public class Dialog {
                 return null;
             }
             if (!Tools.checkFloat(input)) {
-                wrongInput(mainFrame);
+                wrongInputFrame(mainFrame);
             } else {
                 carbs = Float.parseFloat(input);
                 break waiting;
@@ -95,7 +96,7 @@ public class Dialog {
                 return null;
             }
             if (!Tools.checkFloat(input)) {
-                wrongInput(mainFrame);
+                wrongInputFrame(mainFrame);
             } else {
                 protein = Float.parseFloat(input);
                 break waiting;
@@ -119,10 +120,20 @@ public class Dialog {
     /**
      * Shows an error message because of wrong user input.
      *
-     * @param mainFrame frame on which the dialog should be based upon.
+     * @param mainFrame frame on which the error message should be based upon.
      */
-    public static void wrongInput(JFrame mainFrame) {
+    public static void wrongInputFrame(JFrame mainFrame) {
         JOptionPane.showMessageDialog(mainFrame.getContentPane(), "Ungültige Eingabe!", "Fehler!",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Shows an error message because of wrong user input.
+     *
+     * @param dialog dialog on which the error message should be based upon.
+     */
+    public static void wrongInputDialog(JDialog dialog) {
+        JOptionPane.showMessageDialog(dialog, "Ungültige Eingabe!", "Fehler!",
                 JOptionPane.ERROR_MESSAGE);
     }
 

@@ -700,6 +700,10 @@ public class Menu {
          */
         recipesAddContinueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (recipesAddNameTextField.getText().isEmpty()) {
+                    // show error
+                    return;
+                }
                 boolean recipeExists = Tools.checkNameExists(recipesAddNameTextField.getText(),
                         recipesAddExistingList.getModel());
                 if (recipeExists) {
@@ -822,6 +826,7 @@ public class Menu {
                 } else {
                     recipesAddDialog.getContentPane().removeAll();
                     // add next dialog elements
+                    recipesAddDialog.repaint();
                 }
             }
         });
@@ -966,8 +971,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "g " + availableIngredientsList.getSelectedValue().getName());
@@ -984,8 +988,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "ml " + availableIngredientsList.getSelectedValue().getName());
@@ -1002,8 +1005,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "stk. " + availableIngredientsList.getSelectedValue().getName());
@@ -1077,8 +1079,7 @@ public class Menu {
                  * show an error message if there is no input when the button is pressed.
                  */
                 if (ingredientAddTextField.getText().isEmpty() || ingredientAddTextField == null) {
-                    JOptionPane.showMessageDialog(ingredientAddDialog, "Ungültige Eingabe!", "Fehler!",
-                            JOptionPane.WARNING_MESSAGE);
+                    Dialog.wrongInputDialog(ingredientAddDialog);
                     return;
                 }
                 boolean ingredientExists = Tools.checkNameExists(ingredientAddTextField.getText(),
