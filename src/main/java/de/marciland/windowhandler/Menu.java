@@ -931,7 +931,13 @@ public class Menu {
         });
         recipesDescriptionCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO cancel recipe
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
+                recipesAddButton.setEnabled(true);
+                recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -993,7 +999,7 @@ public class Menu {
                     return;
                 }
                 for (String string : recipesAddList) {
-                    if (string.contains(availableIngredientsList.getSelectedValue().getName())) {
+                    if (string.equals(availableIngredientsList.getSelectedValue().getName())) {
                         JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!",
                                 "Fehler!", JOptionPane.WARNING_MESSAGE);
                         return;
