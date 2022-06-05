@@ -926,7 +926,15 @@ public class Menu {
 
         recipesDescriptionFinishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO save recipe
+                RecipeLoader.saveRecipe(recipesAddNameTextField.getText(), recipesAddIngredientsList.getModel(),
+                        recipesDescriptionTextField.getText());
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
+                recipesAddButton.setEnabled(true);
+                recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
         recipesDescriptionCancelButton.addActionListener(new ActionListener() {
