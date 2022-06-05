@@ -6,6 +6,7 @@ public class Recipe {
 
     private String name = "";
     private ArrayList<String> ingredients = new ArrayList<>();
+    // TODO tooltip description
     private String description = "";
 
     public Recipe(String name, ArrayList<String> ingredients, String description) {
