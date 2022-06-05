@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import static java.awt.Font.PLAIN;
@@ -85,8 +84,6 @@ public class Menu {
     private Profile currentProfile;
 
     private ArrayList<String> recipesAddList = new ArrayList<>();
-
-    private JTable planTable, recipesTable;
 
     private Font profilesFont;
     private Font bigButtonFont, smallButtonFont;
@@ -240,8 +237,6 @@ public class Menu {
         recipesButton = new JButton("<html> Rezepte<br/>& Zutaten</html>");
         planButton = new JButton("Essensplan");
         profilesButton = new JButton("Profil");
-        planTable = new JTable(); // TODO datamodel plan table
-        recipesTable = new JTable(); // TODO datamodel rezept table
         /*
          * set size and position of components.
          */
@@ -249,14 +244,10 @@ public class Menu {
         recipesButton.setSize(bigButtonSize);
         planButton.setSize(bigButtonSize);
         profilesButton.setSize(bigButtonSize);
-        planTable.setSize(mainFrame.getWidth(), mainFrame.getHeight() / 5 * 4);
-        recipesTable.setSize(mainFrame.getWidth(), mainFrame.getHeight() / 5 * 4);
         shoppingButton.setLocation(mainFrame.getWidth() / 4, 0);
         recipesButton.setLocation(0, 0);
         planButton.setLocation(mainFrame.getWidth() / 4 * 2, 0);
         profilesButton.setLocation(mainFrame.getWidth() / 4 * 3, 0);
-        planTable.setLocation(0, mainFrame.getHeight() / 5);
-        recipesTable.setLocation(0, mainFrame.getHeight() / 5);
         /*
          * set decorations of components.
          */
@@ -294,9 +285,8 @@ public class Menu {
                 /*
                  * shows the eating plan for the current week
                  */
-                mainFrame.add(planTable);
+                // TODO show meal plan
                 planButton.setEnabled(false);
-                mainFrame.remove(recipesTable);
                 recipesInfoButton.setEnabled(true);
                 mainFrame.repaint();
             }
@@ -367,9 +357,7 @@ public class Menu {
                 /*
                  * shows all recipes
                  */
-                mainFrame.add(recipesTable);
                 recipesInfoButton.setEnabled(false);
-                mainFrame.remove(planTable);
                 planButton.setEnabled(true);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);

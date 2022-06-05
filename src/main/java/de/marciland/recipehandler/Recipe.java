@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Recipe {
 
+    // TODO cooking duration, in desc?
     private String name = "";
     private ArrayList<String> ingredients = new ArrayList<>();
     // TODO tooltip description
