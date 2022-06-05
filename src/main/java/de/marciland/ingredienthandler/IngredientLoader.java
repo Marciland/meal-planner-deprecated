@@ -169,7 +169,7 @@ public class IngredientLoader {
             // TODO sort list of ingredients
             return namesStrings;
         } else {
-            return null;
+            return new String[0];
         }
     }
 
