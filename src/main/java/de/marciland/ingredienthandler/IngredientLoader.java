@@ -40,7 +40,8 @@ public class IngredientLoader {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to save ingredient: " + ing.getName() + System.lineSeparator() + e);
+            System.exit(1);
         }
     }
 
@@ -132,8 +133,10 @@ public class IngredientLoader {
                     fat = Float.parseFloat(line);
                 }
             }
+            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load ingredient: " + file + System.lineSeparator() + e);
+            System.exit(1);
         }
         if (name == null || type == 0 || kcal == 0) {
             System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");

@@ -48,7 +48,8 @@ public class ProfileLoader {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to retrieve profile button name: " + profile + System.lineSeparator() + e);
+            System.exit(1);
         }
         if (name == null) {
             return profile;
@@ -320,7 +321,8 @@ public class ProfileLoader {
                         }
                         writer.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Failed to write profile data: " + filePath + System.lineSeparator() + e);
+                        System.exit(1);
                     }
                     break wait;
                 }
@@ -343,15 +345,17 @@ public class ProfileLoader {
                         data.clear();
                         writer.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Failed to write profile data: " + filePath + System.lineSeparator() + e);
+                        System.exit(1);
                     }
                 } else {
                     break wait;
                 }
             }
             reader.close();
-        } catch (FileNotFoundException readerF) {
-            System.out.println("File not found: " + filePath);
+        } catch (FileNotFoundException f) {
+            System.out.println("File not found: " + filePath + System.lineSeparator() + f);
+            System.exit(1);
         } catch (IOException readerE) {
             readerE.printStackTrace();
         }
@@ -360,7 +364,7 @@ public class ProfileLoader {
         }
         if (name == null || gender == null || goal == null || age == 0 || height == 0 || weight == 0 || kcal == 0) {
             System.out.println("Failed to read profile information from file!");
-            return null;
+            System.exit(1);
         }
         long endTime = System.currentTimeMillis();
         if (loading) {
