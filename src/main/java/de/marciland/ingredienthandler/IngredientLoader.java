@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.ListModel;
 
 public class IngredientLoader {
 
@@ -27,7 +24,7 @@ public class IngredientLoader {
             System.out.println("Can't save empty ingredient. Ignore this message if creation process was canceled.");
             return;
         }
-        List<String> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         data.add("Name = " + ing.getName());
         data.add("Typ = " + ing.getType());
         data.add("kcal = " + ing.getKcal());
@@ -43,7 +40,8 @@ public class IngredientLoader {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to save ingredient: " + ing.getName() + System.lineSeparator() + e);
+            System.exit(1);
         }
     }
 
@@ -60,9 +58,9 @@ public class IngredientLoader {
          */
         long startTime = System.currentTimeMillis();
         File ingredientFolder = new File(ingredientPath);
-        File[] allIngredientsFiles = ingredientFolder.listFiles();
-        List<String> ingredientList = new ArrayList<>();
-        for (File file : allIngredientsFiles) {
+        File[] allIngredientFiles = ingredientFolder.listFiles();
+        ArrayList<String> ingredientList = new ArrayList<>();
+        for (File file : allIngredientFiles) {
             /*
              * Do not print an error message for .gitkeep.
              */
@@ -135,8 +133,10 @@ public class IngredientLoader {
                     fat = Float.parseFloat(line);
                 }
             }
+            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load ingredient: " + file + System.lineSeparator() + e);
+            System.exit(1);
         }
         if (name == null || type == 0 || kcal == 0) {
             System.out.println(System.lineSeparator() + "Error when loading " + file + " ingredient:");
@@ -150,106 +150,27 @@ public class IngredientLoader {
     }
 
     /**
-     * Validates an ingredient list. Returns true if list can be used for a recipe.
-     * Requirements to fulfill are:
-     * - at least 2 ingredients
-     * - every ingredient has an amount specified.
+     * Convert an ingredient array to a string array
+     * containing the names of the ingredients.
      *
-     * @param model list to be checked. should contain Strings.
-     * @return true if list can be used for a recipe.
+     * @param ingredients an array of ingredients which should be read.
+     * @return an array of strings containing the names of the ingredients.
      */
-    public static boolean validateIngredientsList(ListModel<Object> model) {
-
-        // min 2 ingredients
-        // every ingredient has g or ml or amount by pieces
-        // TODO validate list
-        for (int i = 0; i < model.getSize(); i++) {
-            model.getElementAt(i);
+    public static String[] getIngredientNames(Ingredient[] ingredients) {
+        ArrayList<String> names = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            names.add(ingredient.getName());
         }
-        // return true; // list valid
-        return false; // list invalid
+        if (!names.isEmpty() && names != null) {
+            String[] namesStrings = new String[names.size()];
+            for (int i = 0; i < names.size(); i++) {
+                namesStrings[i] = names.get(i);
+            }
+            // TODO sort list of ingredients
+            return namesStrings;
+        } else {
+            return new String[0];
+        }
     }
 
-    /**
-     * Checks if a given ingredient name is already existing in given list.
-     *
-     * @param ingredientName name of the ingredient that should be checked.
-     * @param list           list in which the ingredient is searched.
-     *                       The list should only contain names of ingredients.
-     * @return true if ingredient already exists in the list.
-     */
-    public static boolean checkIngredientExists(String ingredientName, ListModel<String> list) {
-        /*
-         * If list is empty or not initialized false is returned.
-         */
-        if (list.getSize() == 0 || list == null) {
-            return false;
-        }
-        /*
-         * If name is found true is returned.
-         */
-        for (int i = 0; i < list.getSize(); i++) {
-            if (list.getElementAt(i) == ingredientName) {
-                return true;
-            }
-        }
-        /*
-         * If list is not empty and is initialized
-         * but the ingredientName could not be found then true is returned.
-         */
-        return false;
-    }
-
-    /**
-     * Checks if a given ingredient name could exist in a given list.
-     *
-     * @param ingredientName name of the ingredient that should be checked.
-     * @param list           list in which the ingredient is searched.
-     *                       The list should only contain names of ingredients.
-     *
-     * @return true if ingredient could exist based on given list.
-     */
-    public static boolean checkIngredientCouldExist(String ingredientName, ListModel<String> list) {
-        if (checkIngredientExists(ingredientName, list)) {
-            return true;
-        }
-        for (int i = 0; i < list.getSize(); i++) {
-            if (ingredientName.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
-                return true;
-            }
-            if (list.getElementAt(i).toLowerCase().contains(ingredientName.toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Get all ingredient names matching the given list.
-     * This should only be called if "checkIngredientCouldExist" returned true.
-     *
-     * @param ingredientName name of the ingredient that should match.
-     * @param list           list that is looked through for a match.
-     *
-     * @return an array of strings based on matches.
-     */
-    public static String[] getSimilarIngredients(String ingredientName, ListModel<String> list) {
-        ArrayList<String> similarIngredientsList = new ArrayList<>();
-        for (int i = 0; i < list.getSize(); i++) {
-            if (ingredientName.toLowerCase().contains(list.getElementAt(i).toLowerCase())) {
-                similarIngredientsList.add(list.getElementAt(i));
-            } else if (list.getElementAt(i).toLowerCase().contains(ingredientName.toLowerCase())) {
-                similarIngredientsList.add(list.getElementAt(i));
-            }
-        }
-        String[] similarIngredientsArray = new String[similarIngredientsList.size()];
-        for (int i = 0; i < similarIngredientsArray.length; i++) {
-            similarIngredientsArray[i] = similarIngredientsList.get(i);
-        }
-        if (similarIngredientsArray == null || similarIngredientsArray.length == 0) {
-            System.out.println("Found no similar ingredients, but should find some!");
-            System.exit(1);
-        }
-        return similarIngredientsArray;
-    }
 }

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,7 +48,8 @@ public class ProfileLoader {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to retrieve profile button name: " + profile + System.lineSeparator() + e);
+            System.exit(1);
         }
         if (name == null) {
             return profile;
@@ -83,7 +83,7 @@ public class ProfileLoader {
         BufferedReader reader;
         FileWriter writer;
         String line;
-        List<String> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(new File(filePath), Charset.forName("UTF-8")));
             /*
@@ -111,7 +111,7 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() < 3) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     name = input;
                                     data.add(input);
@@ -163,14 +163,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 2) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         age = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -193,14 +193,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 3) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         height = Integer.parseInt(input);
                                         data.add(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -240,7 +240,7 @@ public class ProfileLoader {
                                     data.add(input);
                                     break weightWait;
                                 } else {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 }
                             }
                         }
@@ -263,14 +263,14 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty() || input.length() != 4) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     if (Tools.checkInt(input)) {
                                         data.add(input);
                                         kcal = Integer.parseInt(input);
                                     } else {
                                         input = "";
-                                        Dialog.wrongInput(mainFrame);
+                                        Dialog.wrongInputFrame(mainFrame);
                                     }
                                 }
                             }
@@ -293,7 +293,7 @@ public class ProfileLoader {
                                     break wait;
                                 }
                                 if (input.isEmpty()) {
-                                    Dialog.wrongInput(mainFrame);
+                                    Dialog.wrongInputFrame(mainFrame);
                                 } else {
                                     goal = input;
                                     data.add(input);
@@ -321,7 +321,8 @@ public class ProfileLoader {
                         }
                         writer.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Failed to write profile data: " + filePath + System.lineSeparator() + e);
+                        System.exit(1);
                     }
                     break wait;
                 }
@@ -344,15 +345,17 @@ public class ProfileLoader {
                         data.clear();
                         writer.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Failed to write profile data: " + filePath + System.lineSeparator() + e);
+                        System.exit(1);
                     }
                 } else {
                     break wait;
                 }
             }
             reader.close();
-        } catch (FileNotFoundException readerF) {
-            System.out.println("File not found: " + filePath);
+        } catch (FileNotFoundException f) {
+            System.out.println("File not found: " + filePath + System.lineSeparator() + f);
+            System.exit(1);
         } catch (IOException readerE) {
             readerE.printStackTrace();
         }
@@ -361,7 +364,7 @@ public class ProfileLoader {
         }
         if (name == null || gender == null || goal == null || age == 0 || height == 0 || weight == 0 || kcal == 0) {
             System.out.println("Failed to read profile information from file!");
-            return null;
+            System.exit(1);
         }
         long endTime = System.currentTimeMillis();
         if (loading) {

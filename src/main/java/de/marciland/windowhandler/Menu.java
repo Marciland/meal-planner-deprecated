@@ -6,6 +6,7 @@ import de.marciland.ingredienthandler.Ingredient;
 import de.marciland.ingredienthandler.IngredientLoader;
 import de.marciland.profilehandler.Profile;
 import de.marciland.profilehandler.ProfileLoader;
+import de.marciland.recipehandler.RecipeLoader;
 import de.marciland.utilities.Tools;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -33,7 +34,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Menu {
 
@@ -54,13 +54,14 @@ public class Menu {
     private JLabel profilesInfoAgeLabel, profilesInfoKcalLabel, profilesInfoGoalLabel;
     private JLabel profilesEditHeightLabel, profilesEditWeightLabel;
     private JLabel profilesEditAgeLabel, profilesEditKcalLabel, profilesEditGoalLabel;
-    private JLabel recipesAddNameLabel, recipesAddIngredientsLabel;
+    private JLabel recipesAddNameLabel, recipesAddSimilarLabel, recipesAddIngredientsLabel;
+    private JLabel recipesDescriptionLabel;
     private JLabel ingredientAddLabel, ingredientAddSimilarLabel;
     private JLabel availableIngredientsLabel;
 
     private JTextField profilesEditHeightTextField, profilesEditWeightTextField;
     private JTextField profilesEditAgeTextField, profilesEditKcalTextField, profilesEditGoalTextField;
-    private JTextField recipesAddNameTextField;
+    private JTextField recipesAddNameTextField, recipesDescriptionTextField;
     private JTextField ingredientAddTextField;
 
     private JButton profile1Button, profile2Button;
@@ -71,28 +72,32 @@ public class Menu {
     private JButton profilesEditDialogAcceptButton, profilesEditDialogCancelButton;
     private JButton recipesAddContinueButton, recipesAddCancelButton;
     private JButton recipesAddContinue2Button, recipesAddCancel2Button;
+    private JButton recipesAddYesButton, recipesAddNoButton;
     private JButton recipesAddPlusButton, recipesAddMinusButton;
+    private JButton recipesDescriptionFinishButton, recipesDescriptionCancelButton;
     private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
 
-    private JList<Object> recipesAddIngredientsList;
     private JList<Ingredient> availableIngredientsList;
+    private JList<String> recipesAddExistingList, recipesAddSimilarList, recipesAddIngredientsList;
     private JList<String> ingredientAddList, ingredientAddSimilarList;
 
     private Profile currentProfile;
 
-    private List<String> recipesAddList = new ArrayList<>();
+    private ArrayList<String> recipesAddList = new ArrayList<>();
 
     private JTable planTable, recipesTable;
 
     private Font profilesFont;
     private Font bigButtonFont, smallButtonFont;
-    private Font dialogLabelFont, dialogTextFieldFont, dialogButtonFont, smallDialogButtonFont;
+    private Font dialogTextFont, dialogButtonFont, smallDialogButtonFont;
 
     private Dimension bigButtonSize, smallButtonSize, dialogSize;
 
     /**
-     * returns true if the frame is displayed correctly.
+     * Returns true if the frame is displayed correctly.
+     *
+     * @return true if frame is displayable, enabled, focusable and showing.
      */
     public boolean init() {
         mainFrame = new JFrame(title);
@@ -153,8 +158,7 @@ public class Menu {
         profilesFont = new Font(SANS_SERIF, PLAIN, 66);
         bigButtonFont = new Font(SANS_SERIF, PLAIN, 53);
         smallButtonFont = new Font(SANS_SERIF, PLAIN, 32);
-        dialogLabelFont = new Font(SANS_SERIF, PLAIN, 19);
-        dialogTextFieldFont = new Font(SANS_SERIF, PLAIN, 19);
+        dialogTextFont = new Font(SANS_SERIF, PLAIN, 19);
         dialogButtonFont = new Font(SANS_SERIF, PLAIN, 25);
         smallDialogButtonFont = new Font(SANS_SERIF, PLAIN, 16);
     }
@@ -378,10 +382,11 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 recipesAddButton.setEnabled(false);
                 recipesAddDialog.getContentPane().removeAll();
-                recipesAddList.clear();
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
                 recipesAddDialog.add(recipesAddNameLabel);
+                recipesAddNameTextField.setText("");
                 recipesAddDialog.add(recipesAddNameTextField);
+                recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
+                recipesAddDialog.add(recipesAddExistingList);
                 recipesAddDialog.add(recipesAddContinueButton);
                 recipesAddDialog.add(recipesAddCancelButton);
                 recipesAddDialog.setVisible(true);
@@ -393,7 +398,8 @@ public class Menu {
                 ingredientAddDialog.getContentPane().removeAll();
                 ingredientAddDialog.add(ingredientAddLabel);
                 ingredientAddDialog.add(ingredientAddTextField);
-                ingredientAddList.setListData(Tools.getIngredientNames(IngredientLoader.loadAllIngredients()));
+                ingredientAddList
+                        .setListData(IngredientLoader.getIngredientNames(IngredientLoader.loadAllIngredients()));
                 ingredientAddDialog.add(ingredientAddList);
                 ingredientAddDialog.add(ingredientAddButton);
                 ingredientAddDialog.add(ingredientAddCancelButton);
@@ -501,11 +507,11 @@ public class Menu {
         profilesInfoAgeLabel.setVerticalAlignment(CENTER);
         profilesInfoKcalLabel.setVerticalAlignment(CENTER);
         profilesInfoGoalLabel.setVerticalAlignment(CENTER);
-        profilesInfoHeightLabel.setFont(dialogLabelFont);
-        profilesInfoWeightLabel.setFont(dialogLabelFont);
-        profilesInfoAgeLabel.setFont(dialogLabelFont);
-        profilesInfoKcalLabel.setFont(dialogLabelFont);
-        profilesInfoGoalLabel.setFont(dialogLabelFont);
+        profilesInfoHeightLabel.setFont(dialogTextFont);
+        profilesInfoWeightLabel.setFont(dialogTextFont);
+        profilesInfoAgeLabel.setFont(dialogTextFont);
+        profilesInfoKcalLabel.setFont(dialogTextFont);
+        profilesInfoGoalLabel.setFont(dialogTextFont);
         profilesInfoDialogOKButton.setFont(dialogButtonFont);
         profilesInfoDialogOKButton.setBorderPainted(false);
         /*
@@ -598,16 +604,16 @@ public class Menu {
         profilesEditAgeLabel.setVerticalAlignment(CENTER);
         profilesEditKcalLabel.setVerticalAlignment(CENTER);
         profilesEditGoalLabel.setVerticalAlignment(CENTER);
-        profilesEditHeightLabel.setFont(dialogLabelFont);
-        profilesEditWeightLabel.setFont(dialogLabelFont);
-        profilesEditAgeLabel.setFont(dialogLabelFont);
-        profilesEditKcalLabel.setFont(dialogLabelFont);
-        profilesEditGoalLabel.setFont(dialogLabelFont);
-        profilesEditHeightTextField.setFont(dialogTextFieldFont);
-        profilesEditWeightTextField.setFont(dialogTextFieldFont);
-        profilesEditAgeTextField.setFont(dialogTextFieldFont);
-        profilesEditKcalTextField.setFont(dialogTextFieldFont);
-        profilesEditGoalTextField.setFont(dialogTextFieldFont);
+        profilesEditHeightLabel.setFont(dialogTextFont);
+        profilesEditWeightLabel.setFont(dialogTextFont);
+        profilesEditAgeLabel.setFont(dialogTextFont);
+        profilesEditKcalLabel.setFont(dialogTextFont);
+        profilesEditGoalLabel.setFont(dialogTextFont);
+        profilesEditHeightTextField.setFont(dialogTextFont);
+        profilesEditWeightTextField.setFont(dialogTextFont);
+        profilesEditAgeTextField.setFont(dialogTextFont);
+        profilesEditKcalTextField.setFont(dialogTextFont);
+        profilesEditGoalTextField.setFont(dialogTextFont);
         profilesEditDialogAcceptButton.setFont(dialogButtonFont);
         profilesEditDialogCancelButton.setFont(dialogButtonFont);
         profilesEditDialogAcceptButton.setBorderPainted(false);
@@ -656,33 +662,38 @@ public class Menu {
         recipesAddDialog = new JDialog(mainFrame, true);
         recipesAddNameLabel = new JLabel("Name des Rezepts: ");
         recipesAddNameTextField = new JTextField();
+        recipesAddExistingList = new JList<>();
         recipesAddContinueButton = new JButton("Weiter");
         recipesAddCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
          */
         recipesAddDialog.setSize(dialogSize);
-        recipesAddNameLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
-        recipesAddNameTextField.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 4);
-        recipesAddContinueButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
-        recipesAddCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
+        recipesAddNameLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
+        recipesAddNameTextField.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 6);
+        recipesAddExistingList.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddContinueButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
+        recipesAddCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
         recipesAddDialog.setLocationRelativeTo(mainFrame);
         recipesAddDialog.setLocation((int) recipesAddDialog.getLocation().getX() - recipesAddDialog.getWidth() / 2,
                 (int) recipesAddDialog.getLocation().getY());
         recipesAddNameLabel.setLocation(0, 0);
-        recipesAddNameTextField.setLocation(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 8);
-        recipesAddContinueButton.setLocation(0, recipesAddDialog.getHeight() / 2);
-        recipesAddCancelButton.setLocation(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 2);
+        recipesAddNameTextField.setLocation(0,
+                recipesAddNameLabel.getHeight() + recipesAddNameTextField.getHeight() / 2);
+        recipesAddExistingList.setLocation(recipesAddDialog.getWidth() / 2, 0);
+        recipesAddContinueButton.setLocation(0, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddCancelButton.setLocation(recipesAddContinueButton.getWidth(), recipesAddDialog.getHeight() / 3 * 2);
         /*
          * set decorations of components.
          */
         recipesAddDialog.setLayout(null);
         recipesAddDialog.setUndecorated(true);
-        recipesAddNameLabel.setHorizontalAlignment(RIGHT);
+        recipesAddNameLabel.setHorizontalAlignment(CENTER);
         recipesAddContinueButton.setBorderPainted(false);
         recipesAddCancelButton.setBorderPainted(false);
-        recipesAddNameLabel.setFont(dialogLabelFont);
-        recipesAddNameTextField.setFont(dialogTextFieldFont);
+        recipesAddNameLabel.setFont(dialogTextFont);
+        recipesAddNameTextField.setFont(dialogTextFont);
+        recipesAddExistingList.setFont(dialogTextFont);
         recipesAddContinueButton.setFont(dialogButtonFont);
         recipesAddCancelButton.setFont(dialogButtonFont);
         /*
@@ -691,20 +702,33 @@ public class Menu {
          */
         recipesAddContinueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO check existing
-                boolean recipeExists = false;
+                if (recipesAddNameTextField.getText().isEmpty()) {
+                    Dialog.wrongInputDialog(recipesAddDialog);
+                    return;
+                }
+                boolean recipeExists = Tools.checkNameExists(recipesAddNameTextField.getText(),
+                        recipesAddExistingList.getModel());
                 if (recipeExists) {
                     JOptionPane.showMessageDialog(recipesAddDialog, "Rezept existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
                 }
-                // TODO check similar
-                boolean recipeCouldExist = false;
+                boolean recipeCouldExist = Tools.checkNameCouldExist(recipesAddNameTextField.getText(),
+                        recipesAddExistingList.getModel());
                 if (recipeCouldExist) {
-                    // TODO show error: "meintest du:?"
+                    recipesAddDialog.getContentPane().removeAll();
+                    recipesAddDialog.add(recipesAddSimilarLabel);
+                    recipesAddSimilarList.setListData(Tools.getSimilarNames(recipesAddNameTextField.getText(),
+                            recipesAddExistingList.getModel()));
+                    recipesAddDialog.add(recipesAddSimilarList);
+                    recipesAddDialog.add(recipesAddYesButton);
+                    recipesAddDialog.add(recipesAddNoButton);
+                    recipesAddDialog.repaint();
                 }
                 if (!recipeExists && !recipeCouldExist) {
                     recipesAddDialog.getContentPane().removeAll();
                     recipesAddDialog.add(recipesAddIngredientsLabel);
+                    recipesAddList.clear();
+                    recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                     recipesAddDialog.add(recipesAddIngredientsList);
                     recipesAddDialog.add(recipesAddPlusButton);
                     recipesAddDialog.add(recipesAddMinusButton);
@@ -716,13 +740,18 @@ public class Menu {
         });
         recipesAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
-                recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
 
+    // TODO sort out
     /**
      * loads recipes add sub dialog elements so that they can be accessed later.
      */
@@ -736,6 +765,18 @@ public class Menu {
         recipesAddPlusButton = new JButton("Hinzufügen");
         recipesAddMinusButton = new JButton("Entfernen");
         recipesAddCancel2Button = new JButton("Abbrechen");
+
+        recipesAddSimilarLabel = new JLabel(
+                "<html>Ähnlichkeiten gefunden!<br/>Existiert das neue Rezept schon?</html>");
+        recipesAddSimilarList = new JList<>();
+        recipesAddYesButton = new JButton("Ja");
+        recipesAddNoButton = new JButton("Nein");
+
+        recipesDescriptionLabel = new JLabel("Beschreibung hinzufügen:");
+        // TODO textfield formatting
+        recipesDescriptionTextField = new JTextField();
+        recipesDescriptionFinishButton = new JButton("Fertig");
+        recipesDescriptionCancelButton = new JButton("Abbrechen");
         /*
          * set size and position of components.
          */
@@ -751,6 +792,26 @@ public class Menu {
         recipesAddPlusButton.setLocation(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 4 * 3);
         recipesAddMinusButton.setLocation(recipesAddDialog.getWidth() / 4 * 2, recipesAddDialog.getHeight() / 4 * 3);
         recipesAddCancel2Button.setLocation(recipesAddDialog.getWidth() / 4 * 3, recipesAddDialog.getHeight() / 4 * 3);
+
+        recipesAddSimilarLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3 * 2);
+        recipesAddSimilarList.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight());
+        recipesAddYesButton.setSize(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 3);
+        recipesAddNoButton.setSize(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 3);
+        recipesAddSimilarLabel.setLocation(0, 0);
+        recipesAddSimilarList.setLocation(recipesAddDialog.getWidth() / 2, 0);
+        recipesAddYesButton.setLocation(0, recipesAddSimilarLabel.getHeight());
+        recipesAddNoButton.setLocation(recipesAddYesButton.getWidth(), recipesAddSimilarLabel.getHeight());
+
+        recipesDescriptionLabel.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 5);
+        recipesDescriptionTextField.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 5 * 3);
+        recipesDescriptionFinishButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 5);
+        recipesDescriptionCancelButton.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 5);
+        recipesDescriptionLabel.setLocation(0, 0);
+        recipesDescriptionTextField.setLocation(0, recipesDescriptionLabel.getHeight());
+        recipesDescriptionFinishButton.setLocation(0,
+                recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
+        recipesDescriptionCancelButton.setLocation(recipesDescriptionFinishButton.getWidth(),
+                recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
         /*
          * set decorations of components.
          */
@@ -759,24 +820,42 @@ public class Menu {
         recipesAddPlusButton.setBorderPainted(false);
         recipesAddMinusButton.setBorderPainted(false);
         recipesAddCancel2Button.setBorderPainted(false);
-        recipesAddIngredientsLabel.setFont(dialogLabelFont);
+        recipesAddIngredientsLabel.setFont(dialogTextFont);
         recipesAddContinue2Button.setFont(smallDialogButtonFont);
         recipesAddPlusButton.setFont(smallDialogButtonFont);
         recipesAddMinusButton.setFont(smallDialogButtonFont);
         recipesAddCancel2Button.setFont(smallDialogButtonFont);
+
+        recipesAddYesButton.setBorderPainted(false);
+        recipesAddNoButton.setBorderPainted(false);
+        recipesAddYesButton.setFont(smallDialogButtonFont);
+        recipesAddNoButton.setFont(smallDialogButtonFont);
+        recipesAddSimilarLabel.setHorizontalAlignment(CENTER);
+        recipesAddSimilarLabel.setFont(dialogTextFont);
+        recipesAddSimilarList.setFont(dialogTextFont);
+
+        recipesDescriptionFinishButton.setBorderPainted(false);
+        recipesDescriptionCancelButton.setBorderPainted(false);
+        recipesDescriptionLabel.setHorizontalAlignment(CENTER);
+        recipesDescriptionLabel.setFont(dialogTextFont);
+        recipesDescriptionTextField.setFont(dialogTextFont);
+        recipesDescriptionFinishButton.setFont(smallDialogButtonFont);
+        recipesDescriptionCancelButton.setFont(smallDialogButtonFont);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
          */
         recipesAddContinue2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO recipe description
-                // validate data
-                if (!IngredientLoader.validateIngredientsList(recipesAddIngredientsList.getModel())) {
-                    // throw error
+                if (!RecipeLoader.validateRecipe(recipesAddIngredientsList.getModel())) {
+                    System.out.println("Mindestens 2 Zutaten müssen ausgewählt werden!");
                 } else {
                     recipesAddDialog.getContentPane().removeAll();
-                    // add next dialog elements
+                    recipesAddDialog.add(recipesDescriptionLabel);
+                    recipesAddDialog.add(recipesDescriptionTextField);
+                    recipesAddDialog.add(recipesDescriptionFinishButton);
+                    recipesAddDialog.add(recipesDescriptionCancelButton);
+                    recipesAddDialog.repaint();
                 }
             }
         });
@@ -800,15 +879,79 @@ public class Menu {
                     return;
                 }
                 recipesAddList.remove(recipesAddIngredientsList.getSelectedValue());
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                 recipesAddDialog.repaint();
             }
         });
         recipesAddCancel2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 recipesAddButton.setEnabled(true);
-                recipesAddNameTextField.setText("");
                 recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
+            }
+        });
+
+        recipesAddYesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                recipesAddButton.setEnabled(false);
+                recipesAddDialog.getContentPane().removeAll();
+                recipesAddDialog.add(recipesAddNameLabel);
+                recipesAddNameTextField.setText("");
+                recipesAddDialog.add(recipesAddNameTextField);
+                recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
+                recipesAddDialog.add(recipesAddExistingList);
+                recipesAddDialog.add(recipesAddContinueButton);
+                recipesAddDialog.add(recipesAddCancelButton);
+                recipesAddDialog.repaint();
+            }
+        });
+        recipesAddNoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                recipesAddDialog.getContentPane().removeAll();
+                recipesAddDialog.add(recipesAddIngredientsLabel);
+                recipesAddList.clear();
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
+                recipesAddDialog.add(recipesAddIngredientsList);
+                recipesAddDialog.add(recipesAddPlusButton);
+                recipesAddDialog.add(recipesAddMinusButton);
+                recipesAddDialog.add(recipesAddContinue2Button);
+                recipesAddDialog.add(recipesAddCancel2Button);
+                recipesAddDialog.repaint();
+            }
+        });
+
+        recipesDescriptionFinishButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (RecipeLoader.saveRecipe(recipesAddNameTextField.getText(), recipesAddIngredientsList.getModel(),
+                        recipesDescriptionTextField.getText())) {
+                    JOptionPane.showMessageDialog(mainFrame, "Rezept erfolgreich gespeichert!", "Erfolgreich!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(mainFrame, "Rezept speichern fehlgeschlagen!", "Fehler!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
+                recipesAddButton.setEnabled(true);
+                recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
+            }
+        });
+        recipesDescriptionCancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
+                recipesAddButton.setEnabled(true);
+                recipesAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -855,7 +998,7 @@ public class Menu {
         availableIngredientsLabel.setHorizontalAlignment(CENTER);
         availableIngredientsChooseButton.setBorderPainted(false);
         availableIngredientsCancelButton.setBorderPainted(false);
-        availableIngredientsLabel.setFont(dialogLabelFont);
+        availableIngredientsLabel.setFont(dialogTextFont);
         availableIngredientsChooseButton.setFont(smallDialogButtonFont);
         availableIngredientsCancelButton.setFont(smallDialogButtonFont);
         /*
@@ -870,7 +1013,7 @@ public class Menu {
                     return;
                 }
                 for (String string : recipesAddList) {
-                    if (string.contains(availableIngredientsList.getSelectedValue().getName())) {
+                    if (string.equals(availableIngredientsList.getSelectedValue().getName())) {
                         JOptionPane.showMessageDialog(recipesAddDialog, "Zutat befindet sich schon im Rezept!",
                                 "Fehler!", JOptionPane.WARNING_MESSAGE);
                         return;
@@ -888,8 +1031,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "g " + availableIngredientsList.getSelectedValue().getName());
@@ -906,8 +1048,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "ml " + availableIngredientsList.getSelectedValue().getName());
@@ -924,8 +1065,7 @@ public class Menu {
                                 break getInput;
                             }
                             if (!Tools.checkDouble(input)) {
-                                JOptionPane.showMessageDialog(availableIngredientsDialog, "Ungültige Eingabe!",
-                                        "Fehler!", JOptionPane.ERROR_MESSAGE);
+                                Dialog.wrongInputDialog(availableIngredientsDialog);
                             } else {
                                 recipesAddList
                                         .add(input + "stk. " + availableIngredientsList.getSelectedValue().getName());
@@ -933,7 +1073,7 @@ public class Menu {
                             }
                         }
                 }
-                recipesAddIngredientsList.setListData(recipesAddList.toArray());
+                recipesAddIngredientsList.setListData(Tools.stringListToArray(recipesAddList));
                 recipesAddDialog.repaint();
             }
         });
@@ -984,9 +1124,9 @@ public class Menu {
         ingredientAddButton.setBorderPainted(false);
         ingredientAddCancelButton.setBorderPainted(false);
         ingredientAddLabel.setHorizontalAlignment(CENTER);
-        ingredientAddList.setFont(dialogTextFieldFont);
-        ingredientAddLabel.setFont(dialogLabelFont);
-        ingredientAddTextField.setFont(dialogTextFieldFont);
+        ingredientAddList.setFont(dialogTextFont);
+        ingredientAddLabel.setFont(dialogTextFont);
+        ingredientAddTextField.setFont(dialogTextFont);
         ingredientAddButton.setFont(dialogButtonFont);
         ingredientAddCancelButton.setFont(dialogButtonFont);
         /*
@@ -999,24 +1139,23 @@ public class Menu {
                  * show an error message if there is no input when the button is pressed.
                  */
                 if (ingredientAddTextField.getText().isEmpty() || ingredientAddTextField == null) {
-                    JOptionPane.showMessageDialog(ingredientAddDialog, "Ungültige Eingabe!", "Fehler!",
-                            JOptionPane.WARNING_MESSAGE);
+                    Dialog.wrongInputDialog(ingredientAddDialog);
                     return;
                 }
-                boolean ingredientExists = IngredientLoader.checkIngredientExists(ingredientAddTextField.getText(),
+                boolean ingredientExists = Tools.checkNameExists(ingredientAddTextField.getText(),
                         ingredientAddList.getModel());
                 if (ingredientExists) {
                     JOptionPane.showMessageDialog(ingredientAddDialog, "Zutat existiert bereits!", "Fehler!",
                             JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                boolean ingredientCouldExist = IngredientLoader
-                        .checkIngredientCouldExist(ingredientAddTextField.getText(), ingredientAddList.getModel());
+                boolean ingredientCouldExist = Tools.checkNameCouldExist(ingredientAddTextField.getText(),
+                        ingredientAddList.getModel());
                 if (ingredientCouldExist) {
                     ingredientAddDialog.getContentPane().removeAll();
                     ingredientAddDialog.add(ingredientAddSimilarLabel);
-                    ingredientAddSimilarList.setListData(IngredientLoader
-                            .getSimilarIngredients(ingredientAddTextField.getText(), ingredientAddList.getModel()));
+                    ingredientAddSimilarList.setListData(
+                            Tools.getSimilarNames(ingredientAddTextField.getText(), ingredientAddList.getModel()));
                     ingredientAddDialog.add(ingredientAddSimilarList);
                     ingredientAddDialog.add(ingredientAddYesButton);
                     ingredientAddDialog.add(ingredientAddNoButton);
@@ -1037,14 +1176,25 @@ public class Menu {
                         mainFrame.repaint();
                     } else {
                         IngredientLoader.saveIngredient(ing);
+                        ingredientAddTextField.setText("");
+                        mainFrame.add(recipesButton);
+                        mainFrame.remove(recipesInfoButton);
+                        mainFrame.remove(recipesAddButton);
+                        mainFrame.remove(ingredientsAddButton);
+                        mainFrame.repaint();
                     }
                 }
             }
         });
         ingredientAddCancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                mainFrame.add(recipesButton);
+                mainFrame.remove(recipesInfoButton);
+                mainFrame.remove(recipesAddButton);
+                mainFrame.remove(ingredientsAddButton);
                 ingredientsAddButton.setEnabled(true);
                 ingredientAddDialog.setVisible(false);
+                mainFrame.repaint();
             }
         });
     }
@@ -1076,8 +1226,8 @@ public class Menu {
         /*
          * set decorations of components.
          */
-        ingredientAddSimilarLabel.setFont(dialogLabelFont);
-        ingredientAddSimilarList.setFont(dialogTextFieldFont);
+        ingredientAddSimilarLabel.setFont(dialogTextFont);
+        ingredientAddSimilarList.setFont(dialogTextFont);
         ingredientAddYesButton.setFont(dialogButtonFont);
         ingredientAddNoButton.setFont(dialogButtonFont);
         ingredientAddYesButton.setBorderPainted(false);
@@ -1114,6 +1264,12 @@ public class Menu {
                     mainFrame.repaint();
                 } else {
                     IngredientLoader.saveIngredient(ing);
+                    ingredientAddTextField.setText("");
+                    mainFrame.add(recipesButton);
+                    mainFrame.remove(recipesInfoButton);
+                    mainFrame.remove(recipesAddButton);
+                    mainFrame.remove(ingredientsAddButton);
+                    mainFrame.repaint();
                 }
             }
         });
