@@ -43,6 +43,8 @@ public class Menu {
 
     private JFrame mainFrame;
 
+    private MealPlan mealPlan;
+
     private JDialog profilesInfoDialog, profilesEditDialog;
     private JDialog recipesAddDialog;
     private JDialog ingredientAddDialog;
@@ -237,6 +239,7 @@ public class Menu {
         recipesButton = new JButton("<html> Rezepte<br/>& Zutaten</html>");
         planButton = new JButton("Essensplan");
         profilesButton = new JButton("Profil");
+        mealPlan = new MealPlan();
         /*
          * set size and position of components.
          */
@@ -244,10 +247,12 @@ public class Menu {
         recipesButton.setSize(bigButtonSize);
         planButton.setSize(bigButtonSize);
         profilesButton.setSize(bigButtonSize);
-        shoppingButton.setLocation(mainFrame.getWidth() / 4, 0);
+        mealPlan.setSize(mainFrame.getWidth(), (int) (mainFrame.getHeight() - bigButtonSize.getHeight()));
         recipesButton.setLocation(0, 0);
-        planButton.setLocation(mainFrame.getWidth() / 4 * 2, 0);
-        profilesButton.setLocation(mainFrame.getWidth() / 4 * 3, 0);
+        shoppingButton.setLocation((int) bigButtonSize.getWidth(), 0);
+        planButton.setLocation((int) (bigButtonSize.getWidth() * 2), 0);
+        profilesButton.setLocation((int) (bigButtonSize.getWidth() * 3), 0);
+        mealPlan.setLocation(0, (int) bigButtonSize.getHeight());
         /*
          * set decorations of components.
          */
@@ -255,6 +260,7 @@ public class Menu {
         recipesButton.setFont(bigButtonFont);
         planButton.setFont(bigButtonFont);
         profilesButton.setFont(bigButtonFont);
+        // mealPlan.setFont();
         shoppingButton.setBorderPainted(false);
         recipesButton.setBorderPainted(false);
         planButton.setBorderPainted(false);
@@ -285,9 +291,10 @@ public class Menu {
                 /*
                  * shows the eating plan for the current week
                  */
-                // TODO show meal plan
                 planButton.setEnabled(false);
                 recipesInfoButton.setEnabled(true);
+                // TODO reload plan?
+                mainFrame.add(mealPlan);
                 mainFrame.repaint();
             }
         });
