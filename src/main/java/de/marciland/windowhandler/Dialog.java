@@ -48,7 +48,7 @@ public class Dialog {
         String input = null;
         waiting: while (true) {
             input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
-                    "Wieviel Kcal hat die Zutat auf " + typeString, "Bitte Kcal angeben!",
+                    "Wie viel Kcal hat die Zutat auf " + typeString, "Bitte Kcal angeben!",
                     JOptionPane.QUESTION_MESSAGE);
             if (input == null) {
                 return null;
@@ -62,7 +62,7 @@ public class Dialog {
         }
         waiting: while (true) {
             input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
-                    "Wieviel Fett hat die Zutat auf " + typeString, "Bitte Fett angeben!",
+                    "Wie viel Fett hat die Zutat auf " + typeString, "Bitte Fett angeben!",
                     JOptionPane.QUESTION_MESSAGE);
             if (input == null) {
                 return null;
@@ -76,7 +76,7 @@ public class Dialog {
         }
         waiting: while (true) {
             input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
-                    "Wieviel Kohlenhydrate hat die Zutat auf " + typeString, "Bitte Kohlenhydrate angeben!",
+                    "Wie viel Kohlenhydrate hat die Zutat auf " + typeString, "Bitte Kohlenhydrate angeben!",
                     JOptionPane.QUESTION_MESSAGE);
             if (input == null) {
                 return null;
@@ -90,7 +90,7 @@ public class Dialog {
         }
         waiting: while (true) {
             input = JOptionPane.showInputDialog(mainFrame.getContentPane(),
-                    "Wieviel Eiweiß hat die Zutat auf " + typeString, "Bitte Eiweiß angeben!",
+                    "Wie viel Eiweiß hat die Zutat auf " + typeString, "Bitte Eiweiß angeben!",
                     JOptionPane.QUESTION_MESSAGE);
             if (input == null) {
                 return null;
