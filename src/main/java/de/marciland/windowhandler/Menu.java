@@ -78,6 +78,7 @@ public class Menu {
     private JButton recipesDescriptionFinishButton, recipesDescriptionCancelButton;
     private JButton ingredientAddButton, ingredientAddCancelButton, ingredientAddYesButton, ingredientAddNoButton;
     private JButton availableIngredientsChooseButton, availableIngredientsCancelButton;
+    private JButton planShowButton, planEditButton, planCreateButton;
 
     private JList<Ingredient> availableIngredientsList;
     private JList<String> recipesAddExistingList, recipesAddSimilarList, recipesAddIngredientsList;
@@ -260,7 +261,7 @@ public class Menu {
         recipesButton.setFont(bigButtonFont);
         planButton.setFont(bigButtonFont);
         profilesButton.setFont(bigButtonFont);
-        // mealPlan.setFont();
+        // mealPlan.setFont();//TODO meal plan font?
         shoppingButton.setBorderPainted(false);
         recipesButton.setBorderPainted(false);
         planButton.setBorderPainted(false);
@@ -289,12 +290,12 @@ public class Menu {
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 /*
-                 * shows the eating plan for the current week
+                 * split meal plan section into more options
                  */
-                planButton.setEnabled(false);
-                recipesInfoButton.setEnabled(true);
-                // TODO reload plan?
-                mainFrame.add(mealPlan);
+                mainFrame.remove(planButton);
+                mainFrame.add(planShowButton);
+                mainFrame.add(planEditButton);
+                mainFrame.add(planCreateButton);
                 mainFrame.repaint();
             }
         });
@@ -325,6 +326,9 @@ public class Menu {
         profilesInfoButton = new JButton("Profil anzeigen");
         profilesEditButton = new JButton("Profil bearbeiten");
         profilesChangeButton = new JButton("Profil wechseln");
+        planShowButton = new JButton("Plan anzeigen");
+        planEditButton = new JButton("Plan bearbeiten");// TODO disable edit until created
+        planCreateButton = new JButton("Plan erstellen");
         /*
          * set size and position of components.
          */
@@ -334,12 +338,19 @@ public class Menu {
         profilesInfoButton.setSize(smallButtonSize);
         profilesEditButton.setSize(smallButtonSize);
         profilesChangeButton.setSize(smallButtonSize);
+        planShowButton.setSize(smallButtonSize);
+        planEditButton.setSize(smallButtonSize);
+        planCreateButton.setSize(smallButtonSize);
         recipesInfoButton.setLocation(0, 0);
-        recipesAddButton.setLocation(0, mainFrame.getHeight() / 15);
-        ingredientsAddButton.setLocation(0, mainFrame.getHeight() / 15 * 2);
-        profilesInfoButton.setLocation(mainFrame.getWidth() / 4 * 3, 0);
-        profilesEditButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15);
-        profilesChangeButton.setLocation(mainFrame.getWidth() / 4 * 3, mainFrame.getHeight() / 15 * 2);
+        recipesAddButton.setLocation(0, (int) smallButtonSize.getHeight());
+        ingredientsAddButton.setLocation(0, (int) (smallButtonSize.getHeight() * 2));
+        profilesInfoButton.setLocation((int) (smallButtonSize.getWidth() * 3), 0);
+        profilesEditButton.setLocation((int) (smallButtonSize.getWidth() * 3), (int) smallButtonSize.getHeight());
+        profilesChangeButton.setLocation((int) (smallButtonSize.getWidth() * 3),
+                (int) (smallButtonSize.getHeight() * 2));
+        planShowButton.setLocation((int) (bigButtonSize.getWidth() * 2), 0);
+        planEditButton.setLocation((int) (bigButtonSize.getWidth() * 2), (int) smallButtonSize.getHeight());
+        planCreateButton.setLocation((int) (bigButtonSize.getWidth() * 2), (int) (smallButtonSize.getHeight() * 2));
         /*
          * set decorations of components.
          */
@@ -349,12 +360,18 @@ public class Menu {
         profilesInfoButton.setFont(smallButtonFont);
         profilesEditButton.setFont(smallButtonFont);
         profilesChangeButton.setFont(smallButtonFont);
+        planShowButton.setFont(smallButtonFont);
+        planEditButton.setFont(smallButtonFont);
+        planCreateButton.setFont(smallButtonFont);
         recipesInfoButton.setBorderPainted(false);
         recipesAddButton.setBorderPainted(false);
         ingredientsAddButton.setBorderPainted(false);
         profilesInfoButton.setBorderPainted(false);
         profilesEditButton.setBorderPainted(false);
         profilesChangeButton.setBorderPainted(false);
+        planShowButton.setBorderPainted(false);
+        planEditButton.setBorderPainted(false);
+        planCreateButton.setBorderPainted(false);
         /*
          * add listener to buttons, those decide what actions happen
          * when buttons are pressed.
@@ -365,7 +382,10 @@ public class Menu {
                  * shows all recipes
                  */
                 recipesInfoButton.setEnabled(false);
-                planButton.setEnabled(true);
+                planShowButton.setEnabled(true);
+                // TODO recipes showing
+                mainFrame.remove(mealPlan);
+                // mainFrame.add(recipePlan);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
                 mainFrame.remove(ingredientsAddButton);
@@ -431,13 +451,47 @@ public class Menu {
                 /*
                  * logs out of current profile and returns to login screen
                  */
-                planButton.setEnabled(true);
+                planShowButton.setEnabled(true);
                 recipesInfoButton.setEnabled(true);
                 mainFrame.getContentPane().removeAll();
                 currentProfile = null;
                 profile1Button.setText(ProfileLoader.loadProfileButton("profile1"));
                 profile2Button.setText(ProfileLoader.loadProfileButton("profile2"));
                 create();
+            }
+        });
+        planShowButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                planShowButton.setEnabled(false);
+                recipesInfoButton.setEnabled(true);
+                // TODO reload plan?
+                // mainFrame.remove(recipePlan);
+                mainFrame.add(mealPlan);
+                mainFrame.add(planButton);
+                mainFrame.remove(planShowButton);
+                mainFrame.remove(planEditButton);
+                mainFrame.remove(planCreateButton);
+                mainFrame.repaint();
+            }
+        });
+        planEditButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO edit meal plan
+                mainFrame.add(planButton);
+                mainFrame.remove(planShowButton);
+                mainFrame.remove(planEditButton);
+                mainFrame.remove(planCreateButton);
+                mainFrame.repaint();
+            }
+        });
+        planCreateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO create meal plan
+                mainFrame.add(planButton);
+                mainFrame.remove(planShowButton);
+                mainFrame.remove(planEditButton);
+                mainFrame.remove(planCreateButton);
+                mainFrame.repaint();
             }
         });
     }
