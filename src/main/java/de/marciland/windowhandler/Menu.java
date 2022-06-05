@@ -926,8 +926,14 @@ public class Menu {
 
         recipesDescriptionFinishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RecipeLoader.saveRecipe(recipesAddNameTextField.getText(), recipesAddIngredientsList.getModel(),
-                        recipesDescriptionTextField.getText());
+                if (RecipeLoader.saveRecipe(recipesAddNameTextField.getText(), recipesAddIngredientsList.getModel(),
+                        recipesDescriptionTextField.getText())) {
+                    JOptionPane.showMessageDialog(mainFrame, "Rezept erfolgreich gespeichert!", "Erfolgreich!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(mainFrame, "Rezept speichern fehlgeschlagen!", "Fehler!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
                 mainFrame.add(recipesButton);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
