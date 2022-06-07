@@ -13,7 +13,7 @@ public class MealPlan extends JPanel {
     /**
      * Lays out the meal plan based on given plan.
      *
-     * @param plan plan that should be layed out on MealPlan.
+     * @param plan plan that should be laid out on MealPlan.
      *             Load this from file or get it from Dialog user input.
      */
     public void layoutPlan(JLabel[][] plan) {
@@ -42,7 +42,7 @@ public class MealPlan extends JPanel {
      * Sets the text of JLabel at given position to given string.
      * Column and row should not be 0 and should be smaller than columns and rows.
      * Text should not be null.
-     * Can only be called if plan was layed out before!
+     * Can only be called if plan was laid out before!
      *
      * @param text   text that should be displayed.
      * @param column column in which the label is.
@@ -50,7 +50,7 @@ public class MealPlan extends JPanel {
      */
     public void setText(String text, int column, int row) {
         if (plan == null) {
-            System.out.println("Plan is not layed out yet!");
+            System.out.println("Plan is not laid out yet!");
             System.exit(1);
         }
         if (text == null) {
