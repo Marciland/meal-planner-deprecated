@@ -2,6 +2,7 @@ package de.marciland.windowhandler;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import de.marciland.ingredienthandler.Ingredient;
@@ -135,6 +136,12 @@ public class Dialog {
     public static void wrongInputDialog(JDialog dialog) {
         JOptionPane.showMessageDialog(dialog, "Ungültige Eingabe!", "Fehler!",
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    // TODO doc
+    public static JLabel[][] createMealPlan() {
+        // TODO get user input, never return null
+        return null;
     }
 
 }

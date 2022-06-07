@@ -261,7 +261,6 @@ public class Menu {
         recipesButton.setFont(bigButtonFont);
         planButton.setFont(bigButtonFont);
         profilesButton.setFont(bigButtonFont);
-        // mealPlan.setFont();//TODO meal plan font?
         shoppingButton.setBorderPainted(false);
         recipesButton.setBorderPainted(false);
         planButton.setBorderPainted(false);
@@ -464,7 +463,11 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 planShowButton.setEnabled(false);
                 recipesInfoButton.setEnabled(true);
-                // TODO reload plan?
+                JLabel[][] plan = Tools.loadMealPlan();
+                if (plan == null) {
+                    plan = Dialog.createMealPlan();
+                }
+                mealPlan.layoutPlan(plan);
                 // mainFrame.remove(recipePlan);
                 mainFrame.add(mealPlan);
                 mainFrame.add(planButton);
