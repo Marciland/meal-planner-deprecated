@@ -1,4 +1,4 @@
-package de.marciland.windowhandler;
+package de.marciland.planhandler;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

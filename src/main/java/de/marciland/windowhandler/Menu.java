@@ -4,6 +4,8 @@ import static de.marciland.utilities.Constants.imagePath;
 
 import de.marciland.ingredienthandler.Ingredient;
 import de.marciland.ingredienthandler.IngredientLoader;
+import de.marciland.planhandler.MealPlan;
+import de.marciland.planhandler.MealPlanLoader;
 import de.marciland.profilehandler.Profile;
 import de.marciland.profilehandler.ProfileLoader;
 import de.marciland.recipehandler.RecipeLoader;
@@ -463,7 +465,7 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 planShowButton.setEnabled(false);
                 recipesInfoButton.setEnabled(true);
-                JLabel[][] plan = Tools.loadMealPlan();
+                JLabel[][] plan = MealPlanLoader.loadMealPlan();
                 if (plan == null) {
                     plan = Dialog.createMealPlan();
                 }

@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.ListModel;
 
 public class Tools {
@@ -166,12 +165,6 @@ public class Tools {
             System.exit(1);
         }
         return similarNamesArray;
-    }
-
-    // TODO doc
-    public static JLabel[][] loadMealPlan() {
-        // TODO read meal plan from file, if no file exists return null
-        return null;
     }
 
 }
