@@ -8,3 +8,4 @@ src/main/resources/recipes/*
 !src/main/resources/recipes/.gitkeep
 src/main/resources/helper/*
 !src/main/resources/helper/.gitkeep
+src/main/resources/plan.mp
