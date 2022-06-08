@@ -1,12 +1,12 @@
 package de.marciland.planhandler;
 
+import static de.marciland.utilities.Constants.planColumns;
+import static de.marciland.utilities.Constants.planRows;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MealPlan extends JPanel {
-
-    private final int columns = 8;
-    private final int rows = 7;
 
     private JLabel[][] plan;
 
@@ -23,7 +23,7 @@ public class MealPlan extends JPanel {
         }
         setLayout(null);
         this.plan = plan;
-        if (plan.length != columns || plan[0].length != rows) {
+        if (plan.length != planColumns || plan[0].length != planRows) {
             System.out.println("Invalid meal plan was loaded!" +
                     System.lineSeparator() + "expected: 8 x 7" +
                     System.lineSeparator() + "actual: " + plan.length + " x " + plan[0].length);
@@ -57,14 +57,14 @@ public class MealPlan extends JPanel {
             System.out.println("Invalid text.");
             System.exit(1);
         }
-        if (column >= columns || column == 0) {
+        if (column >= planColumns || column == 0) {
             System.out.println("Invalid column: " + column +
-                    System.lineSeparator() + "Should be smaller than: " + columns + " and not 0");
+                    System.lineSeparator() + "Should be smaller than: " + planColumns + " and not 0");
             System.exit(1);
         }
-        if (row >= rows || row == 0) {
+        if (row >= planRows || row == 0) {
             System.out.println("Invalid row: " + row +
-                    System.lineSeparator() + "Should be smaller than: " + rows + " and not 0");
+                    System.lineSeparator() + "Should be smaller than: " + planRows + " and not 0");
             System.exit(1);
         }
         this.plan[column][row].setText(text);
