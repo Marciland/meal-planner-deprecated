@@ -1,19 +1,19 @@
 package de.marciland.windowhandler;
 
 import static de.marciland.utilities.Constants.imagePath;
-
-import de.marciland.ingredienthandler.Ingredient;
-import de.marciland.ingredienthandler.IngredientLoader;
-import de.marciland.planhandler.MealPlan;
-import de.marciland.planhandler.MealPlanLoader;
-import de.marciland.profilehandler.Profile;
-import de.marciland.profilehandler.ProfileLoader;
-import de.marciland.recipehandler.RecipeLoader;
-import de.marciland.utilities.Tools;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static java.awt.Font.PLAIN;
+import static java.awt.Font.SANS_SERIF;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.RIGHT;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+
+import java.awt.Dimension;
+import java.awt.DisplayMode;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,17 +24,14 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import static java.awt.Font.PLAIN;
-import static java.awt.Font.SANS_SERIF;
-
-import java.awt.GraphicsEnvironment;
-import java.awt.DisplayMode;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Dimension;
-
-import java.util.ArrayList;
+import de.marciland.ingredienthandler.Ingredient;
+import de.marciland.ingredienthandler.IngredientLoader;
+import de.marciland.planhandler.MealPlan;
+import de.marciland.planhandler.MealPlanLoader;
+import de.marciland.profilehandler.Profile;
+import de.marciland.profilehandler.ProfileLoader;
+import de.marciland.recipehandler.RecipeLoader;
+import de.marciland.utilities.Tools;
 
 public class Menu {
 

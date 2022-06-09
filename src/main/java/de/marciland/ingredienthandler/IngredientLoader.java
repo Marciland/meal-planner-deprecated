@@ -7,14 +7,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.charset.Charset;
-
 import java.util.ArrayList;
 
 /**
  * The loader class for ingredients is used to
  * save and load ingredients to files.
+ *
  * @see Ingredient
  */
 public class IngredientLoader {

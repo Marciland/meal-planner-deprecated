@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import de.marciland.ingredienthandler.Ingredient;
+import de.marciland.planhandler.MealPlan;
+import de.marciland.planhandler.MealPlanLoader;
 import de.marciland.utilities.Tools;
 
 /**

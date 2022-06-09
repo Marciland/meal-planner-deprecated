@@ -3,20 +3,40 @@ package de.marciland.planhandler;
 import static de.marciland.utilities.Constants.planColumns;
 import static de.marciland.utilities.Constants.planRows;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-import java.awt.Color;
-
 /**
  * Loader class for the meal plan. Used to load from and save to files.
+ *
  * @see MealPlan
  */
 public class MealPlanLoader {
 
-    // TODO doc
+    /**
+     * Tries to load a saved plan. If no plan exists null is returned.
+     *
+     * @return the plan found in resource file.
+     *         If no plan can be found, returns null.
+     * @see MealPlan
+     */
     public static JLabel[][] loadMealPlan() {
         // if no file exists return null
+        JLabel[][] labels = prepareEmptyPlan();
+        // TODO read meal plan from file
+        return labels;
+    }
+
+    /**
+     * Prepares an empty meal plan.
+     * Creates new labels for each cell and sets text for fixed labels.
+     *
+     * @return an empty plan.
+     * @see MealPlan
+     */
+    public static JLabel[][] prepareEmptyPlan() {
         JLabel[][] labels = new JLabel[planColumns][planRows];
         for (int i = 0; i < labels.length; i++) {
             for (int j = 0; j < labels[0].length; j++) {
@@ -25,14 +45,6 @@ public class MealPlanLoader {
                 ;
             }
         }
-        labels = prepareEmptyPlan(labels);
-        // TODO read meal plan from file
-        return labels;
-    }
-
-    // TODO doc
-    private static JLabel[][] prepareEmptyPlan(JLabel[][] labels) {
-        // TODO prep empty plan
         labels[0][1].setText("Rezept: ");
         labels[0][2].setText("Zutaten: ");
         labels[0][3].setText("Kcal: ");

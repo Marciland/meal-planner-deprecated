@@ -2,20 +2,18 @@ package de.marciland.recipehandler;
 
 import static de.marciland.utilities.Constants.recipePath;
 
-import de.marciland.ingredienthandler.Ingredient;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.charset.Charset;
-
 import java.util.ArrayList;
 
 import javax.swing.ListModel;
+
+import de.marciland.ingredienthandler.Ingredient;
 
 public class RecipeLoader {
 

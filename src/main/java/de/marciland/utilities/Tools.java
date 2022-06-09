@@ -2,7 +2,6 @@ package de.marciland.utilities;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-
 import java.util.ArrayList;
 
 import javax.swing.ListModel;
