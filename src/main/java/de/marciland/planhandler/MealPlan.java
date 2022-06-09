@@ -43,7 +43,7 @@ public class MealPlan extends JPanel {
                 plan[i][j].setSize(getWidth() / 8, getHeight() / 7);
                 plan[i][j].setLocation(i * plan[i][j].getWidth(), j * plan[i][j].getHeight());
                 add(plan[i][j]);
-                // TODO labels not fitting!
+                // TODO labels not fitting! this is due to frame size containing the decorations
             }
         }
     }
@@ -79,7 +79,7 @@ public class MealPlan extends JPanel {
             System.exit(1);
         }
         this.plan[column][row].setText(text);
-        repaint(); // TODO verify if repaint on mainframe ist still needed!!
+        repaint();
     }
 
 }
