@@ -35,7 +35,10 @@ public class MealPlanLoader {
      */
     public static JLabel[][] loadMealPlan() {
         long startTime = System.currentTimeMillis();
-        // TODO if no file exists return null
+        File file = new File(planFile);
+        if (!file.exists() || file.isDirectory()) {
+            return null;
+        }
         JLabel[][] labels = prepareEmptyPlan();
         Recipe[] recipes = new Recipe[7];
         BufferedReader reader;
