@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.marciland"},{"l":"de.marciland.ingredienthandler"},{"l":"de.marciland.planhandler"},{"l":"de.marciland.profilehandler"},{"l":"de.marciland.recipehandler"},{"l":"de.marciland.utilities"},{"l":"de.marciland.windowhandler"}];updateSearchResults();
