@@ -33,7 +33,7 @@ public class MealPlanLoader {
      * @see MealPlan
      */
     public static JLabel[][] loadMealPlan() {
-        // if no file exists return null
+        // TODO if no file exists return null
         JLabel[][] labels = prepareEmptyPlan();
         Recipe[] recipes = new Recipe[7];
         BufferedReader reader;
@@ -85,8 +85,28 @@ public class MealPlanLoader {
             System.out.println("Reading meal plan from file failed! Not all recipes have been saved!");
             System.exit(1);
         }
-        // TODO set values from recipes into meal plan labels
+        labels = writeRecipesToPlan(recipes, labels);
         return labels;
+    }
+
+    // TODO doc
+    public static JLabel[][] writeRecipesToPlan(Recipe[] recipes, JLabel[][] labels) {
+        if (Tools.arrayContainsNull(recipes) || recipes.length != 7) {
+            System.out.println("Error in recipes!");
+            System.exit(1);
+        }
+        if (labels.length != 8 && labels[0].length != 7) {
+            System.out.println("Plan has the wrong size: " + labels.length + " " + labels[0].length);
+            System.exit(1);
+        }
+        for (int i = 0; i < labels.length - 1; i++) {
+            if (Tools.arrayContainsNull(labels[i])) {
+                System.out.println("Plan has null labels!");
+                System.exit(1);
+            }
+        }
+        // TODO set values from recipes into meal plan labels
+        return null;
     }
 
     /**
