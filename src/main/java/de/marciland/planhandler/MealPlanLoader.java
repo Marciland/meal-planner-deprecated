@@ -171,7 +171,6 @@ public class MealPlanLoader {
                 ;
             }
         }
-        plan[0][0].setText("-Alle Nährwerte pro 100g des Rezepts!-");
         plan[0][1].setText("Rezept: ");
         plan[0][2].setText("Zutaten: ");
         plan[0][3].setText("Kcal: ");
