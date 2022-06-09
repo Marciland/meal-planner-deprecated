@@ -29,6 +29,10 @@ public class Constants {
      */
     public static final String helperPath = resourcePath + "helper/";
     /**
+     * points to the location of the meal plan file.
+     */
+    public static final String planFile = resourcePath + "plan.mp";
+    /**
      * amount of columns for the meal plan.
      */
     public static final int planColumns = 8;
