@@ -62,7 +62,7 @@ public class Tools {
      *
      * @param string string to encode using utf-8
      * @return utf-8 encoded string
-     * @see StandardCharsets.UTF_8
+     * @see StandardCharsets
      */
     public static String encode(String string) {
         ByteBuffer buffer = StandardCharsets.UTF_8.encode(string);
@@ -96,7 +96,6 @@ public class Tools {
      * @param name name of the ingredient that should be checked.
      * @param list list in which the name is searched.
      * @return true if name already exists in the list.
-     * @see String.equals
      */
     public static boolean checkNameExists(String name, ListModel<String> list) {
         /*
@@ -126,7 +125,6 @@ public class Tools {
      * @param name name that should be checked.
      * @param list list in which the name is searched.
      * @return true if name could exist based on given list.
-     * @see String.contains
      */
     public static boolean checkNameCouldExist(String name, ListModel<String> list) {
         if (checkNameExists(name, list)) {

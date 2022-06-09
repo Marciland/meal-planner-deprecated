@@ -6,6 +6,10 @@ import static de.marciland.utilities.Constants.planRows;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Mealplan extends jpanel and is added to the mainframe.
+ * The plan is created out of labels and is ordered as a table.
+ */
 public class MealPlan extends JPanel {
 
     private JLabel[][] plan;

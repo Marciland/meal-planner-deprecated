@@ -15,6 +15,7 @@ import java.util.ArrayList;
 /**
  * The loader class for ingredients is used to
  * save and load ingredients to files.
+ * @see Ingredient
  */
 public class IngredientLoader {
 

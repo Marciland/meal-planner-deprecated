@@ -1,5 +1,7 @@
 package de.marciland.recipehandler;
 
+import de.marciland.ingredienthandler.Ingredient;
+
 import java.util.ArrayList;
 
 public class Recipe {

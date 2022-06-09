@@ -2,6 +2,8 @@ package de.marciland.recipehandler;
 
 import static de.marciland.utilities.Constants.recipePath;
 
+import de.marciland.ingredienthandler.Ingredient;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +24,6 @@ public class RecipeLoader {
      *
      * @param recipes the recipes which names should be returned.
      * @return the names of the recipes as string array.
-     * @see Recipe.getName
      */
     public static String[] getRecipeNames(Recipe[] recipes) {
         if (recipes.length == 0) {

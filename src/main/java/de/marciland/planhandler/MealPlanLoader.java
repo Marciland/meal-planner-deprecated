@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 
+/**
+ * Loader class for the meal plan. Used to load from and save to files.
+ * @see MealPlan
+ */
 public class MealPlanLoader {
 
     // TODO doc
