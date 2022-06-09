@@ -33,6 +33,11 @@ import de.marciland.profilehandler.ProfileLoader;
 import de.marciland.recipehandler.RecipeLoader;
 import de.marciland.utilities.Tools;
 
+/**
+ * Prepares a window based on JFrame, loads all elements and handles inputs.
+ *
+ * @see JFrame
+ */
 public class Menu {
 
     private final double scale = 0.7;

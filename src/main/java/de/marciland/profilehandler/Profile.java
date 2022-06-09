@@ -1,5 +1,9 @@
 package de.marciland.profilehandler;
 
+/**
+ * Profiles are used to store data about the user.
+ * This data can be used to calculate daily needs for nutrition.
+ */
 public class Profile {
 
     // profile information

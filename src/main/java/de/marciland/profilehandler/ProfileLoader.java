@@ -17,6 +17,11 @@ import javax.swing.JOptionPane;
 import de.marciland.utilities.Tools;
 import de.marciland.windowhandler.Dialog;
 
+/**
+ * Loader class for profiles. Saves and reads profiles from files.
+ *
+ * @see Profile
+ */
 public class ProfileLoader {
 
     /**

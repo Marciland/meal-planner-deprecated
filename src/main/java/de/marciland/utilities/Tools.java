@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import javax.swing.ListModel;
 
+/**
+ * Contains all functions that can not be sorted into other classes.
+ * Mainly contains functions to verify, compare and get information.
+ */
 public class Tools {
 
     /**

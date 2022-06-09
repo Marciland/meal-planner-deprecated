@@ -15,6 +15,12 @@ import javax.swing.ListModel;
 
 import de.marciland.ingredienthandler.Ingredient;
 
+/**
+ * Loader class for recipes. Saves and reads recipes from resource files.
+ * Also used to validate if a recipe is created correctly.
+ *
+ * @see Recipe
+ */
 public class RecipeLoader {
 
     /**

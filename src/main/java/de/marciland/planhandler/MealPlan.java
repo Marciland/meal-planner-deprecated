@@ -12,6 +12,10 @@ import javax.swing.JPanel;
  */
 public class MealPlan extends JPanel {
 
+    /**
+     * A meal plan is saved in an array of jlabel arrays.
+     * This is used to create a table-like structure.
+     */
     private JLabel[][] plan;
 
     /**

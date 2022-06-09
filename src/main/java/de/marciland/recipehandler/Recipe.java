@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import de.marciland.ingredienthandler.Ingredient;
 
+/**
+ * Recipes are used to create meal plans.
+ * Each recipe contains multiple ingredients.
+ * Those can be used to calculate the average nutrition information for a recipe
+ *
+ * @see Ingredient
+ */
 public class Recipe {
 
     // TODO cooking duration, in desc?
