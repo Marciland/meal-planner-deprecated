@@ -26,6 +26,7 @@ public class ProfileLoader {
      *
      * @param profile name of the profile file to read/create.
      * @return name of the profile if there is none return profile.
+     * @see Profile
      */
     public static String loadProfileButton(String profile) {
         String name = null;
@@ -66,6 +67,7 @@ public class ProfileLoader {
      * @param profile   name of the profile to load/create.
      * @param mainFrame frame on which the input dialogs are created.
      * @return profile entity containing all data from the file.
+     * @see Profile
      */
     public static Profile loadProfile(String profile, JFrame mainFrame) {
         long startTime = System.currentTimeMillis();

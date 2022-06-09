@@ -22,6 +22,7 @@ public class RecipeLoader {
      *
      * @param recipes the recipes which names should be returned.
      * @return the names of the recipes as string array.
+     * @see Recipe.getName
      */
     public static String[] getRecipeNames(Recipe[] recipes) {
         if (recipes.length == 0) {
@@ -35,9 +36,10 @@ public class RecipeLoader {
     }
 
     /**
-     * Load all recipes from files into an array.
+     * Load all recipes from the resource directory into an array.
      *
      * @return an array of all recipes found in resource folder.
+     * @see Recipe
      */
     public static Recipe[] loadAllRecipes() {
         /*
@@ -80,9 +82,12 @@ public class RecipeLoader {
     /**
      * Reads all information from given file
      * and stores the information into a recipe entity.
+     * This is mainly used for loadAllRecipes().
      *
-     * @param file file to be read.
+     * @param file file to be read from.
+     *             The file needs to be existing and formatted.
      * @return a recipe entity read from the given file.
+     * @see Recipe
      */
     public static Recipe loadRecipe(String file) {
         String name = null;
@@ -152,8 +157,11 @@ public class RecipeLoader {
      * - at least 2 ingredients
      * - every ingredient has an amount specified.
      *
-     * @param model list to be checked. should contain Strings.
+     * @param model list to be checked.
+     *              Should contain amount and name of ingredient.
      * @return true if list can be used for a recipe.
+     * @see Recipe
+     * @see Ingredient
      */
     public static boolean validateRecipe(ListModel<String> model) {
         if (model.getSize() < 2) {
@@ -176,6 +184,8 @@ public class RecipeLoader {
      * @param ingredients list of ingredients to be used in the recipe.
      * @param description the description of the recipe.
      * @return returns true if saving was successful.
+     * @see Recipe
+     * @see Ingredient
      */
     public static boolean saveRecipe(String name, ListModel<String> ingredients, String description) {
         if (name == null || name.isEmpty()) {

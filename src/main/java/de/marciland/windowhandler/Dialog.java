@@ -16,6 +16,7 @@ public class Dialog {
      * @param name      name of the ingredient that should be created.
      * @param mainFrame frame on which the dialog should be based upon.
      * @return ingredient entity with given input.
+     * @see Ingredient
      */
     public static Ingredient getIngredientInformation(String name, JFrame mainFrame) {
         int type = 0;
@@ -140,7 +141,7 @@ public class Dialog {
 
     // TODO doc
     public static JLabel[][] createMealPlan() {
-        // TODO get user input, never return null
+        // TODO get user input, return null if canceled
         return null;
     }
 

@@ -18,11 +18,13 @@ public class IngredientLoader {
      * Writes the given ingredient to a file.
      *
      * @param ing ingredient to be saved in a file.
+     * @return true if saving was successful.
+     * @see Ingredient
      */
-    public static void saveIngredient(Ingredient ing) {
+    public static boolean saveIngredient(Ingredient ing) {
         if (ing == null) {
             System.out.println("Can't save empty ingredient. Ignore this message if creation process was canceled.");
-            return;
+            return false;
         }
         ArrayList<String> data = new ArrayList<>();
         data.add("Name = " + ing.getName());
@@ -41,15 +43,17 @@ public class IngredientLoader {
             writer.close();
         } catch (IOException e) {
             System.out.println("Failed to save ingredient: " + ing.getName() + System.lineSeparator() + e);
-            System.exit(1);
+            return false;
         }
+        return true;
     }
 
     /**
      * Reads all ingredients found in resource/ingredients
      * and returns an array of ingredients.
      *
-     * @return every ingredient found in an array.
+     * @return every ingredient found in resource directory.
+     * @see Ingredient
      */
     public static Ingredient[] loadAllIngredients() {
         /*
@@ -95,6 +99,7 @@ public class IngredientLoader {
      *
      * @param file filename of the ingredient to read from.
      * @return an ingredient entity containing all information found in the file.
+     * @see Ingredient
      */
     private static Ingredient loadIngredient(String file) {
         String name = null;
@@ -155,6 +160,7 @@ public class IngredientLoader {
      *
      * @param ingredients an array of ingredients which should be read.
      * @return an array of strings containing the names of the ingredients.
+     * @see Ingredient
      */
     public static String[] getIngredientNames(Ingredient[] ingredients) {
         ArrayList<String> names = new ArrayList<>();

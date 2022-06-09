@@ -10,6 +10,13 @@ public class Recipe {
     // TODO tooltip description
     private String description = "";
 
+    /**
+     * Every recipe will be saved in a file when created.
+     *
+     * @param name        name of the recipe. This should be unique.
+     * @param ingredients list of ingredients that are contained in this recipe.
+     * @param description a description on how to cook/bake this recipe.
+     */
     public Recipe(String name, ArrayList<String> ingredients, String description) {
         this.name = name;
         this.ingredients = ingredients;
@@ -30,17 +37,33 @@ public class Recipe {
         return recipe;
     }
 
-    /*
-     * getters
+    /**
+     * Return the name of this recipe. This should be unique.
+     *
+     * @return name of the recipe.
+     * @see Recipe
      */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Return the description of this recipe. Should be already formatted.
+     *
+     * @return description of the recipe.
+     * @see Recipe
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Return the list of ingredients needed for this recipe.
+     *
+     * @return list of ingredients for creating the recipe.
+     * @see Recipe
+     * @see Ingredient
+     */
     public ArrayList<String> getIngredients() {
         return this.ingredients;
     }

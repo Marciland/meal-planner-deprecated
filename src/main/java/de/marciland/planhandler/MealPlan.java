@@ -15,6 +15,7 @@ public class MealPlan extends JPanel {
      *
      * @param plan plan that should be laid out on MealPlan.
      *             Load this from file or get it from Dialog user input.
+     * @see MealPlanLoader
      */
     public void layoutPlan(JLabel[][] plan) {
         if (plan == null) {
@@ -48,6 +49,7 @@ public class MealPlan extends JPanel {
      * @param text   text that should be displayed.
      * @param column column in which the label is.
      * @param row    row in which the label is.
+     * @see MealPlanLoader
      */
     public void setText(String text, int column, int row) {
         if (plan == null) {

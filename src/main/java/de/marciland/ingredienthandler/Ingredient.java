@@ -3,17 +3,11 @@ package de.marciland.ingredienthandler;
 public class Ingredient {
 
     private String name = "";
-    /*
-     * type:
-     * 0 = undefined
-     * 1 = solid, should be in grams
-     * 2 = liquid, should be in ml
-     * 3 = countable, should be in amount by pieces
-     */
+
+    // type: 0 = undefined / 1 = gram / 2 = ml / 3 = pieces
     private int type = 0;
-    /*
-     * nutrition information for 100g/100ml/1piece of ingredient.
-     */
+
+    // nutrition information for 100g/100ml/1piece of ingredient.
     private float kcal = 0;
     private float fat = 0;
     private float carbs = 0;
@@ -44,6 +38,9 @@ public class Ingredient {
 
     /**
      * Override method to define how ingredients should be visualized in the app.
+     *
+     * @return ingredient information formatted.
+     * @see Ingredient
      */
     @Override
     public String toString() {

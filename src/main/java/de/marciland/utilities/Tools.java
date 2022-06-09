@@ -14,6 +14,7 @@ public class Tools {
      *
      * @param input String that will be checked.
      * @return true if input is a float.
+     * @see Float
      */
     public static boolean checkFloat(String input) {
         try {
@@ -29,6 +30,7 @@ public class Tools {
      *
      * @param input String that will be checked.
      * @return true if input is an int.
+     * @see Integer
      */
     public static boolean checkInt(String input) {
         try {
@@ -44,6 +46,7 @@ public class Tools {
      *
      * @param input String that will be checked.
      * @return true if input is a double.
+     * @see Double
      */
     public static boolean checkDouble(String input) {
         try {
@@ -58,8 +61,8 @@ public class Tools {
      * https://www.baeldung.com/java-string-encode-utf-8
      *
      * @param string string to encode using utf-8
-     *
      * @return utf-8 encoded string
+     * @see StandardCharsets.UTF_8
      */
     public static String encode(String string) {
         ByteBuffer buffer = StandardCharsets.UTF_8.encode(string);
@@ -93,6 +96,7 @@ public class Tools {
      * @param name name of the ingredient that should be checked.
      * @param list list in which the name is searched.
      * @return true if name already exists in the list.
+     * @see String.equals
      */
     public static boolean checkNameExists(String name, ListModel<String> list) {
         /*
@@ -122,6 +126,7 @@ public class Tools {
      * @param name name that should be checked.
      * @param list list in which the name is searched.
      * @return true if name could exist based on given list.
+     * @see String.contains
      */
     public static boolean checkNameCouldExist(String name, ListModel<String> list) {
         if (checkNameExists(name, list)) {
@@ -144,7 +149,6 @@ public class Tools {
      *
      * @param name name that should match.
      * @param list list that is looked through for a match.
-     *
      * @return an array of strings based on matches.
      */
     public static String[] getSimilarNames(String name, ListModel<String> list) {

@@ -100,6 +100,7 @@ public class Menu {
      * Returns true if the frame is displayed correctly.
      *
      * @return true if frame is displayable, enabled, focusable and showing.
+     * @see JFrame
      */
     public boolean init() {
         mainFrame = new JFrame(title);
@@ -121,7 +122,7 @@ public class Menu {
     }
 
     /**
-     * loads all elements so that they can be accessed later.
+     * Loads all elements so that they can be accessed later.
      */
     public void loadAllElements() {
         long startTime = System.currentTimeMillis();
@@ -135,12 +136,10 @@ public class Menu {
     }
 
     /**
-     * creates login screen
+     * Creates login screen.
      */
     public void create() {
-        /*
-         * add components to frame and repaint to make them visible.
-         */
+        // add components to frame and repaint to make them visible.
         mainFrame.add(profileLabel);
         mainFrame.add(profile1Button);
         mainFrame.add(profile2Button);
@@ -148,12 +147,11 @@ public class Menu {
     }
 
     /**
-     * loads utility elements so that they can be accessed.
+     * Loads utility elements so that they can be accessed.
+     * Utility elements can be dimension, font etc.
      */
     private void loadUtilities() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         bigButtonSize = new Dimension(mainFrame.getWidth() / 4, mainFrame.getHeight() / 5);
         dialogSize = new Dimension(mainFrame.getWidth() / 3, mainFrame.getHeight() / 4);
         smallButtonSize = new Dimension(mainFrame.getWidth() / 4, mainFrame.getHeight() / 15);
@@ -166,42 +164,32 @@ public class Menu {
     }
 
     /**
-     * loads login elements so that they can be accessed later.
+     * Loads login elements so that they can be accessed later.
      */
     private void loadLoginElements() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         profileLabel = new JLabel("Wähle bitte ein Profil aus:");
         profile1Button = new JButton(ProfileLoader.loadProfileButton("profile1"));
         profile2Button = new JButton(ProfileLoader.loadProfileButton("profile2"));
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         profileLabel.setSize(mainFrame.getWidth() / 5 * 3, mainFrame.getHeight() / 5);
         profile1Button.setSize(mainFrame.getWidth() / 5, mainFrame.getHeight() / 5);
         profile2Button.setSize(mainFrame.getWidth() / 5, mainFrame.getHeight() / 5);
         profileLabel.setLocation(mainFrame.getWidth() / 5, mainFrame.getHeight() / 10);
         profile1Button.setLocation(mainFrame.getWidth() / 5, mainFrame.getHeight() / 2);
         profile2Button.setLocation(mainFrame.getWidth() / 5 * 3, mainFrame.getHeight() / 2);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         profileLabel.setHorizontalAlignment(CENTER);
         profileLabel.setFont(profilesFont);
         profile1Button.setFont(profilesFont);
         profile2Button.setFont(profilesFont);
         profile1Button.setBorderPainted(false);
         profile2Button.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         profile1Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * remove all components and load main menu with profile1.
-                 */
+                // remove all components and load main menu with profile1.
                 currentProfile = ProfileLoader.loadProfile("profile1", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
@@ -215,9 +203,7 @@ public class Menu {
         });
         profile2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * remove all components and load main menu with profile2.
-                 */
+                // remove all components and load main menu with profile2.
                 currentProfile = ProfileLoader.loadProfile("profile2", mainFrame);
                 if (currentProfile != null) {
                     mainFrame.getContentPane().removeAll();
@@ -232,20 +218,16 @@ public class Menu {
     }
 
     /**
-     * loads menu elements so that they can be accessed later.
+     * Loads menu elements so that they can be accessed later.
      */
     private void loadMenuElements() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         shoppingButton = new JButton("Einkaufsliste");
         recipesButton = new JButton("<html> Rezepte<br/>& Zutaten</html>");
         planButton = new JButton("Essensplan");
         profilesButton = new JButton("Profil");
         mealPlan = new MealPlan();
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         shoppingButton.setSize(bigButtonSize);
         recipesButton.setSize(bigButtonSize);
         planButton.setSize(bigButtonSize);
@@ -256,9 +238,7 @@ public class Menu {
         planButton.setLocation((int) (bigButtonSize.getWidth() * 2), 0);
         profilesButton.setLocation((int) (bigButtonSize.getWidth() * 3), 0);
         mealPlan.setLocation(0, (int) bigButtonSize.getHeight());
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         shoppingButton.setFont(bigButtonFont);
         recipesButton.setFont(bigButtonFont);
         planButton.setFont(bigButtonFont);
@@ -267,10 +247,8 @@ public class Menu {
         recipesButton.setBorderPainted(false);
         planButton.setBorderPainted(false);
         profilesButton.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         shoppingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO einkaufsliste
@@ -278,9 +256,7 @@ public class Menu {
         });
         recipesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * split recipes section into more options
-                 */
+                // split recipes section into more options
                 mainFrame.remove(recipesButton);
                 mainFrame.add(recipesInfoButton);
                 mainFrame.add(recipesAddButton);
@@ -290,9 +266,7 @@ public class Menu {
         });
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * split meal plan section into more options
-                 */
+                // split meal plan section into more options
                 mainFrame.remove(planButton);
                 mainFrame.add(planShowButton);
                 mainFrame.add(planEditButton);
@@ -302,9 +276,7 @@ public class Menu {
         });
         profilesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * split profiles section into more options
-                 */
+                // split profiles section into more options
                 mainFrame.remove(profilesButton);
                 mainFrame.add(profilesInfoButton);
                 mainFrame.add(profilesEditButton);
@@ -315,12 +287,10 @@ public class Menu {
     }
 
     /**
-     * loads submenu elements so that they can be accessed later.
+     * Loads submenu elements so that they can be accessed later.
      */
     private void loadSubmenuElements() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         recipesInfoButton = new JButton("Rezepte anzeigen");
         recipesAddButton = new JButton("Rezept hinzufügen");
         ingredientsAddButton = new JButton("Zutat hinzufügen");
@@ -330,9 +300,7 @@ public class Menu {
         planShowButton = new JButton("Plan anzeigen");
         planEditButton = new JButton("Plan bearbeiten");// TODO disable edit until created
         planCreateButton = new JButton("Plan erstellen");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         recipesInfoButton.setSize(smallButtonSize);
         recipesAddButton.setSize(smallButtonSize);
         ingredientsAddButton.setSize(smallButtonSize);
@@ -352,9 +320,7 @@ public class Menu {
         planShowButton.setLocation((int) (bigButtonSize.getWidth() * 2), 0);
         planEditButton.setLocation((int) (bigButtonSize.getWidth() * 2), (int) smallButtonSize.getHeight());
         planCreateButton.setLocation((int) (bigButtonSize.getWidth() * 2), (int) (smallButtonSize.getHeight() * 2));
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         recipesInfoButton.setFont(smallButtonFont);
         recipesAddButton.setFont(smallButtonFont);
         ingredientsAddButton.setFont(smallButtonFont);
@@ -373,15 +339,12 @@ public class Menu {
         planShowButton.setBorderPainted(false);
         planEditButton.setBorderPainted(false);
         planCreateButton.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        planEditButton.setEnabled(false);
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         recipesInfoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * shows all recipes
-                 */
+                // shows all recipes.
                 recipesInfoButton.setEnabled(false);
                 planShowButton.setEnabled(true);
                 // TODO recipes showing
@@ -449,9 +412,7 @@ public class Menu {
         });
         profilesChangeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * logs out of current profile and returns to login screen
-                 */
+                // logs out of current profile and returns to login screen.
                 planShowButton.setEnabled(true);
                 recipesInfoButton.setEnabled(true);
                 mainFrame.getContentPane().removeAll();
@@ -463,12 +424,16 @@ public class Menu {
         });
         planShowButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                planShowButton.setEnabled(false);
-                recipesInfoButton.setEnabled(true);
                 JLabel[][] plan = MealPlanLoader.loadMealPlan();
                 if (plan == null) {
                     plan = Dialog.createMealPlan();
                 }
+                if (plan == null) {
+                    return;
+                }
+                planShowButton.setEnabled(false);
+                recipesInfoButton.setEnabled(true);
+                planEditButton.setEnabled(true);
                 mealPlan.layoutPlan(plan);
                 // mainFrame.remove(recipePlan);
                 mainFrame.add(mealPlan);
@@ -491,7 +456,12 @@ public class Menu {
         });
         planCreateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO create meal plan
+                if (Dialog.createMealPlan() == null) {
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(mainFrame, "Plan erfolgreich erstellt.", "Erfolgreich!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
                 mainFrame.add(planButton);
                 mainFrame.remove(planShowButton);
                 mainFrame.remove(planEditButton);
@@ -502,7 +472,7 @@ public class Menu {
     }
 
     /**
-     * loads all dialog elements so that they can be accessed later.
+     * Loads all dialog elements so that they can be accessed later.
      */
     private void loadAllDialogElements() {
         loadProfilesInfoDialog();
@@ -515,12 +485,10 @@ public class Menu {
     }
 
     /**
-     * loads profile info dialog elements so that they can be accessed later.
+     * Loads profile info dialog elements so that they can be accessed later.
      */
     private void loadProfilesInfoDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         profilesInfoDialog = new JDialog(mainFrame, true);
         profilesInfoHeightLabel = new JLabel();
         profilesInfoWeightLabel = new JLabel();
@@ -528,9 +496,7 @@ public class Menu {
         profilesInfoKcalLabel = new JLabel();
         profilesInfoGoalLabel = new JLabel();
         profilesInfoDialogOKButton = new JButton("OK");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         profilesInfoDialog.setSize(dialogSize);
         profilesInfoHeightLabel.setSize(profilesInfoDialog.getWidth() / 2, profilesInfoDialog.getHeight() / 4);
         profilesInfoWeightLabel.setSize(profilesInfoDialog.getWidth() / 2, profilesInfoDialog.getHeight() / 4);
@@ -546,9 +512,7 @@ public class Menu {
         profilesInfoGoalLabel.setLocation(0, profilesInfoDialog.getHeight() / 2);
         profilesInfoDialogOKButton.setLocation(profilesInfoDialog.getWidth() / 8 * 3,
                 profilesInfoDialog.getHeight() / 4 * 3);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         profilesInfoDialog.setLayout(null);
         profilesInfoDialog.setUndecorated(true);
         profilesInfoHeightLabel.setHorizontalAlignment(CENTER);
@@ -568,19 +532,15 @@ public class Menu {
         profilesInfoGoalLabel.setFont(dialogTextFont);
         profilesInfoDialogOKButton.setFont(dialogButtonFont);
         profilesInfoDialogOKButton.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         profilesInfoDialogOKButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 profilesInfoButton.setEnabled(true);
                 profilesInfoDialog.setVisible(false);
             }
         });
-        /*
-         * add components to dialog
-         */
+        // add components to dialog
         profilesInfoDialog.add(profilesInfoHeightLabel);
         profilesInfoDialog.add(profilesInfoWeightLabel);
         profilesInfoDialog.add(profilesInfoAgeLabel);
@@ -590,12 +550,10 @@ public class Menu {
     }
 
     /**
-     * loads profile edit dialog elements so that they can be accessed later.
+     * Loads profile edit dialog elements so that they can be accessed later.
      */
     private void loadProfilesEditDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         profilesEditDialog = new JDialog(mainFrame, true);
         profilesEditHeightLabel = new JLabel("Größe: ");
         profilesEditWeightLabel = new JLabel("Gewicht: ");
@@ -609,9 +567,7 @@ public class Menu {
         profilesEditGoalTextField = new JTextField();
         profilesEditDialogAcceptButton = new JButton("Bestätigen");
         profilesEditDialogCancelButton = new JButton("Abbrechen");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         profilesEditDialog.setSize(dialogSize);
         profilesEditHeightLabel.setSize(profilesEditDialog.getWidth() / 4, profilesEditDialog.getHeight() / 4);
         profilesEditWeightLabel.setSize(profilesEditDialog.getWidth() / 4, profilesEditDialog.getHeight() / 4);
@@ -643,9 +599,7 @@ public class Menu {
         profilesEditDialogAcceptButton.setLocation(0, profilesEditDialog.getHeight() / 4 * 3);
         profilesEditDialogCancelButton.setLocation(profilesEditDialog.getWidth() / 2,
                 profilesEditDialog.getHeight() / 4 * 3);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         profilesEditDialog.setLayout(null);
         profilesEditDialog.setUndecorated(true);
         profilesEditHeightLabel.setHorizontalAlignment(RIGHT);
@@ -672,10 +626,8 @@ public class Menu {
         profilesEditDialogCancelButton.setFont(dialogButtonFont);
         profilesEditDialogAcceptButton.setBorderPainted(false);
         profilesEditDialogCancelButton.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         profilesEditDialogAcceptButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 profilesEditButton.setEnabled(true);
@@ -689,9 +641,7 @@ public class Menu {
                 profilesEditDialog.setVisible(false);
             }
         });
-        /*
-         * add components to dialog
-         */
+        // add components to dialog
         profilesEditDialog.add(profilesEditHeightLabel);
         profilesEditDialog.add(profilesEditWeightLabel);
         profilesEditDialog.add(profilesEditAgeLabel);
@@ -707,21 +657,17 @@ public class Menu {
     }
 
     /**
-     * loads recipes add dialog elements so that they can be accessed later.
+     * Loads recipes add dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         recipesAddDialog = new JDialog(mainFrame, true);
         recipesAddNameLabel = new JLabel("Name des Rezepts: ");
         recipesAddNameTextField = new JTextField();
         recipesAddExistingList = new JList<>();
         recipesAddContinueButton = new JButton("Weiter");
         recipesAddCancelButton = new JButton("Abbrechen");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         recipesAddDialog.setSize(dialogSize);
         recipesAddNameLabel.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 3);
         recipesAddNameTextField.setSize(recipesAddDialog.getWidth() / 2, recipesAddDialog.getHeight() / 6);
@@ -737,9 +683,7 @@ public class Menu {
         recipesAddExistingList.setLocation(recipesAddDialog.getWidth() / 2, 0);
         recipesAddContinueButton.setLocation(0, recipesAddDialog.getHeight() / 3 * 2);
         recipesAddCancelButton.setLocation(recipesAddContinueButton.getWidth(), recipesAddDialog.getHeight() / 3 * 2);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         recipesAddDialog.setLayout(null);
         recipesAddDialog.setUndecorated(true);
         recipesAddNameLabel.setHorizontalAlignment(CENTER);
@@ -750,10 +694,8 @@ public class Menu {
         recipesAddExistingList.setFont(dialogTextFont);
         recipesAddContinueButton.setFont(dialogButtonFont);
         recipesAddCancelButton.setFont(dialogButtonFont);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         recipesAddContinueButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (recipesAddNameTextField.getText().isEmpty()) {
@@ -807,12 +749,10 @@ public class Menu {
 
     // TODO sort out
     /**
-     * loads recipes add sub dialog elements so that they can be accessed later.
+     * Loads recipes add sub dialog elements so that they can be accessed later.
      */
     private void loadRecipesAddSubDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         recipesAddIngredientsLabel = new JLabel("Zutaten auswählen:");
         recipesAddIngredientsList = new JList<>();
         recipesAddContinue2Button = new JButton("Weiter");
@@ -831,9 +771,7 @@ public class Menu {
         recipesDescriptionTextField = new JTextField();
         recipesDescriptionFinishButton = new JButton("Fertig");
         recipesDescriptionCancelButton = new JButton("Abbrechen");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         recipesAddIngredientsLabel.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 4);
         recipesAddIngredientsList.setSize(recipesAddDialog.getWidth(), recipesAddDialog.getHeight() / 2);
         recipesAddContinue2Button.setSize(recipesAddDialog.getWidth() / 4, recipesAddDialog.getHeight() / 4);
@@ -866,9 +804,7 @@ public class Menu {
                 recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
         recipesDescriptionCancelButton.setLocation(recipesDescriptionFinishButton.getWidth(),
                 recipesDescriptionLabel.getHeight() + recipesDescriptionTextField.getHeight());
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         recipesAddIngredientsLabel.setHorizontalAlignment(CENTER);
         recipesAddContinue2Button.setBorderPainted(false);
         recipesAddPlusButton.setBorderPainted(false);
@@ -895,10 +831,8 @@ public class Menu {
         recipesDescriptionTextField.setFont(dialogTextFont);
         recipesDescriptionFinishButton.setFont(smallDialogButtonFont);
         recipesDescriptionCancelButton.setFont(smallDialogButtonFont);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         recipesAddContinue2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!RecipeLoader.validateRecipe(recipesAddIngredientsList.getModel())) {
@@ -1011,21 +945,17 @@ public class Menu {
     }
 
     /**
-     * loads available ingredients dialog elements
+     * Loads available ingredients dialog elements
      * so that they can be accessed later.
      */
     private void loadAvailableIngredientsDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         availableIngredientsDialog = new JDialog(recipesAddDialog, true);
         availableIngredientsLabel = new JLabel("Verfügbare Zutaten");
         availableIngredientsList = new JList<>();
         availableIngredientsChooseButton = new JButton("Auswählen");
         availableIngredientsCancelButton = new JButton("Fertig");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         availableIngredientsDialog.setSize(dialogSize);
         availableIngredientsLabel.setSize(availableIngredientsDialog.getWidth(),
                 availableIngredientsDialog.getHeight() / 4);
@@ -1044,9 +974,7 @@ public class Menu {
         availableIngredientsChooseButton.setLocation(0, availableIngredientsDialog.getHeight() / 4 * 3);
         availableIngredientsCancelButton.setLocation(availableIngredientsDialog.getWidth() / 2,
                 availableIngredientsDialog.getHeight() / 4 * 3);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         availableIngredientsDialog.setLayout(null);
         availableIngredientsDialog.setUndecorated(true);
         availableIngredientsLabel.setHorizontalAlignment(CENTER);
@@ -1055,10 +983,8 @@ public class Menu {
         availableIngredientsLabel.setFont(dialogTextFont);
         availableIngredientsChooseButton.setFont(smallDialogButtonFont);
         availableIngredientsCancelButton.setFont(smallDialogButtonFont);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         availableIngredientsChooseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (availableIngredientsList.getSelectedValue() == null) {
@@ -1140,22 +1066,18 @@ public class Menu {
     }
 
     /**
-     * loads ingredient add dialog elements
+     * Loads ingredient add dialog elements
      * so that they can be accessed later.
      */
     private void loadIngredientAddDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         ingredientAddDialog = new JDialog(mainFrame, true);
         ingredientAddLabel = new JLabel("Name:");
         ingredientAddTextField = new JTextField();
         ingredientAddList = new JList<>();
         ingredientAddButton = new JButton("Hinzufügen");
         ingredientAddCancelButton = new JButton("Abbrechen");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         ingredientAddDialog.setSize(dialogSize);
         ingredientAddLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 2);
         ingredientAddTextField.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 6);
@@ -1170,9 +1092,7 @@ public class Menu {
         ingredientAddButton.setLocation(0, ingredientAddDialog.getHeight() / 3 * 2);
         ingredientAddCancelButton.setLocation(ingredientAddDialog.getWidth() / 2,
                 ingredientAddDialog.getHeight() / 3 * 2);
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         ingredientAddDialog.setLayout(null);
         ingredientAddDialog.setUndecorated(true);
         ingredientAddButton.setBorderPainted(false);
@@ -1183,15 +1103,11 @@ public class Menu {
         ingredientAddTextField.setFont(dialogTextFont);
         ingredientAddButton.setFont(dialogButtonFont);
         ingredientAddCancelButton.setFont(dialogButtonFont);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         ingredientAddButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                 * show an error message if there is no input when the button is pressed.
-                 */
+                // show an error message if there is no input when the button is pressed.
                 if (ingredientAddTextField.getText().isEmpty() || ingredientAddTextField == null) {
                     Dialog.wrongInputDialog(ingredientAddDialog);
                     return;
@@ -1229,7 +1145,13 @@ public class Menu {
                         mainFrame.remove(ingredientsAddButton);
                         mainFrame.repaint();
                     } else {
-                        IngredientLoader.saveIngredient(ing);
+                        if (IngredientLoader.saveIngredient(ing)) {
+                            JOptionPane.showMessageDialog(mainFrame, "Zutat erfolgreich gespeichert!", "Erfolgreich!",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(mainFrame, "Zutat speichern fehlgeschlagen!", "Fehler!",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                         ingredientAddTextField.setText("");
                         mainFrame.add(recipesButton);
                         mainFrame.remove(recipesInfoButton);
@@ -1258,17 +1180,13 @@ public class Menu {
      * so that they can be accessed later.
      */
     private void loadIngredientAddSubDialog() {
-        /*
-         * create instances of the components.
-         */
+        // create instances of the components.
         ingredientAddSimilarLabel = new JLabel(
                 "<html>Ähnlichkeiten gefunden!<br/>Existiert die neue Zutat schon?</html>");
         ingredientAddSimilarList = new JList<>();
         ingredientAddYesButton = new JButton("Ja");
         ingredientAddNoButton = new JButton("Nein");
-        /*
-         * set size and position of components.
-         */
+        // set size and position of components.
         ingredientAddSimilarLabel.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight() / 3 * 2);
         ingredientAddSimilarList.setSize(ingredientAddDialog.getWidth() / 2, ingredientAddDialog.getHeight());
         ingredientAddYesButton.setSize(ingredientAddDialog.getWidth() / 4, ingredientAddDialog.getHeight() / 3);
@@ -1277,19 +1195,15 @@ public class Menu {
         ingredientAddSimilarList.setLocation(ingredientAddDialog.getWidth() / 2, 0);
         ingredientAddYesButton.setLocation(0, ingredientAddSimilarLabel.getHeight());
         ingredientAddNoButton.setLocation(ingredientAddYesButton.getWidth(), ingredientAddSimilarLabel.getHeight());
-        /*
-         * set decorations of components.
-         */
+        // set decorations of components.
         ingredientAddSimilarLabel.setFont(dialogTextFont);
         ingredientAddSimilarList.setFont(dialogTextFont);
         ingredientAddYesButton.setFont(dialogButtonFont);
         ingredientAddNoButton.setFont(dialogButtonFont);
         ingredientAddYesButton.setBorderPainted(false);
         ingredientAddNoButton.setBorderPainted(false);
-        /*
-         * add listener to buttons, those decide what actions happen
-         * when buttons are pressed.
-         */
+        // add listener to buttons, those decide what actions happen
+        // when buttons are pressed.
         ingredientAddYesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ingredientAddDialog.getContentPane().removeAll();
@@ -1317,7 +1231,13 @@ public class Menu {
                     mainFrame.remove(ingredientsAddButton);
                     mainFrame.repaint();
                 } else {
-                    IngredientLoader.saveIngredient(ing);
+                    if (IngredientLoader.saveIngredient(ing)) {
+                        JOptionPane.showMessageDialog(mainFrame, "Zutat erfolgreich gespeichert!", "Erfolgreich!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(mainFrame, "Zutat speichern fehlgeschlagen!", "Fehler!",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                     ingredientAddTextField.setText("");
                     mainFrame.add(recipesButton);
                     mainFrame.remove(recipesInfoButton);
