@@ -105,7 +105,7 @@ public class IngredientLoader {
      * @return an ingredient entity containing all information found in the file.
      * @see Ingredient
      */
-    private static Ingredient loadIngredient(String file) {
+    public static Ingredient loadIngredient(String file) {
         String name = null;
         int type = 0;
         float kcal = 0;

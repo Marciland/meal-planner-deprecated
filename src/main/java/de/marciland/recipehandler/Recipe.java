@@ -14,14 +14,14 @@ import de.marciland.ingredienthandler.Ingredient;
 public class Recipe {
 
     // TODO cooking duration, in desc?
-    private String name = "";
-    private ArrayList<String> ingredients = new ArrayList<>();
+    private String name;
+    private ArrayList<String> ingredients;
     private int kcal;
     private int fat;
     private int carbs;
     private int protein;
     // TODO tooltip description
-    private String description = "";
+    private String description;
 
     /**
      * Every recipe will be saved in a file when created.
@@ -34,6 +34,11 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
+        int[] nutri = RecipeLoader.generateNutritionInformation(ingredients);
+        this.kcal = nutri[0];
+        this.fat = nutri[1];
+        this.carbs = nutri[2];
+        this.protein = nutri[3];
     }
 
     // TODO recipe to string

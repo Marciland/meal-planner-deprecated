@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.swing.ListModel;
 
 import de.marciland.ingredienthandler.Ingredient;
+import de.marciland.ingredienthandler.IngredientLoader;
 
 /**
  * Loader class for recipes. Saves and reads recipes from resource files.
@@ -222,6 +223,53 @@ public class RecipeLoader {
             System.exit(1);
         }
         return true;
+    }
+
+    /**
+     * Gets nutrition information of the given ingredients list.
+     * Calculates data by multiplying amount with ingredient data.
+     *
+     * @param ingredients list of ingredient names and amounts.
+     * @return nutrition facts formatted for recipes.
+     *         0 = kcal
+     *         1 = fat
+     *         2 = carbs
+     *         3 = protein
+     * @see Recipe
+     */
+    public static int[] generateNutritionInformation(ArrayList<String> ingredients) {
+        int[] nutrition = new int[4];
+        Ingredient ing;
+        String[] arr;
+        for (String string : ingredients) {
+            arr = string.split(" ");
+            ing = IngredientLoader.loadIngredient(arr[1] + ".ing");
+            if (arr[0].contains("g")) {
+                arr[0] = arr[0].replace("g", "").trim();
+                arr[0] = arr[0].replace("-", "").trim();
+                nutrition[0] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getKcal());
+                nutrition[1] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getFat());
+                nutrition[2] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getCarbs());
+                nutrition[3] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getProtein());
+            }
+            if (arr[0].contains("ml")) {
+                arr[0] = arr[0].replace("ml", "").trim();
+                arr[0] = arr[0].replace("-", "").trim();
+                nutrition[0] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getKcal());
+                nutrition[1] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getFat());
+                nutrition[2] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getCarbs());
+                nutrition[3] += (int) ((Integer.parseInt(arr[0]) / 100) * ing.getProtein());
+            }
+            if (arr[0].contains("stk.")) {
+                arr[0] = arr[0].replace("stk.", "").trim();
+                arr[0] = arr[0].replace("-", "").trim();
+                nutrition[0] += (int) (Integer.parseInt(arr[0]) * ing.getKcal());
+                nutrition[1] += (int) (Integer.parseInt(arr[0]) * ing.getFat());
+                nutrition[2] += (int) (Integer.parseInt(arr[0]) * ing.getCarbs());
+                nutrition[3] += (int) (Integer.parseInt(arr[0]) * ing.getProtein());
+            }
+        }
+        return nutrition;
     }
 
 }
