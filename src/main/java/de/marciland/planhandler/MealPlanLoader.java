@@ -34,6 +34,7 @@ public class MealPlanLoader {
      * @see MealPlan
      */
     public static JLabel[][] loadMealPlan() {
+        long startTime = System.currentTimeMillis();
         // TODO if no file exists return null
         JLabel[][] labels = prepareEmptyPlan();
         Recipe[] recipes = new Recipe[7];
@@ -87,6 +88,8 @@ public class MealPlanLoader {
             System.exit(1);
         }
         labels = writeRecipesToPlan(recipes, labels);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Loading meal plan took " + (endTime - startTime) + "ms");
         return labels;
     }
 
@@ -110,10 +113,10 @@ public class MealPlanLoader {
             for (int j = 1; j < 7; j++) {
                 switch (j) {
                     case 1:
-                        labels[i][j].setText(recipes[i].getName());
+                        labels[i][j].setText(recipes[i - 1].getName());
                         break;
                     case 2:
-                        ArrayList<String> list = recipes[i].getIngredients();
+                        ArrayList<String> list = recipes[i - 1].getIngredients();
                         String text = "Zutaten: " + System.lineSeparator();
                         for (String string : list) {
                             text = text + string + System.lineSeparator();
@@ -121,16 +124,16 @@ public class MealPlanLoader {
                         labels[i][j].setText(text);
                         break;
                     case 3:
-                        labels[i][j].setText(recipes[i].getKcal() + "kcal");
+                        labels[i][j].setText(recipes[i - 1].getKcal() + "kcal");
                         break;
                     case 4:
-                        labels[i][j].setText(recipes[i].getFat() + "g");
+                        labels[i][j].setText(recipes[i - 1].getFat() + "g");
                         break;
                     case 5:
-                        labels[i][j].setText(recipes[i].getCarbs() + "g");
+                        labels[i][j].setText(recipes[i - 1].getCarbs() + "g");
                         break;
                     case 6:
-                        labels[i][j].setText(recipes[i].getProtein() + "g");
+                        labels[i][j].setText(recipes[i - 1].getProtein() + "g");
                         break;
                 }
             }
