@@ -154,8 +154,11 @@ public class Dialog {
      * @see MealPlanLoader
      */
     public static JLabel[][] createMealPlan() {
-        // TODO get user input, return null if canceled
-        return null;
+        // TODO ask for recipes
+        // if canceled return null
+        JLabel[][] plan = MealPlanLoader.prepareEmptyPlan();
+        // plan = MealPlanLoader.writeRecipesToPlan(recipes, plan);
+        return plan;
     }
 
 }
