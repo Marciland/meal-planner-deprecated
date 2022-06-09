@@ -39,7 +39,7 @@ public class MealPlanLoader {
         if (!file.exists() || file.isDirectory()) {
             return null;
         }
-        JLabel[][] labels = prepareEmptyPlan();
+        JLabel[][] plan = prepareEmptyPlan();
         Recipe[] recipes = new Recipe[7];
         BufferedReader reader;
         try {
@@ -90,25 +90,36 @@ public class MealPlanLoader {
             System.out.println("Reading meal plan from file failed! Not all recipes have been saved!");
             System.exit(1);
         }
-        labels = writeRecipesToPlan(recipes, labels);
+        plan = writeRecipesToPlan(recipes, plan);
         long endTime = System.currentTimeMillis();
         System.out.println("Loading meal plan took " + (endTime - startTime) + "ms");
-        return labels;
+        return plan;
     }
 
-    // TODO doc
-    public static JLabel[][] writeRecipesToPlan(Recipe[] recipes, JLabel[][] labels) {
+    /**
+     * Write recipes into the meal plan.
+     * Uses all recipes to write and the current plan.
+     * Recipes to write must be exactly 7.
+     * Meal plan needs to be of the extact size (8x7).
+     *
+     * @param recipes recipes that should be written into the plan.
+     * @param plan    plan that should be modified.
+     * @return modified plan with given recipes.
+     * @see MealPlan
+     * @see Recipe
+     */
+    public static JLabel[][] writeRecipesToPlan(Recipe[] recipes, JLabel[][] plan) {
         if (Tools.arrayContainsNull(recipes) || recipes.length != 7) {
             System.out.println("Error in recipes!");
             System.exit(1);
         }
-        if (labels.length != 8 && labels[0].length != 7) {
-            System.out.println("Plan has the wrong size: " + labels.length + " " + labels[0].length);
+        if (plan.length != 8 && plan[0].length != 7) {
+            System.out.println("Plan has the wrong size: " + plan.length + " " + plan[0].length);
             System.exit(1);
         }
-        for (int i = 0; i < labels.length - 1; i++) {
-            if (Tools.arrayContainsNull(labels[i])) {
-                System.out.println("Plan has null labels!");
+        for (int i = 0; i < plan.length - 1; i++) {
+            if (Tools.arrayContainsNull(plan[i])) {
+                System.out.println("Plan has labels that are not initialized!");
                 System.exit(1);
             }
         }
@@ -116,7 +127,7 @@ public class MealPlanLoader {
             for (int j = 1; j < 7; j++) {
                 switch (j) {
                     case 1:
-                        labels[i][j].setText(recipes[i - 1].getName());
+                        plan[i][j].setText(recipes[i - 1].getName());
                         break;
                     case 2:
                         ArrayList<String> list = recipes[i - 1].getIngredients();
@@ -124,24 +135,24 @@ public class MealPlanLoader {
                         for (String string : list) {
                             text = text + string + System.lineSeparator();
                         }
-                        labels[i][j].setText(text);
+                        plan[i][j].setText(text);
                         break;
                     case 3:
-                        labels[i][j].setText(recipes[i - 1].getKcal() + "kcal");
+                        plan[i][j].setText(recipes[i - 1].getKcal() + "kcal");
                         break;
                     case 4:
-                        labels[i][j].setText(recipes[i - 1].getFat() + "g");
+                        plan[i][j].setText(recipes[i - 1].getFat() + "g");
                         break;
                     case 5:
-                        labels[i][j].setText(recipes[i - 1].getCarbs() + "g");
+                        plan[i][j].setText(recipes[i - 1].getCarbs() + "g");
                         break;
                     case 6:
-                        labels[i][j].setText(recipes[i - 1].getProtein() + "g");
+                        plan[i][j].setText(recipes[i - 1].getProtein() + "g");
                         break;
                 }
             }
         }
-        return labels;
+        return plan;
     }
 
     /**
@@ -152,29 +163,29 @@ public class MealPlanLoader {
      * @see MealPlan
      */
     public static JLabel[][] prepareEmptyPlan() {
-        JLabel[][] labels = new JLabel[planColumns][planRows];
-        for (int i = 0; i < labels.length; i++) {
-            for (int j = 0; j < labels[0].length; j++) {
-                labels[i][j] = new JLabel();
-                labels[i][j].setBorder(BorderFactory.createLineBorder(Color.RED));
+        JLabel[][] plan = new JLabel[planColumns][planRows];
+        for (int i = 0; i < plan.length; i++) {
+            for (int j = 0; j < plan[0].length; j++) {
+                plan[i][j] = new JLabel();
+                plan[i][j].setBorder(BorderFactory.createLineBorder(Color.RED));
                 ;
             }
         }
-        labels[0][0].setText("-Alle Nährwerte pro 100g des Rezepts!-");
-        labels[0][1].setText("Rezept: ");
-        labels[0][2].setText("Zutaten: ");
-        labels[0][3].setText("Kcal: ");
-        labels[0][4].setText("Fett: ");
-        labels[0][5].setText("Kohlenhydrate: ");
-        labels[0][6].setText("Eiweiß: ");
-        labels[1][0].setText("Montag");
-        labels[2][0].setText("Dienstag");
-        labels[3][0].setText("Mittwoch");
-        labels[4][0].setText("Donnerstag");
-        labels[5][0].setText("Freitag");
-        labels[6][0].setText("Samstag");
-        labels[7][0].setText("Sonntag");
-        return labels;
+        plan[0][0].setText("-Alle Nährwerte pro 100g des Rezepts!-");
+        plan[0][1].setText("Rezept: ");
+        plan[0][2].setText("Zutaten: ");
+        plan[0][3].setText("Kcal: ");
+        plan[0][4].setText("Fett: ");
+        plan[0][5].setText("Kohlenhydrate: ");
+        plan[0][6].setText("Eiweiß: ");
+        plan[1][0].setText("Montag");
+        plan[2][0].setText("Dienstag");
+        plan[3][0].setText("Mittwoch");
+        plan[4][0].setText("Donnerstag");
+        plan[5][0].setText("Freitag");
+        plan[6][0].setText("Samstag");
+        plan[7][0].setText("Sonntag");
+        return plan;
     }
 
 }
