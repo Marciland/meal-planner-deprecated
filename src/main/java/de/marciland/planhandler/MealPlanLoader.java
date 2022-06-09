@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -105,8 +106,36 @@ public class MealPlanLoader {
                 System.exit(1);
             }
         }
-        // TODO set values from recipes into meal plan labels
-        return null;
+        for (int i = 1; i < 8; i++) {
+            for (int j = 1; j < 7; j++) {
+                switch (j) {
+                    case 1:
+                        labels[i][j].setText(recipes[i].getName());
+                        break;
+                    case 2:
+                        ArrayList<String> list = recipes[i].getIngredients();
+                        String text = "Zutaten: " + System.lineSeparator();
+                        for (String string : list) {
+                            text = text + string + System.lineSeparator();
+                        }
+                        labels[i][j].setText(text);
+                        break;
+                    case 3:
+                        labels[i][j].setText(recipes[i].getKcal() + "kcal");
+                        break;
+                    case 4:
+                        labels[i][j].setText(recipes[i].getFat() + "g");
+                        break;
+                    case 5:
+                        labels[i][j].setText(recipes[i].getCarbs() + "g");
+                        break;
+                    case 6:
+                        labels[i][j].setText(recipes[i].getProtein() + "g");
+                        break;
+                }
+            }
+        }
+        return labels;
     }
 
     /**
@@ -125,6 +154,7 @@ public class MealPlanLoader {
                 ;
             }
         }
+        labels[0][0].setText("-Alle Nährwerte pro 100g des Rezepts!-");
         labels[0][1].setText("Rezept: ");
         labels[0][2].setText("Zutaten: ");
         labels[0][3].setText("Kcal: ");

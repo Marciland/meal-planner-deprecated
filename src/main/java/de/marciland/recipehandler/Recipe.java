@@ -16,6 +16,10 @@ public class Recipe {
     // TODO cooking duration, in desc?
     private String name = "";
     private ArrayList<String> ingredients = new ArrayList<>();
+    private int kcal;
+    private int fat;
+    private int carbs;
+    private int protein;
     // TODO tooltip description
     private String description = "";
 
@@ -77,4 +81,39 @@ public class Recipe {
         return this.ingredients;
     }
 
+    /**
+     * Gets the kcal per 100g of the recipe.
+     *
+     * @return kcal/100g.
+     */
+    public int getKcal() {
+        return kcal;
+    }
+
+    /**
+     * Gets the fat per 100g of the recipe.
+     *
+     * @return fat/100g.
+     */
+    public int getFat() {
+        return fat;
+    }
+
+    /**
+     * Gets the carbs per 100g of the recipe.
+     *
+     * @return carbs/100g.
+     */
+    public int getCarbs() {
+        return carbs;
+    }
+
+    /**
+     * Gets the protein per 100g of the recipe.
+     *
+     * @return protein/100g.
+     */
+    public int getProtein() {
+        return protein;
+    }
 }
