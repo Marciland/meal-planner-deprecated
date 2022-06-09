@@ -178,7 +178,7 @@ public class Tools {
      * @param array array that is checked.
      * @return false if no element is null.
      */
-    public static boolean arrayNull(Object[] array) {
+    public static boolean arrayContainsNull(Object[] array) {
         for (Object object : array) {
             if (object == null) {
                 return true;
