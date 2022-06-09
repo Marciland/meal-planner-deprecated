@@ -449,6 +449,9 @@ public class Menu {
         planEditButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO edit meal plan
+                // show dialog containing recipes for each day
+                // after editing those, load all recipes into array
+                // use write recipes to plan function
                 mainFrame.add(planButton);
                 mainFrame.remove(planShowButton);
                 mainFrame.remove(planEditButton);
