@@ -300,7 +300,7 @@ public class Menu {
         profilesEditButton = new JButton("Profil bearbeiten");
         profilesChangeButton = new JButton("Profil wechseln");
         planShowButton = new JButton("Plan anzeigen");
-        planEditButton = new JButton("Plan bearbeiten");// TODO disable edit until created
+        planEditButton = new JButton("Plan bearbeiten");
         planCreateButton = new JButton("Plan erstellen");
         // set size and position of components.
         recipesInfoButton.setSize(smallButtonSize);
