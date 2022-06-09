@@ -1,5 +1,11 @@
 package de.marciland.ingredienthandler;
 
+/**
+ * Ingredients are used in recipe creation.
+ * They are saved in files and are loaded from those.
+ *
+ * @see IngredientLoader
+ */
 public class Ingredient {
 
     private String name = "";
@@ -67,29 +73,57 @@ public class Ingredient {
                 + " Eiweiß: " + getProtein();
     }
 
-    /*
-     * getters
+    /**
+     * Gets the name of the ingredient.
+     *
+     * @return name of the ingredient.
      */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Gets the type of the ingredient.
+     * 0 = undefined / 1 = gram / 2 = ml / 3 = pieces
+     *
+     * @return type of the ingredient.
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * Gets the kcal per 100g/100ml/1piece of the ingredient.
+     *
+     * @return kcal of the ingredient.
+     */
     public float getKcal() {
         return this.kcal;
     }
 
+    /**
+     * Gets the fat per 100g/100ml/1piece of the ingredient.
+     *
+     * @return fat of the ingredient.
+     */
     public float getFat() {
         return this.fat;
     }
 
+    /**
+     * Gets the carbs per 100g/100ml/1piece of the ingredient.
+     *
+     * @return carbs of the ingredient.
+     */
     public float getCarbs() {
         return this.carbs;
     }
 
+    /**
+     * Gets the protein per 100g/100ml/1piece of the ingredient.
+     *
+     * @return protein of the ingredient.
+     */
     public float getProtein() {
         return this.protein;
     }

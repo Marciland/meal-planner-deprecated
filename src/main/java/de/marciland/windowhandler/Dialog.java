@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 import de.marciland.ingredienthandler.Ingredient;
 import de.marciland.utilities.Tools;
 
+/**
+ * Contains all functions to create new dialogs.
+ */
 public class Dialog {
 
     /**
@@ -139,7 +142,15 @@ public class Dialog {
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    // TODO doc
+    /**
+     * Asks the user for input to create a meal plan.
+     * The user needs to input a recipe name for every day of the week.
+     *
+     * @return the plan based on input of the user.
+     *         If the user cancels the creation, null will be returned.
+     * @see MealPlan
+     * @see MealPlanLoader
+     */
     public static JLabel[][] createMealPlan() {
         // TODO get user input, return null if canceled
         return null;
