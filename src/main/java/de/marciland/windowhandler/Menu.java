@@ -267,12 +267,11 @@ public class Menu {
         });
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 // try to load meal plan from existing file
                 JLabel[][] plan = MealPlanLoader.loadMealPlan();
                 // if no file exists, try to create a meal plan
                 if (plan == null) {
-                    plan = Dialog.createMealPlan();
+                    plan = Dialog.createMealPlan(mainFrame);
                 }
                 // if user cancels creation process return from function
                 if (plan == null) {

@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import de.marciland.ingredienthandler.Ingredient;
 import de.marciland.planhandler.MealPlan;
 import de.marciland.planhandler.MealPlanLoader;
+import de.marciland.recipehandler.Recipe;
+import de.marciland.recipehandler.RecipeLoader;
 import de.marciland.utilities.Tools;
 
 /**
@@ -153,11 +155,52 @@ public class Dialog {
      * @see MealPlan
      * @see MealPlanLoader
      */
-    public static JLabel[][] createMealPlan() {
-        // TODO ask for recipes
-        // if canceled return null
+    public static JLabel[][] createMealPlan(JFrame frame) {
+        Object[] recipeNames = RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes());
+        String day = "";
+        String[] inputs = new String[7];
+        // ask for a recipe for every day of the week and save the input
+        for (int i = 0; i < 7; i++) {
+            // change day for every iteration
+            switch (i) {
+                case 0:
+                    day = "Montag";
+                    break;
+                case 1:
+                    day = "Dienstag";
+                    break;
+                case 2:
+                    day = "Mittwoch";
+                    break;
+                case 3:
+                    day = "Donnerstag";
+                    break;
+                case 4:
+                    day = "Freitag";
+                    break;
+                case 5:
+                    day = "Samstag";
+                    break;
+                case 6:
+                    day = "Sonntag";
+                    break;
+            }
+            String input = (String) JOptionPane.showInputDialog(frame, "Was würdest du gerne am " + day + " essen?",
+                    "Wähle ein Rezept aus!", JOptionPane.PLAIN_MESSAGE, null, recipeNames, recipeNames[0]);
+            // if user cancels at any point returns null
+            if (input == null) {
+                return null;
+            }
+            inputs[i] = input;
+        }
+        // load all recipes after user finished input
+        Recipe[] recipes = new Recipe[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            recipes[i] = RecipeLoader.loadRecipe(inputs[i] + ".rec");
+        }
         JLabel[][] plan = MealPlanLoader.prepareEmptyPlan();
-        // plan = MealPlanLoader.writeRecipesToPlan(recipes, plan);
+        plan = MealPlanLoader.writeRecipesToPlan(recipes, plan);
+        MealPlanLoader.savePlan(plan);
         return plan;
     }
 
