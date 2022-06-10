@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -201,6 +202,62 @@ public class MealPlanLoader {
         plan[6][0].setHorizontalAlignment(CENTER);
         plan[7][0].setHorizontalAlignment(CENTER);
         return plan;
+    }
+
+    /**
+     * Saves the given plan to a file.
+     * If the file already exists, nothing will be saved.
+     *
+     * @param plan plan that should be saved to a file.
+     *             Only recipe names of that plan will be saved.
+     * @see MealPlan
+     */
+    public static void savePlan(JLabel[][] plan) {
+        File file = new File(planFile);
+        if (file.exists() && !file.isDirectory()) {
+            System.out.println("Tried to save plan, but plan already exists!");
+            return;
+        }
+        String day = "";
+        String[] lines = new String[7];
+        for (int i = 1; i < 8; i++) {
+            switch (i) {
+                case 1:
+                    day = "Montag";
+                    break;
+                case 2:
+                    day = "Dienstag";
+                    break;
+                case 3:
+                    day = "Mittwoch";
+                    break;
+                case 4:
+                    day = "Donnerstag";
+                    break;
+                case 5:
+                    day = "Freitag";
+                    break;
+                case 6:
+                    day = "Samstag";
+                    break;
+                case 7:
+                    day = "Sonntag";
+                    break;
+            }
+            lines[i] = day + " = " + plan[i][1].getText();
+        }
+        FileWriter writer;
+        try {
+            writer = new FileWriter(file);
+            for (String string : lines) {
+                writer.write(string);
+                writer.write(System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error while writing to " + file);
+            System.exit(1);
+        }
     }
 
 }
