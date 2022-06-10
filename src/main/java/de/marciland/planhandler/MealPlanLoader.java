@@ -220,31 +220,31 @@ public class MealPlanLoader {
         }
         String day = "";
         String[] lines = new String[7];
-        for (int i = 1; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             switch (i) {
-                case 1:
+                case 0:
                     day = "Montag";
                     break;
-                case 2:
+                case 1:
                     day = "Dienstag";
                     break;
-                case 3:
+                case 2:
                     day = "Mittwoch";
                     break;
-                case 4:
+                case 3:
                     day = "Donnerstag";
                     break;
-                case 5:
+                case 4:
                     day = "Freitag";
                     break;
-                case 6:
+                case 5:
                     day = "Samstag";
                     break;
-                case 7:
+                case 6:
                     day = "Sonntag";
                     break;
             }
-            lines[i] = day + " = " + plan[i][1].getText();
+            lines[i] = day + " = " + plan[i + 1][1].getText();
         }
         FileWriter writer;
         try {
