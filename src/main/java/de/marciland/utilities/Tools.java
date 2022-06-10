@@ -1,5 +1,6 @@
 package de.marciland.utilities;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -187,4 +188,20 @@ public class Tools {
         return false;
     }
 
+    /**
+     * Checks if a file at given location already exists.
+     *
+     * @param location location of the file.
+     *                 eg. src\main\resources\file.file
+     * @return true if file exists and is not a directory.
+     * @see File
+     */
+    public static boolean fileExists(String location) {
+        File file = new File(location);
+        if (file.exists() && !file.isDirectory()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

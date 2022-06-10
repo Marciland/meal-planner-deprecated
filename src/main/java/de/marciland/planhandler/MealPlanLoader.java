@@ -37,8 +37,7 @@ public class MealPlanLoader {
      */
     public static JLabel[][] loadMealPlan() {
         long startTime = System.currentTimeMillis();
-        File file = new File(planFile);
-        if (!file.exists() || file.isDirectory()) {
+        if (!Tools.fileExists(planFile)) {
             return null;
         }
         JLabel[][] plan = prepareEmptyPlan();
@@ -213,8 +212,7 @@ public class MealPlanLoader {
      * @see MealPlan
      */
     public static void savePlan(JLabel[][] plan) {
-        File file = new File(planFile);
-        if (file.exists() && !file.isDirectory()) {
+        if (Tools.fileExists(planFile)) {
             System.out.println("Tried to save plan, but plan already exists!");
             return;
         }
@@ -248,14 +246,14 @@ public class MealPlanLoader {
         }
         FileWriter writer;
         try {
-            writer = new FileWriter(file);
+            writer = new FileWriter(new File(planFile));
             for (String string : lines) {
                 writer.write(string);
                 writer.write(System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error while writing to " + file);
+            System.out.println("Error while writing to " + planFile);
             System.exit(1);
         }
     }

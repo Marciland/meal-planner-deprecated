@@ -1,6 +1,7 @@
 package de.marciland.windowhandler;
 
 import static de.marciland.utilities.Constants.imagePath;
+import static de.marciland.utilities.Constants.planFile;
 import static java.awt.Font.PLAIN;
 import static java.awt.Font.SANS_SERIF;
 import static javax.swing.SwingConstants.CENTER;
@@ -267,10 +268,10 @@ public class Menu {
         });
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // try to load meal plan from existing file
-                JLabel[][] plan = MealPlanLoader.loadMealPlan();
-                // if no file exists, try to create a meal plan
-                if (plan == null) {
+                JLabel[][] plan = null;
+                if (Tools.fileExists(planFile)) {
+                    plan = MealPlanLoader.loadMealPlan();
+                } else {
                     plan = Dialog.createMealPlan(mainFrame);
                 }
                 // if user cancels creation process return from function
