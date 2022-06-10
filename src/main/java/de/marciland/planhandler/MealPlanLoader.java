@@ -3,6 +3,7 @@ package de.marciland.planhandler;
 import static de.marciland.utilities.Constants.planColumns;
 import static de.marciland.utilities.Constants.planFile;
 import static de.marciland.utilities.Constants.planRows;
+import static javax.swing.SwingConstants.CENTER;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -131,10 +132,11 @@ public class MealPlanLoader {
                         break;
                     case 2:
                         ArrayList<String> list = recipes[i - 1].getIngredients();
-                        String text = "Zutaten: " + System.lineSeparator();
+                        String text = "<html>";
                         for (String string : list) {
-                            text = text + string + System.lineSeparator();
+                            text = text + string + "<br/>";
                         }
+                        text = text + "</html>";
                         plan[i][j].setText(text);
                         break;
                     case 3:
@@ -150,6 +152,7 @@ public class MealPlanLoader {
                         plan[i][j].setText(recipes[i - 1].getProtein() + "g");
                         break;
                 }
+                plan[i][j].setHorizontalAlignment(CENTER);
             }
         }
         return plan;
@@ -184,6 +187,19 @@ public class MealPlanLoader {
         plan[5][0].setText("Freitag");
         plan[6][0].setText("Samstag");
         plan[7][0].setText("Sonntag");
+        plan[0][1].setHorizontalAlignment(CENTER);
+        plan[0][2].setHorizontalAlignment(CENTER);
+        plan[0][3].setHorizontalAlignment(CENTER);
+        plan[0][4].setHorizontalAlignment(CENTER);
+        plan[0][5].setHorizontalAlignment(CENTER);
+        plan[0][6].setHorizontalAlignment(CENTER);
+        plan[1][0].setHorizontalAlignment(CENTER);
+        plan[2][0].setHorizontalAlignment(CENTER);
+        plan[3][0].setHorizontalAlignment(CENTER);
+        plan[4][0].setHorizontalAlignment(CENTER);
+        plan[5][0].setHorizontalAlignment(CENTER);
+        plan[6][0].setHorizontalAlignment(CENTER);
+        plan[7][0].setHorizontalAlignment(CENTER);
         return plan;
     }
 
