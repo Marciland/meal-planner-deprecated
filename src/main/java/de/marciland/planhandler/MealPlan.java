@@ -26,6 +26,7 @@ public class MealPlan extends JPanel {
      * @see MealPlanLoader
      */
     public void layoutPlan(JLabel[][] plan) {
+        removeAll();
         if (plan == null) {
             System.out.println("Plan is null, this should not happen!");
             System.exit(1);
