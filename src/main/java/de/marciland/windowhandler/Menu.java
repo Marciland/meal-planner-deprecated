@@ -160,7 +160,7 @@ public class Menu {
         dialogSize = new Dimension(mainFrame.getWidth() / 3, mainFrame.getHeight() / 4);
         smallButtonSize = new Dimension(mainFrame.getWidth() / 4, mainFrame.getHeight() / 15);
         profilesFont = new Font(SANS_SERIF, PLAIN, 66);
-        bigButtonFont = new Font(SANS_SERIF, PLAIN, 53);
+        bigButtonFont = new Font(SANS_SERIF, PLAIN, 43);
         smallButtonFont = new Font(SANS_SERIF, PLAIN, 32);
         dialogTextFont = new Font(SANS_SERIF, PLAIN, 19);
         dialogButtonFont = new Font(SANS_SERIF, PLAIN, 25);
@@ -228,7 +228,7 @@ public class Menu {
         // create instances of the components.
         shoppingButton = new JButton("Einkaufsliste");
         recipesButton = new JButton("<html> Rezepte<br/>& Zutaten</html>");
-        planButton = new JButton("Essensplan");
+        planButton = new JButton();
         profilesButton = new JButton("Profil");
         mealPlan = new MealPlan();
         // set size and position of components.
@@ -251,6 +251,7 @@ public class Menu {
         recipesButton.setBorderPainted(false);
         planButton.setBorderPainted(false);
         profilesButton.setBorderPainted(false);
+        planButton.setText("Plan anzeigen");
         // add listener to buttons, those decide what actions happen
         // when buttons are pressed.
         shoppingButton.addActionListener(new ActionListener() {
@@ -292,6 +293,7 @@ public class Menu {
                 mealPlan.layoutPlan(plan);
                 // mainFrame.remove(recipePlan);
                 mainFrame.add(mealPlan);
+                planButton.setText("Plan bearbeiten");
                 mainFrame.repaint();
                 isPlanDisplayed = true;
             }
@@ -420,6 +422,8 @@ public class Menu {
                 // logs out of current profile and returns to login screen.
                 mainFrame.getContentPane().removeAll();
                 currentProfile = null;
+                isPlanDisplayed = false;
+                planButton.setText("Plan anzeigen");
                 profile1Button.setText(ProfileLoader.loadProfileButton("profile1"));
                 profile2Button.setText(ProfileLoader.loadProfileButton("profile2"));
                 create();
