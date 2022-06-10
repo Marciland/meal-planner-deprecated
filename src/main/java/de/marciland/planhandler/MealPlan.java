@@ -28,8 +28,7 @@ public class MealPlan extends JPanel {
     public void layoutPlan(JLabel[][] plan) {
         removeAll();
         if (plan == null) {
-            System.out.println("Plan is null, this should not happen!");
-            System.exit(1);
+            return;
         }
         setLayout(null);
         this.plan = plan;
@@ -81,6 +80,16 @@ public class MealPlan extends JPanel {
         }
         this.plan[column][row].setText(text);
         repaint();
+    }
+
+    /**
+     * Gets the plan.
+     *
+     * @return the plan.
+     * @see MealPlan
+     */
+    public JLabel[][] getPlan() {
+        return plan;
     }
 
 }

@@ -238,6 +238,7 @@ public class RecipeLoader {
      * @see Recipe
      */
     public static int[] generateNutritionInformation(ArrayList<String> ingredients) {
+        //TODO not working when using decimal numbers eg. 3.5g stinktier
         int[] nutrition = new int[4];
         Ingredient ing;
         String[] arr;

@@ -272,25 +272,18 @@ public class Menu {
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (isPlanDisplayed) {
-                    // ask if user wants to edit meal plan
-                    // TODO edit meal plan
-                    // show dialog containing recipes for each day
-                    // after editing those, load all recipes into array
-                    // use write recipes to plan function
-                    // reload plan
+                    mealPlan.layoutPlan(Dialog.editMealPlan(mealPlan.getPlan()));
+                    mainFrame.repaint();// TODO check if this is enough to update screen
                     return;
                 }
-                JLabel[][] plan = null;
                 if (Tools.fileExists(planFile)) {
-                    plan = MealPlanLoader.loadMealPlan();
+                    mealPlan.layoutPlan(MealPlanLoader.loadMealPlan());
                 } else {
-                    plan = Dialog.createMealPlan(mainFrame);
+                    mealPlan.layoutPlan(Dialog.createMealPlan(mainFrame));
                 }
-                // if user cancels creation process return from function
-                if (plan == null) {
+                if (mealPlan.getPlan() == null) {
                     return;
                 }
-                mealPlan.layoutPlan(plan);
                 // mainFrame.remove(recipePlan);
                 mainFrame.add(mealPlan);
                 planButton.setText("Plan bearbeiten");
@@ -371,6 +364,7 @@ public class Menu {
                 recipesAddDialog.getContentPane().removeAll();
                 recipesAddDialog.add(recipesAddNameLabel);
                 recipesAddNameTextField.setText("");
+                recipesDescriptionTextField.setText("");
                 recipesAddDialog.add(recipesAddNameTextField);
                 recipesAddExistingList.setListData(RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes()));
                 recipesAddDialog.add(recipesAddExistingList);

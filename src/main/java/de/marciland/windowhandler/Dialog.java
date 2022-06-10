@@ -204,4 +204,13 @@ public class Dialog {
         return plan;
     }
 
+    // TODO doc
+    public static JLabel[][] editMealPlan(JLabel[][] plan) {
+        // TODO edit meal plan
+        // show dialog containing recipes for each day
+        // after editing those, load all recipes into array
+        // use write recipes to plan function
+        return null;
+    }
+
 }
