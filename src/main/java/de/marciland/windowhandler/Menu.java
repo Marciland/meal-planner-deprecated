@@ -356,6 +356,7 @@ public class Menu {
                 // TODO recipes showing
                 mainFrame.remove(mealPlan);
                 isPlanDisplayed = false;
+                planButton.setText("Plan anzeigen");
                 // mainFrame.add(recipePlan);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
