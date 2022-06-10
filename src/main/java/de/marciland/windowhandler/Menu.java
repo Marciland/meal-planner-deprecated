@@ -43,6 +43,8 @@ public class Menu {
 
     private final double scale = 0.7;
 
+    private boolean isPlanDisplayed = false;
+
     private final String title = "Essensplaner";
     private final String iconPath = imagePath + "icon.png";
 
@@ -268,6 +270,15 @@ public class Menu {
         });
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (isPlanDisplayed) {
+                    // ask if user wants to edit meal plan
+                    // TODO edit meal plan
+                    // show dialog containing recipes for each day
+                    // after editing those, load all recipes into array
+                    // use write recipes to plan function
+                    // reload plan
+                    return;
+                }
                 JLabel[][] plan = null;
                 if (Tools.fileExists(planFile)) {
                     plan = MealPlanLoader.loadMealPlan();
@@ -278,17 +289,11 @@ public class Menu {
                 if (plan == null) {
                     return;
                 }
-                // ask if user wants to edit meal plan
-
-                // TODO edit meal plan
-                // show dialog containing recipes for each day
-                // after editing those, load all recipes into array
-                // use write recipes to plan function
-
                 mealPlan.layoutPlan(plan);
                 // mainFrame.remove(recipePlan);
                 mainFrame.add(mealPlan);
                 mainFrame.repaint();
+                isPlanDisplayed = true;
             }
         });
         profilesButton.addActionListener(new ActionListener() {
@@ -348,6 +353,7 @@ public class Menu {
                 // shows all recipes.
                 // TODO recipes showing
                 mainFrame.remove(mealPlan);
+                isPlanDisplayed = false;
                 // mainFrame.add(recipePlan);
                 mainFrame.remove(recipesInfoButton);
                 mainFrame.remove(recipesAddButton);
