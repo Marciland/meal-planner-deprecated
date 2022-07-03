@@ -156,7 +156,13 @@ public class Dialog {
      * @see MealPlanLoader
      */
     public static JLabel[][] createMealPlan(JFrame frame) {
-        Object[] recipeNames = RecipeLoader.getRecipeNames(RecipeLoader.loadAllRecipes());
+        Recipe[] allRecipes = RecipeLoader.loadAllRecipes();
+        if (allRecipes == null || allRecipes.length == 0) {
+            JOptionPane.showMessageDialog(frame.getContentPane(), "Keine Rezepte vorhanden!", "Fehler!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        Object[] recipeNames = RecipeLoader.getRecipeNames(allRecipes);
         String day = "";
         String[] inputs = new String[7];
         // ask for a recipe for every day of the week and save the input
@@ -210,7 +216,7 @@ public class Dialog {
         // show dialog containing recipes for each day
         // after editing those, load all recipes into array
         // use write recipes to plan function
-        return null;
+        return plan;
     }
 
 }
