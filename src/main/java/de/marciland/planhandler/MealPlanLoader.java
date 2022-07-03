@@ -159,6 +159,20 @@ public class MealPlanLoader {
     }
 
     /**
+     * Returns a recipe array containing all recipes saved in the plan.
+     *
+     * @param plan a valid meal plan.
+     * @return recipes from the plan.
+     */
+    public static Recipe[] getRecipesFromPlan(JLabel[][] plan) {
+        Recipe[] recipes = new Recipe[7];
+        for (int i = 1; i < 8; i++) {
+            recipes[i - 1] = RecipeLoader.loadRecipe(plan[i][1].getText() + ".rec");
+        }
+        return recipes;
+    }
+
+    /**
      * Prepares an empty meal plan.
      * Creates new labels for each cell and sets text for fixed labels.
      *
