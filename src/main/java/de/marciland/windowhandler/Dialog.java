@@ -1,5 +1,8 @@
 package de.marciland.windowhandler;
 
+import java.awt.GridLayout;
+
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -157,7 +160,7 @@ public class Dialog {
      */
     public static JLabel[][] createMealPlan(JFrame frame) {
         Recipe[] allRecipes = RecipeLoader.loadAllRecipes();
-        if (allRecipes == null || allRecipes.length == 0) {
+        if (Tools.arrayContainsNull(allRecipes) || allRecipes.length == 0) {
             JOptionPane.showMessageDialog(frame.getContentPane(), "Keine Rezepte vorhanden!", "Fehler!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
@@ -211,12 +214,36 @@ public class Dialog {
     }
 
     // TODO doc
-    public static JLabel[][] editMealPlan(JLabel[][] plan) {
+    public static JLabel[][] editMealPlan(JFrame frame, JLabel[][] plan) {
         // TODO edit meal plan
-        // show dialog containing recipes for each day
-        // after editing those, load all recipes into array
-        // use write recipes to plan function
-        return plan;
+        Recipe[] recipes = MealPlanLoader.getRecipesFromPlan(plan);
+        Recipe[] existingRecipes = RecipeLoader.loadAllRecipes();
+        String[] existingRecipesNames = RecipeLoader.getRecipeNames(existingRecipes);
+        JDialog dialog = new JDialog(frame, true);
+        dialog.setSize(frame.getWidth() / 4 * 3, frame.getHeight() / 2);
+        dialog.setUndecorated(true);
+        dialog.setLocationRelativeTo(frame);
+        dialog.setLayout(new GridLayout(0, 7));
+        JLabel monday = new JLabel("Montag");
+        JLabel tuesday = new JLabel("Dienstag");
+        JLabel wednesday = new JLabel("Mittwoch");
+        JLabel thursday = new JLabel("Donnerstag");
+        JLabel friday = new JLabel("Freitag");
+        JLabel saturday = new JLabel("Samstag");
+        JLabel sunday = new JLabel("Sonntag");
+        dialog.add(monday);
+        dialog.add(tuesday);
+        dialog.add(wednesday);
+        dialog.add(thursday);
+        dialog.add(friday);
+        dialog.add(saturday);
+        dialog.add(sunday);
+        JComboBox<String> mondayBox = new JComboBox<>(existingRecipesNames);
+        mondayBox.setSize(dialog.getWidth()/7,dialog.getHeight()/3);
+        // add buttons, ok button = get selected and write them to recipes
+        dialog.add(mondayBox);
+        dialog.setVisible(true);
+        return MealPlanLoader.writeRecipesToPlan(recipes, plan);
     }
 
 }

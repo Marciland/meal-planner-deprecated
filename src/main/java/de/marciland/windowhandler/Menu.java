@@ -272,7 +272,7 @@ public class Menu {
         planButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (isPlanDisplayed) {
-                    mealPlan.layoutPlan(Dialog.editMealPlan(mealPlan.getPlan()));
+                    mealPlan.layoutPlan(Dialog.editMealPlan(mainFrame, mealPlan.getPlan()));
                     mainFrame.repaint();// TODO check if this is enough to update screen
                     return;
                 }
